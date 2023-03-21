@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Hollyfood</string>
+    <string name="intro_title">Welcome To\nHollyfood App</string>
+    <string name="intro_text">Find out the best and nearest restaurants\nand order the most delicious\nfood that comes to your home</string>
+    <string name="start">Start</string>
 </resources>
