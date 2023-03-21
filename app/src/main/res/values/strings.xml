@@ -12,4 +12,8 @@
     <string name="forgot_password">Forgot Password</string>
     <string name="facebook">Facebook</string>
     <string name="google">Google</string>
+    <string name="register_title">Let\'s Register</string>
+    <string name="register_text">Do you have an account? Log in</string>
+    <string name="full_name">Full Name</string>
+    <string name="phone_number">Phone Number</string>
 </resources>
