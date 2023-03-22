@@ -12,5 +12,4 @@ interface Repository {
     suspend fun login(email: String, password: String): Response<User>
     suspend fun updateUser(user: User, id: String): Response<User>
     suspend fun deleteUser(id: String)
-
 }
