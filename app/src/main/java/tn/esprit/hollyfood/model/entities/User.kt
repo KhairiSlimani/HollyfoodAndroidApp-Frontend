@@ -12,7 +12,9 @@ data class User(
     @SerializedName("password")
     var password: String,
     @SerializedName("phone")
-    var phone: String,
+    var phone: Int,
+    @SerializedName("role")
+    var role: String,
     @SerializedName("image")
-    var image: String
+    var image: String,
 )

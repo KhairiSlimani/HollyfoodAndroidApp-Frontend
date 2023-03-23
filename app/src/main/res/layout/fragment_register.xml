@@ -9,7 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/h3"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="120dp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -91,8 +91,8 @@
         android:inputType="number"
         android:layout_marginTop="15dp"/>
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/buttonLogin"
+    <com.apachat.loadingbutton.core.customViews.CircularProgressButton
+        android:id="@+id/buttonRegister"
         android:layout_width="0dp"
         android:layout_height="@dimen/mediumButtonHeight"
         style="@style/orangeButtonStyle"
@@ -100,7 +100,8 @@
         app:layout_constraintStart_toStartOf="@id/guidelineRegisterLeft"
         app:layout_constraintEnd_toEndOf="@id/guidelineRegisterRight"
         android:layout_marginTop="15dp"
-        android:text="@string/register"/>
+        android:text="@string/register"
+        app:spinning_bar_color="@color/white"/>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineRegisterLeft"
