@@ -7,11 +7,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import tn.esprit.hollyfood.model.RepositoryImp
 import tn.esprit.hollyfood.model.RetroBuilder
 import tn.esprit.hollyfood.model.ServiceAPI
 import tn.esprit.hollyfood.model.entities.User
+import tn.esprit.hollyfood.util.*
 
 class UserViewModel(application: Application) : AndroidViewModel(application) {
     private var repository: RepositoryImp
@@ -21,6 +24,10 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
 
     private var userMutableLiveData = MutableLiveData<User>()
     val userLiveData: LiveData<User> get() = userMutableLiveData
+
+    private val _validation = Channel<RegisterFieldsState>()
+    val validation = _validation.receiveAsFlow()
+
 
     init {
         var serviceInstance = RetroBuilder.getRetroBuilder().create(ServiceAPI::class.java)
@@ -52,15 +59,40 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun register(user: User) = viewModelScope.launch {
-        var result = repository.register(user)
 
-        if (result.isSuccessful) {
-            if (result.body() != null) {
-                userMutableLiveData.postValue(result.body())
+        if (checkValidation(user)) {
+            var result = repository.register(user)
+
+            if (result.isSuccessful) {
+                if (result.body() != null) {
+                    userMutableLiveData.postValue(result.body())
+                }
+            } else {
+                Log.i("error", result.message())
             }
         } else {
-            Log.i("error", result.message())
+            val registerFieldsState = RegisterFieldsState(
+                validateFullName(user.fullname),
+                validateEmail(user.email),
+                validatePassword(user.password),
+                validatePhoneNumber(user.phone.toString())
+            )
+            _validation.send(registerFieldsState)
         }
+    }
+
+    private fun checkValidation(user: User): Boolean {
+        val fullnameValidation = validateFullName(user.fullname)
+        val emailValidation = validateEmail(user.email)
+        val passwordValidation = validatePassword(user.password)
+        val phoneValidation = validatePhoneNumber(user.phone.toString())
+
+        val check = fullnameValidation is RegisterValidation.Success &&
+                emailValidation is RegisterValidation.Success &&
+                passwordValidation is RegisterValidation.Success &&
+                phoneValidation is RegisterValidation.Success
+
+        return check
     }
 
     fun login(email: String, password: String) = viewModelScope.launch {

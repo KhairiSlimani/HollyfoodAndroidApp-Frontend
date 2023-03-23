@@ -8,12 +8,18 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import tn.esprit.hollyfood.R
 import tn.esprit.hollyfood.databinding.FragmentRegisterBinding
 import tn.esprit.hollyfood.model.entities.User
+import tn.esprit.hollyfood.util.RegisterValidation
 import tn.esprit.hollyfood.viewmodel.UserViewModel
 
-class RegisterFragment: Fragment() {
+class RegisterFragment : Fragment() {
 
     private lateinit var binding: FragmentRegisterBinding
     private lateinit var viewModel: UserViewModel
@@ -37,15 +43,16 @@ class RegisterFragment: Fragment() {
             buttonRegister.setOnClickListener {
                 buttonRegister.startAnimation()
 
+                val phoneNumber = edPhoneNumber.text.toString().trim().toIntOrNull() ?: -1
+
                 val user = User(
                     "0",
                     edFullName.text.toString().trim(),
                     edEmail.text.toString().trim(),
                     edPassword.text.toString().trim(),
-                    edPhoneNumber.text.toString().trim().toInt(),
+                    phoneNumber,
                     "User",
                     ""
-
                 )
                 viewModel.register(user)
             }
@@ -71,9 +78,62 @@ class RegisterFragment: Fragment() {
                     Toast.LENGTH_LONG
                 ).show()
             }
-
         })
 
+        lifecycleScope.launch {
+            viewModel.validation.collect { validation ->
+
+                if (validation.fullname is RegisterValidation.Failed) {
+                    withContext(Dispatchers.Main) {
+                        binding.apply {
+                            edFullName.apply {
+                                requestFocus()
+                                error = validation.fullname.message
+                            }
+                            buttonRegister.revertAnimation()
+                        }
+
+                    }
+                }
+
+                if (validation.email is RegisterValidation.Failed) {
+                    withContext(Dispatchers.Main) {
+                        binding.apply {
+                            edEmail.apply {
+                                requestFocus()
+                                error = validation.email.message
+                            }
+                            buttonRegister.revertAnimation()
+                        }
+                    }
+                }
+
+                if (validation.password is RegisterValidation.Failed) {
+                    withContext(Dispatchers.Main) {
+                        binding.apply {
+                            edPassword.apply {
+                                requestFocus()
+                                error = validation.password.message
+                            }
+                            buttonRegister.revertAnimation()
+                        }
+                    }
+                }
+
+                if (validation.phone is RegisterValidation.Failed) {
+                    withContext(Dispatchers.Main) {
+                        binding.apply {
+                            edPhoneNumber.apply {
+                                requestFocus()
+                                error = validation.phone.message
+                            }
+                            buttonRegister.revertAnimation()
+                        }
+                    }
+                }
+
+            }
+        }
 
     }
 
