@@ -1,13 +1,14 @@
 package tn.esprit.hollyfood.util
 
-sealed class RegisterValidation(){
-    object Success: RegisterValidation()
-    data class Failed(val message: String): RegisterValidation()
+sealed class Validation() {
+    object Success : Validation()
+    data class Failed(val message: String) : Validation()
 }
-
-data class RegisterFieldsState(
-    val fullname: RegisterValidation,
-    val email: RegisterValidation,
-    val password: RegisterValidation,
-    val phone: RegisterValidation
+data class FieldsState(
+    val fullname: Validation,
+    val email: Validation,
+    val password: Validation,
+    val phone: Validation
 )
+
+

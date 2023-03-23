@@ -20,8 +20,8 @@ class RepositoryImp(private val api: ServiceAPI) : Repository {
         api.register(user)
     }
 
-    override suspend fun login(email: String, password: String): Response<User> = withContext(Dispatchers.IO) {
-        api.login(email, password)
+    override suspend fun login(user: User): Response<User> = withContext(Dispatchers.IO) {
+        api.login(user)
     }
 
     override suspend fun updateUser(user: User, id: String): Response<User> = withContext(Dispatchers.IO) {

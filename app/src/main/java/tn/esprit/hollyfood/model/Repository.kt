@@ -9,7 +9,7 @@ interface Repository {
     suspend fun getAllUsers(): Response<List<User>>
     suspend fun getUser(id: String): Response<User>
     suspend fun register(user: User): Response<User>
-    suspend fun login(email: String, password: String): Response<User>
+    suspend fun login(user: User): Response<User>
     suspend fun updateUser(user: User, id: String): Response<User>
     suspend fun deleteUser(id: String)
 }

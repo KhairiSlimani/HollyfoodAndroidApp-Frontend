@@ -1,68 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <TextView
-        android:id="@+id/tvAppName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        style="@style/h3"
-        android:layout_marginTop="120dp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:text="@string/app_name"/>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/blury_background"
+        android:scaleType="centerCrop"/>
 
-    <TextView
-        android:id="@+id/tvIntroTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        style="@style/h4"
-        android:layout_marginTop="45dp"
-        app:layout_constraintTop_toBottomOf="@id/tvAppName"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:text="@string/intro_title"
-        android:textAlignment="center"
-        android:gravity="center"
-        android:textSize="35sp"/>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tvIntroText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        style="@style/h2"
-        app:layout_constraintStart_toStartOf="@id/tvIntroTitle"
-        app:layout_constraintEnd_toEndOf="@id/tvIntroTitle"
-        app:layout_constraintTop_toBottomOf="@id/tvIntroTitle"
-        android:text="@string/intro_text"
-        android:textAlignment="center"
-        android:gravity="center"
-        android:layout_marginTop="15dp"/>
+        <TextView
+            android:id="@+id/tvAppName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/h3"
+            android:layout_marginTop="120dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="@string/app_name"/>
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/buttonRegisterOption"
-        android:layout_width="@dimen/mediumButtonWidth"
-        android:layout_height="@dimen/mediumButtonHeight"
-        style="@style/orangeButtonStyle"
-        app:layout_constraintTop_toBottomOf="@id/tvIntroText"
-        app:layout_constraintStart_toStartOf="@id/tvIntroText"
-        app:layout_constraintEnd_toEndOf="@id/tvIntroText"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:text="@string/register"/>
+        <TextView
+            android:id="@+id/tvIntroTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/h4"
+            android:layout_marginTop="45dp"
+            app:layout_constraintTop_toBottomOf="@id/tvAppName"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="@string/intro_title"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:textSize="35sp"/>
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/buttonLoginOption"
-        android:layout_width="@dimen/mediumButtonWidth"
-        android:layout_height="@dimen/mediumButtonHeight"
-        style="@style/whiteButtonStyle"
-        app:layout_constraintTop_toBottomOf="@id/buttonRegisterOption"
-        app:layout_constraintStart_toStartOf="@id/tvIntroText"
-        app:layout_constraintEnd_toEndOf="@id/tvIntroText"
-        android:text="@string/login"
-        android:layout_marginTop="10dp"/>
+        <TextView
+            android:id="@+id/tvIntroText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/h2"
+            app:layout_constraintStart_toStartOf="@id/tvIntroTitle"
+            app:layout_constraintEnd_toEndOf="@id/tvIntroTitle"
+            app:layout_constraintTop_toBottomOf="@id/tvIntroTitle"
+            android:text="@string/intro_text"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:layout_marginTop="15dp"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonRegisterOption"
+            android:layout_width="@dimen/mediumButtonWidth"
+            android:layout_height="@dimen/mediumButtonHeight"
+            style="@style/orangeButtonStyle"
+            app:layout_constraintTop_toBottomOf="@id/tvIntroText"
+            app:layout_constraintStart_toStartOf="@id/tvIntroText"
+            app:layout_constraintEnd_toEndOf="@id/tvIntroText"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="@string/register"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonLoginOption"
+            android:layout_width="@dimen/mediumButtonWidth"
+            android:layout_height="@dimen/mediumButtonHeight"
+            style="@style/whiteButtonStyle"
+            app:layout_constraintTop_toBottomOf="@id/buttonRegisterOption"
+            app:layout_constraintStart_toStartOf="@id/tvIntroText"
+            app:layout_constraintEnd_toEndOf="@id/tvIntroText"
+            android:text="@string/login"
+            android:layout_marginTop="10dp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+</FrameLayout>

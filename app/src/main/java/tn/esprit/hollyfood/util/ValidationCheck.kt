@@ -2,42 +2,42 @@ package tn.esprit.hollyfood.util
 
 import android.util.Patterns
 
-fun validateFullName(fullname: String): RegisterValidation{
+fun validateFullName(fullname: String): Validation {
     if (fullname.isEmpty())
-        return RegisterValidation.Failed("Fullname can't be empty")
+        return Validation.Failed("Fullname can't be empty")
 
     if (fullname.length < 6)
-        return RegisterValidation.Failed("Fullname must contain at least 6 characters")
+        return Validation.Failed("Fullname must contain at least 6 characters")
 
-    return RegisterValidation.Success
+    return Validation.Success
 }
 
-fun validateEmail(email: String): RegisterValidation {
+fun validateEmail(email: String): Validation {
     if (email.isEmpty())
-        return RegisterValidation.Failed("Email can't be empty")
+        return Validation.Failed("Email can't be empty")
 
     if (!Patterns.EMAIL_ADDRESS.matcher(email).matches())
-        return RegisterValidation.Failed("Wrong email format")
+        return Validation.Failed("Wrong email format")
 
-    return RegisterValidation.Success
+    return Validation.Success
 }
 
-fun validatePassword(password: String): RegisterValidation{
+fun validatePassword(password: String): Validation {
     if (password.isEmpty())
-        return RegisterValidation.Failed("Password can't be empty")
+        return Validation.Failed("Password can't be empty")
 
     if (password.length < 6)
-        return RegisterValidation.Failed("Password must contain at least 6 characters")
+        return Validation.Failed("Password must contain at least 6 characters")
 
-    return RegisterValidation.Success
+    return Validation.Success
 }
 
-fun validatePhoneNumber(phone: String): RegisterValidation{
+fun validatePhoneNumber(phone: String): Validation {
     if (phone == "-1")
-        return RegisterValidation.Failed("The phone number can't be empty")
+        return Validation.Failed("The phone number can't be empty")
 
     if (phone.length < 8 || phone.length > 8)
-        return RegisterValidation.Failed("The phone number must contain exactly 8 digits")
+        return Validation.Failed("The phone number must contain exactly 8 digits")
 
-    return RegisterValidation.Success
+    return Validation.Success
 }

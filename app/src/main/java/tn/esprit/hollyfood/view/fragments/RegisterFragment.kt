@@ -16,7 +16,7 @@ import kotlinx.coroutines.withContext
 import tn.esprit.hollyfood.R
 import tn.esprit.hollyfood.databinding.FragmentRegisterBinding
 import tn.esprit.hollyfood.model.entities.User
-import tn.esprit.hollyfood.util.RegisterValidation
+import tn.esprit.hollyfood.util.Validation
 import tn.esprit.hollyfood.viewmodel.UserViewModel
 
 class RegisterFragment : Fragment() {
@@ -83,7 +83,7 @@ class RegisterFragment : Fragment() {
         lifecycleScope.launch {
             viewModel.validation.collect { validation ->
 
-                if (validation.fullname is RegisterValidation.Failed) {
+                if (validation.fullname is Validation.Failed) {
                     withContext(Dispatchers.Main) {
                         binding.apply {
                             edFullName.apply {
@@ -96,7 +96,7 @@ class RegisterFragment : Fragment() {
                     }
                 }
 
-                if (validation.email is RegisterValidation.Failed) {
+                if (validation.email is Validation.Failed) {
                     withContext(Dispatchers.Main) {
                         binding.apply {
                             edEmail.apply {
@@ -108,7 +108,7 @@ class RegisterFragment : Fragment() {
                     }
                 }
 
-                if (validation.password is RegisterValidation.Failed) {
+                if (validation.password is Validation.Failed) {
                     withContext(Dispatchers.Main) {
                         binding.apply {
                             edPassword.apply {
@@ -120,7 +120,7 @@ class RegisterFragment : Fragment() {
                     }
                 }
 
-                if (validation.phone is RegisterValidation.Failed) {
+                if (validation.phone is Validation.Failed) {
                     withContext(Dispatchers.Main) {
                         binding.apply {
                             edPhoneNumber.apply {

@@ -17,7 +17,7 @@ interface ServiceAPI {
     suspend fun register(@Body user: User): Response<User>
 
     @POST("/users/login")
-    suspend fun login(@Body email: String, @Body password: String): Response<User>
+    suspend fun login(@Body user: User): Response<User>
 
     @PATCH("/users/{id}")
     suspend fun updateUser(@Body user: User, @Path("id") id: String): Response<User>
