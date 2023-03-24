@@ -103,24 +103,24 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
     fun login(email: String, password: String) = viewModelScope.launch {
 
         if (checkLoginValidation(email, password)) {
-            var response = repository.login(User("","",email,password,0,"",""))
+            var response = repository.login(User("", "", email, password, 0, "", ""))
 
             if (response.isSuccessful) {
                 userMutableLiveData.postValue(response.body())
+            } else {
+                if (response.code() == 404) {
+                    messageMutableLiveData.postValue("The email you entered isn’t connected to an account.")
+                } else if (response.code() == 434) {
+                    messageMutableLiveData.postValue("Your account has not yet been verified.")
+                } else if (response.code() == 401) {
+                    messageMutableLiveData.postValue("The password you’ve entered is incorrect.")
+                } else if (response.code() == 500) {
+                    messageMutableLiveData.postValue("Server error try again later.")
+                } else {
+                    Log.i("error", response.message())
+                }
             }
-            else if (response.code() ==  404) {
-                messageMutableLiveData.postValue("The email you entered isn’t connected to an account.")
-            }
-            else if (response.code() ==  434) {
-                messageMutableLiveData.postValue("Your account has not yet been verified.")
-            }
-            else if (response.code() ==  401) {
-                messageMutableLiveData.postValue("The password you’ve entered is incorrect.")
-            }
-            else {
-                Log.i("error", response.message())
-            }
-        } else{
+        } else {
             val fieldsState = FieldsState(
                 Validation.Success,
                 validateEmail(email),
@@ -128,7 +128,6 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
                 Validation.Success
             )
             _validation.send(fieldsState)
-
         }
     }
 
@@ -136,8 +135,7 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
         val emailValidation = validateEmail(email)
         val passwordValidation = validatePassword(password)
 
-        val check = emailValidation is Validation.Success &&
-                passwordValidation is Validation.Success
+        val check = emailValidation is Validation.Success && passwordValidation is Validation.Success
 
         return check
     }
