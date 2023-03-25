@@ -11,11 +11,11 @@ interface ServiceAPI {
     //USER API
     @POST("/users")
     suspend fun register(@Body user: User): Response<User>
-
     @POST("/users/login")
     suspend fun login(@Body user: User): Response<User>
-
     @POST("/users/forgotPassword")
     suspend fun forgotPassword(@Body user: User): Response<ResponseBody>
+    @POST("/users/codeVerification")
+    suspend fun codeVerification(@Body codeMap: Map<String, String>): Response<ResponseBody>
 
 }

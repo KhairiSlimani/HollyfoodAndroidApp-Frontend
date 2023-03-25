@@ -19,4 +19,10 @@
     <string name="forgot_password_title">Forgot Password</string>
     <string name="forgot_password_text">Enter your email to receive\na password reset code</string>
     <string name="send">Send</string>
+    <string name="code_verification_title">Enter security code</string>
+    <string name="code_verification_text">Please check your email for a message\nwith your code. We sent your code to:</string>
+    <string name="code">Enter code</string>
+    <string name="continue_string">Continue</string>
+    <string name="cancel">Cancel</string>
+
 </resources>

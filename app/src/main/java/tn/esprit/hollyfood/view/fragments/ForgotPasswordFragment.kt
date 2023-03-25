@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -45,9 +46,7 @@ class ForgotPasswordFragment : Fragment(R.layout.fragment_forgot_password) {
         }
 
         viewModel.messageLiveData.observe(viewLifecycleOwner, Observer {
-
             if (it != null) {
-
                 binding.buttonSend.revertAnimation()
 
                 Toast.makeText(
@@ -57,7 +56,9 @@ class ForgotPasswordFragment : Fragment(R.layout.fragment_forgot_password) {
                 ).show()
 
                 if (it == "Reset password code sent successfully.") {
-
+                    viewModel.clearMessage()
+                    var action = ForgotPasswordFragmentDirections.actionForgotPasswordFragmentToCodeVerificationFragment(binding.edEmail.text.toString().trim())
+                    findNavController().navigate(action)
                 }
             }
         })

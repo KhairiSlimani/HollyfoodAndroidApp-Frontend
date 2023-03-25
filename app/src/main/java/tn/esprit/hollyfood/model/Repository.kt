@@ -11,5 +11,6 @@ interface Repository {
     suspend fun register(user: User): Response<User>
     suspend fun login(user: User): Response<User>
     suspend fun forgotPassword(user: User): Response<ResponseBody>
+    suspend fun codeVerification(codeMap: Map<String, String>): Response<ResponseBody>
 
 }

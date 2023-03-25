@@ -28,7 +28,7 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
     private var userMutableLiveData = MutableLiveData<User>()
     val userLiveData: LiveData<User> get() = userMutableLiveData
 
-    private val messageMutableLiveData = MutableLiveData<String>()
+    private var messageMutableLiveData = MutableLiveData<String>()
     val messageLiveData: LiveData<String> get() = messageMutableLiveData
 
     //StateFlow
@@ -121,11 +121,15 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
         if (validateEmail(email) is Validation.Success) {
             try {
                 val response = repository.forgotPassword(User("", "", email, "", 0, "", ""))
-                val responseBody = response.body()?.string() ?: "{}"
-                val jsonObject = JSONObject(responseBody)
 
-                if (jsonObject.has("message")) {
-                    messageMutableLiveData.postValue(jsonObject.getString("message"))
+                if (response.isSuccessful) {
+                    messageMutableLiveData.postValue("Reset password code sent successfully.")
+                } else {
+                    if (response.code() == 404) {
+                        messageMutableLiveData.postValue("The email you entered isn’t connected to an account.")
+                    } else {
+                        messageMutableLiveData.postValue("Server error, please try again later.")
+                    }
                 }
 
             } catch (e: IOException) {
@@ -142,6 +146,32 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
             _validation.send(fieldsState)
         }
     }
+
+    fun codeVerification(code: String) = viewModelScope.launch {
+        try {
+            val codeMap = mapOf("code" to code)
+            val response = repository.codeVerification(codeMap)
+
+            if (response.isSuccessful) {
+                messageMutableLiveData.postValue("Valid code.")
+            } else {
+                if (response.code() == 404) {
+                    messageMutableLiveData.postValue("The code you entered doesn't match your code. Please try again.")
+                } else {
+                    messageMutableLiveData.postValue("Server error, please try again later.")
+                }
+            }
+
+        } catch (e: IOException) {
+            messageMutableLiveData.postValue("Network error, please try again later.")
+            Log.e("error", "IOException: ${e.message}")
+        }
+    }
+
+    fun clearMessage() {
+        messageMutableLiveData.postValue("")
+    }
+
 
 
 }

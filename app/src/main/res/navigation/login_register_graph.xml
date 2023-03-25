@@ -53,5 +53,18 @@
         android:id="@+id/forgotPasswordFragment"
         android:name="tn.esprit.hollyfood.view.fragments.ForgotPasswordFragment"
         android:label="ForgotPasswordFragment"
-        tools:layout="@layout/fragment_forgot_password" />
+        tools:layout="@layout/fragment_forgot_password" >
+        <action
+            android:id="@+id/action_forgotPasswordFragment_to_codeVerificationFragment"
+            app:destination="@id/codeVerificationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/codeVerificationFragment"
+        android:name="tn.esprit.hollyfood.view.fragments.CodeVerificationFragment"
+        android:label="CodeVerificationFragment"
+        tools:layout="@layout/fragment_code_verification">
+        <argument
+            android:name="email"
+            app:argType="string" />
+    </fragment>
 </navigation>

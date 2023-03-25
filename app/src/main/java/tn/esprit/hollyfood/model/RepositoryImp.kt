@@ -22,5 +22,9 @@ class RepositoryImp(private val api: ServiceAPI) : Repository {
         api.forgotPassword(user)
     }
 
+    override suspend fun codeVerification(codeMap: Map<String, String>): Response<ResponseBody> = withContext(Dispatchers.IO) {
+        api.codeVerification(codeMap)
+    }
+
 
 }
