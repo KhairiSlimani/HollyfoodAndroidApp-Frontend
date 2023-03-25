@@ -1,5 +1,7 @@
 package tn.esprit.hollyfood.model
 
+import okhttp3.ResponseBody
+import org.json.JSONObject
 import retrofit2.Response
 import retrofit2.http.*
 import tn.esprit.hollyfood.model.entities.User
@@ -7,23 +9,13 @@ import tn.esprit.hollyfood.model.entities.User
 interface ServiceAPI {
 
     //USER API
-    @GET("/users")
-    suspend fun getAllUsers(): Response<List<User>>
-
-    @GET("/users/{id}")
-    suspend fun getUser(@Path("id") id: String): Response<User>
-
     @POST("/users")
     suspend fun register(@Body user: User): Response<User>
 
     @POST("/users/login")
     suspend fun login(@Body user: User): Response<User>
 
-    @PATCH("/users/{id}")
-    suspend fun updateUser(@Body user: User, @Path("id") id: String): Response<User>
-
-    @DELETE("/users/{id}")
-    suspend fun deleteUser(@Path("id") id: String)
-
+    @POST("/users/forgotPassword")
+    suspend fun forgotPassword(@Body user: User): Response<ResponseBody>
 
 }

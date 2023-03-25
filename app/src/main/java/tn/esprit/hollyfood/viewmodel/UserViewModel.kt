@@ -17,63 +17,47 @@ import tn.esprit.hollyfood.model.RetroBuilder
 import tn.esprit.hollyfood.model.ServiceAPI
 import tn.esprit.hollyfood.model.entities.User
 import tn.esprit.hollyfood.util.*
+import java.io.IOException
 
 class UserViewModel(application: Application) : AndroidViewModel(application) {
+
+    //Repository
     private var repository: RepositoryImp
 
-    private var usersMutableLiveData = MutableLiveData<List<User>>()
-    val usersLiveData: LiveData<List<User>> get() = usersMutableLiveData
-
+    //LiveData
     private var userMutableLiveData = MutableLiveData<User>()
     val userLiveData: LiveData<User> get() = userMutableLiveData
-
-    private val _validation = Channel<FieldsState>()
-    val validation = _validation.receiveAsFlow()
 
     private val messageMutableLiveData = MutableLiveData<String>()
     val messageLiveData: LiveData<String> get() = messageMutableLiveData
 
+    //StateFlow
+    private val _validation = Channel<FieldsState>()
+    val validation = _validation.receiveAsFlow()
 
     init {
         var serviceInstance = RetroBuilder.getRetroBuilder().create(ServiceAPI::class.java)
         repository = RepositoryImp(serviceInstance)
     }
 
-    fun getAllUsers() = viewModelScope.launch {
-        var result = repository.getAllUsers()
-
-        if (result.isSuccessful) {
-            if (result.body() != null) {
-                usersMutableLiveData.postValue(result.body())
-            }
-        } else {
-            Log.i("error", result.message())
-        }
-    }
-
-    fun getUser(id: String) = viewModelScope.launch {
-        var result = repository.getUser(id)
-
-        if (result.isSuccessful) {
-            if (result.body() != null) {
-                userMutableLiveData.postValue(result.body())
-            }
-        } else {
-            Log.i("error", result.message())
-        }
-    }
-
     fun register(user: User) = viewModelScope.launch {
 
         if (checkRegisterValidation(user)) {
-            var result = repository.register(user)
+            try {
+                var response = repository.register(user)
 
-            if (result.isSuccessful) {
-                if (result.body() != null) {
-                    userMutableLiveData.postValue(result.body())
+                if (response.isSuccessful) {
+                    userMutableLiveData.postValue(response.body())
+                } else {
+                    if (response.code() == 409) {
+                        messageMutableLiveData.postValue("Email already exist.")
+                    } else {
+                        messageMutableLiveData.postValue("Server error, please try again later.")
+                    }
                 }
-            } else {
-                Log.i("error", result.message())
+            } catch (e: IOException) {
+                messageMutableLiveData.postValue("Network error, please try again later.")
+                Log.e("error", "IOException: ${e.message}")
             }
         } else {
             val fieldsState = FieldsState(
@@ -101,24 +85,26 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun login(email: String, password: String) = viewModelScope.launch {
+        if (validateEmail(email) is Validation.Success && validatePassword(password) is Validation.Success) {
+            try {
+                var response = repository.login(User("", "", email, password, 0, "", ""))
 
-        if (checkLoginValidation(email, password)) {
-            var response = repository.login(User("", "", email, password, 0, "", ""))
-
-            if (response.isSuccessful) {
-                userMutableLiveData.postValue(response.body())
-            } else {
-                if (response.code() == 404) {
-                    messageMutableLiveData.postValue("The email you entered isn’t connected to an account.")
-                } else if (response.code() == 434) {
-                    messageMutableLiveData.postValue("Your account has not yet been verified.")
-                } else if (response.code() == 401) {
-                    messageMutableLiveData.postValue("The password you’ve entered is incorrect.")
-                } else if (response.code() == 500) {
-                    messageMutableLiveData.postValue("Server error try again later.")
+                if (response.isSuccessful) {
+                    userMutableLiveData.postValue(response.body())
                 } else {
-                    Log.i("error", response.message())
+                    if (response.code() == 404) {
+                        messageMutableLiveData.postValue("The email you entered isn’t connected to an account.")
+                    } else if (response.code() == 434) {
+                        messageMutableLiveData.postValue("Your account has not yet been verified.")
+                    } else if (response.code() == 401) {
+                        messageMutableLiveData.postValue("The password you’ve entered is incorrect.")
+                    } else {
+                        messageMutableLiveData.postValue("Server error, please try again later.")
+                    }
                 }
+            } catch (e: IOException) {
+                messageMutableLiveData.postValue("Network error, please try again later.")
+                Log.e("error", "IOException: ${e.message}")
             }
         } else {
             val fieldsState = FieldsState(
@@ -131,19 +117,31 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    private fun checkLoginValidation(email: String, password: String): Boolean {
-        val emailValidation = validateEmail(email)
-        val passwordValidation = validatePassword(password)
+    fun forgotPassword(email: String) = viewModelScope.launch {
+        if (validateEmail(email) is Validation.Success) {
+            try {
+                val response = repository.forgotPassword(User("", "", email, "", 0, "", ""))
+                val responseBody = response.body()?.string() ?: "{}"
+                val jsonObject = JSONObject(responseBody)
 
-        val check = emailValidation is Validation.Success && passwordValidation is Validation.Success
+                if (jsonObject.has("message")) {
+                    messageMutableLiveData.postValue(jsonObject.getString("message"))
+                }
 
-        return check
-    }
-
-    fun deleteUser(id: String) {
-        viewModelScope.launch {
-            repository.deleteUser(id)
+            } catch (e: IOException) {
+                messageMutableLiveData.postValue("Network error, please try again later.")
+                Log.e("error", "IOException: ${e.message}")
+            }
+        } else {
+            val fieldsState = FieldsState(
+                Validation.Success,
+                validateEmail(email),
+                Validation.Success,
+                Validation.Success
+            )
+            _validation.send(fieldsState)
         }
     }
+
 
 }

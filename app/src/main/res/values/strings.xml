@@ -16,4 +16,7 @@
     <string name="register_text">Do you have an account? Log in</string>
     <string name="full_name">Full Name</string>
     <string name="phone_number">Phone Number</string>
+    <string name="forgot_password_title">Forgot Password</string>
+    <string name="forgot_password_text">Enter your email to receive\na password reset code</string>
+    <string name="send">Send</string>
 </resources>

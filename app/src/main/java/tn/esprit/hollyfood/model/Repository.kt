@@ -1,15 +1,15 @@
 package tn.esprit.hollyfood.model
 
+import okhttp3.ResponseBody
+import org.json.JSONObject
 import retrofit2.Response
 import tn.esprit.hollyfood.model.entities.User
 
 interface Repository {
 
     //USER
-    suspend fun getAllUsers(): Response<List<User>>
-    suspend fun getUser(id: String): Response<User>
     suspend fun register(user: User): Response<User>
     suspend fun login(user: User): Response<User>
-    suspend fun updateUser(user: User, id: String): Response<User>
-    suspend fun deleteUser(id: String)
+    suspend fun forgotPassword(user: User): Response<ResponseBody>
+
 }

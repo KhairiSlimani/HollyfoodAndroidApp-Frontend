@@ -70,16 +70,25 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
 
                 Toast.makeText(
                     context,
-                    "Account is added successfully",
+                    "Account created successfully.",
                     Toast.LENGTH_LONG
                 ).show()
 
-            } else {
+                binding.edFullName.setText("")
+                binding.edEmail.setText("")
+                binding.edPassword.setText("")
+                binding.edPhoneNumber.setText("")
+            }
+        })
+
+        viewModel.messageLiveData.observe(viewLifecycleOwner, Observer {
+
+            if (it != null) {
                 binding.buttonRegister.revertAnimation()
 
                 Toast.makeText(
                     context,
-                    "Connection Failed",
+                    it,
                     Toast.LENGTH_LONG
                 ).show()
             }
