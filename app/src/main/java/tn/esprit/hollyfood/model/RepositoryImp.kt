@@ -3,11 +3,10 @@ package tn.esprit.hollyfood.model
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.ResponseBody
-import org.json.JSONObject
 import retrofit2.Response
 import tn.esprit.hollyfood.model.entities.User
 
-class RepositoryImp(private val api: ServiceAPI) : Repository {
+class RepositoryImp(private val api: APIServices) : Repository {
 
     //USER
     override suspend fun register(user: User): Response<User> = withContext(Dispatchers.IO) {
@@ -22,9 +21,12 @@ class RepositoryImp(private val api: ServiceAPI) : Repository {
         api.forgotPassword(user)
     }
 
-    override suspend fun codeVerification(codeMap: Map<String, String>): Response<ResponseBody> = withContext(Dispatchers.IO) {
-        api.codeVerification(codeMap)
+    override suspend fun codeVerification(request: Map<String, String>): Response<ResponseBody> = withContext(Dispatchers.IO) {
+        api.codeVerification(request)
     }
 
+    override suspend fun resetPassword(request: Map<String, String>): Response<ResponseBody> = withContext(Dispatchers.IO) {
+        api.resetPassword(request)
+    }
 
 }

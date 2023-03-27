@@ -6,15 +6,12 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.google.gson.JsonObject
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
-import org.json.JSONObject
 import tn.esprit.hollyfood.model.RepositoryImp
-import tn.esprit.hollyfood.model.RetroBuilder
-import tn.esprit.hollyfood.model.ServiceAPI
+import tn.esprit.hollyfood.model.Database
+import tn.esprit.hollyfood.model.APIServices
 import tn.esprit.hollyfood.model.entities.User
 import tn.esprit.hollyfood.util.*
 import java.io.IOException
@@ -36,13 +33,13 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
     val validation = _validation.receiveAsFlow()
 
     init {
-        var serviceInstance = RetroBuilder.getRetroBuilder().create(ServiceAPI::class.java)
+        var serviceInstance = Database.getRetroBuilder().create(APIServices::class.java)
         repository = RepositoryImp(serviceInstance)
     }
 
-    fun register(user: User) = viewModelScope.launch {
+    fun register(user: User, confirmPassword: String) = viewModelScope.launch {
 
-        if (checkRegisterValidation(user)) {
+        if (checkRegisterValidation(user, confirmPassword)) {
             try {
                 var response = repository.register(user)
 
@@ -63,17 +60,17 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
             val fieldsState = FieldsState(
                 validateFullName(user.fullname),
                 validateEmail(user.email),
-                validatePassword(user.password),
+                validatePassword(user.password, confirmPassword),
                 validatePhoneNumber(user.phone.toString())
             )
             _validation.send(fieldsState)
         }
     }
 
-    private fun checkRegisterValidation(user: User): Boolean {
+    private fun checkRegisterValidation(user: User, confirmPassword: String): Boolean {
         val fullnameValidation = validateFullName(user.fullname)
         val emailValidation = validateEmail(user.email)
-        val passwordValidation = validatePassword(user.password)
+        val passwordValidation = validatePassword(user.password, confirmPassword)
         val phoneValidation = validatePhoneNumber(user.phone.toString())
 
         val check = fullnameValidation is Validation.Success &&
@@ -85,7 +82,7 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun login(email: String, password: String) = viewModelScope.launch {
-        if (validateEmail(email) is Validation.Success && validatePassword(password) is Validation.Success) {
+        if (validateEmail(email) is Validation.Success && validatePassword(password, password) is Validation.Success) {
             try {
                 var response = repository.login(User("", "", email, password, 0, "", ""))
 
@@ -110,7 +107,7 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
             val fieldsState = FieldsState(
                 Validation.Success,
                 validateEmail(email),
-                validatePassword(password),
+                validatePassword(password, password),
                 Validation.Success
             )
             _validation.send(fieldsState)
@@ -149,8 +146,8 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
 
     fun codeVerification(code: String) = viewModelScope.launch {
         try {
-            val codeMap = mapOf("code" to code)
-            val response = repository.codeVerification(codeMap)
+            val request = mapOf("code" to code)
+            val response = repository.codeVerification(request)
 
             if (response.isSuccessful) {
                 messageMutableLiveData.postValue("Valid code.")
@@ -168,10 +165,40 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    fun resetPassword(email: String, password: String, confirmPassword: String) = viewModelScope.launch {
+        Log.e("==== email, password: ", "${email} ${password} ${confirmPassword}")
+
+        if (validateEmail(email) is Validation.Success && validatePassword(password, confirmPassword) is Validation.Success) {
+            try {
+                val request = mapOf(
+                    "email" to email,
+                    "password" to password
+                )
+
+                val response = repository.resetPassword(request)
+
+                if (response.isSuccessful) {
+                    messageMutableLiveData.postValue("Password reset successfully.")
+                } else {
+                    messageMutableLiveData.postValue("Server error, please try again later.")
+                }
+            } catch (e: IOException) {
+                messageMutableLiveData.postValue("Network error, please try again later.")
+                Log.e("error", "IOException: ${e.message}")
+            }
+        } else {
+            val fieldsState = FieldsState(
+                Validation.Success,
+                validateEmail(email),
+                validatePassword(password, confirmPassword),
+                Validation.Success
+            )
+            _validation.send(fieldsState)
+        }
+    }
+
     fun clearMessage() {
         messageMutableLiveData.postValue("")
     }
-
-
 
 }

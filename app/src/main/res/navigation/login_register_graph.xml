@@ -66,5 +66,23 @@
         <argument
             android:name="email"
             app:argType="string" />
+        <action
+            android:id="@+id/action_codeVerificationFragment_to_resetPasswordFragment"
+            app:destination="@id/resetPasswordFragment"
+            app:popUpTo="@id/loginFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/resetPasswordFragment"
+        android:name="tn.esprit.hollyfood.view.fragments.ResetPasswordFragment"
+        android:label="ResetPasswordFragment"
+        tools:layout="@layout/fragment_reset_password" >
+        <argument
+            android:name="email"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_resetPasswordFragment_to_loginFragment2"
+            app:destination="@id/loginFragment" />
+    </fragment>
+
+
 </navigation>

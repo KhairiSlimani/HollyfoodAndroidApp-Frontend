@@ -36,19 +36,18 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        binding.tvRegisterText.setOnClickListener {
-            findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
-        }
-
         viewModel = ViewModelProvider(this).get(UserViewModel::class.java)
 
         binding.apply {
+            tvRegisterText.setOnClickListener {
+                findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
+            }
 
             buttonRegister.setOnClickListener {
                 buttonRegister.startAnimation()
 
                 val phoneNumber = edPhoneNumber.text.toString().trim().toIntOrNull() ?: -1
+                val confirmPassword = edConfirmPassword.text.toString().trim()
 
                 val user = User(
                     "0",
@@ -59,96 +58,88 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
                     "User",
                     ""
                 )
-                viewModel.register(user)
+                viewModel.register(user, confirmPassword)
+            }
+
+            viewModel.userLiveData.observe(viewLifecycleOwner, Observer {
+
+                if (it != null) {
+                    buttonRegister.revertAnimation()
+
+                    Toast.makeText(
+                        context,
+                        "Account created successfully.",
+                        Toast.LENGTH_LONG
+                    ).show()
+
+                    edFullName.setText("")
+                    edEmail.setText("")
+                    edPassword.setText("")
+                    edConfirmPassword.setText("")
+                    edPhoneNumber.setText("")
+                }
+            })
+
+            viewModel.messageLiveData.observe(viewLifecycleOwner, Observer {
+                if (it != null) {
+                    buttonRegister.revertAnimation()
+                    layoutEmail.error = null
+
+                    if(it == "Email already exist."){
+                        layoutEmail.error = it
+                    } else {
+                        Toast.makeText(
+                            context,
+                            it,
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                }
+            })
+
+            lifecycleScope.launch {
+                viewModel.validation.collect { validation ->
+
+                    layoutFullName.error = null
+                    layoutEmail.error = null
+                    layoutPassword.error = null
+                    layoutConfirmPassword.error = null
+                    layoutPhoneNumber.error = null
+
+                    if (validation.fullname is Validation.Failed) {
+                        withContext(Dispatchers.Main) {
+                            layoutFullName.error = validation.fullname.message
+                            buttonRegister.revertAnimation()
+
+                        }
+                    }
+
+                    if (validation.email is Validation.Failed) {
+                        withContext(Dispatchers.Main) {
+                            layoutEmail.error = validation.email.message
+                            buttonRegister.revertAnimation()
+                        }
+                    }
+
+                    if (validation.password is Validation.Failed) {
+                        withContext(Dispatchers.Main) {
+                            if(validation.password.message == "Passwords do not match." || validation.password.message == "Confirm your password.") {
+                                layoutConfirmPassword.error = validation.password.message
+                            } else {
+                                layoutPassword.error = validation.password.message
+                            }
+                            buttonRegister.revertAnimation()
+                        }
+                    }
+
+                    if (validation.phone is Validation.Failed) {
+                        withContext(Dispatchers.Main) {
+                            layoutPhoneNumber.error = validation.phone.message
+                            buttonRegister.revertAnimation()
+                        }
+                    }
+                }
             }
         }
-
-        viewModel.userLiveData.observe(viewLifecycleOwner, Observer {
-
-            if (it != null) {
-                binding.buttonRegister.revertAnimation()
-
-                Toast.makeText(
-                    context,
-                    "Account created successfully.",
-                    Toast.LENGTH_LONG
-                ).show()
-
-                binding.edFullName.setText("")
-                binding.edEmail.setText("")
-                binding.edPassword.setText("")
-                binding.edPhoneNumber.setText("")
-            }
-        })
-
-        viewModel.messageLiveData.observe(viewLifecycleOwner, Observer {
-
-            if (it != null) {
-                binding.buttonRegister.revertAnimation()
-
-                Toast.makeText(
-                    context,
-                    it,
-                    Toast.LENGTH_LONG
-                ).show()
-            }
-        })
-
-        lifecycleScope.launch {
-            viewModel.validation.collect { validation ->
-
-                if (validation.fullname is Validation.Failed) {
-                    withContext(Dispatchers.Main) {
-                        binding.apply {
-                            edFullName.apply {
-                                requestFocus()
-                                error = validation.fullname.message
-                            }
-                            buttonRegister.revertAnimation()
-                        }
-
-                    }
-                }
-
-                if (validation.email is Validation.Failed) {
-                    withContext(Dispatchers.Main) {
-                        binding.apply {
-                            edEmail.apply {
-                                requestFocus()
-                                error = validation.email.message
-                            }
-                            buttonRegister.revertAnimation()
-                        }
-                    }
-                }
-
-                if (validation.password is Validation.Failed) {
-                    withContext(Dispatchers.Main) {
-                        binding.apply {
-                            edPassword.apply {
-                                requestFocus()
-                                error = validation.password.message
-                            }
-                            buttonRegister.revertAnimation()
-                        }
-                    }
-                }
-
-                if (validation.phone is Validation.Failed) {
-                    withContext(Dispatchers.Main) {
-                        binding.apply {
-                            edPhoneNumber.apply {
-                                requestFocus()
-                                error = validation.phone.message
-                            }
-                            buttonRegister.revertAnimation()
-                        }
-                    }
-                }
-
-            }
-        }
-
     }
-
 }

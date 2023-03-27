@@ -1,12 +1,11 @@
 package tn.esprit.hollyfood.model
 
 import okhttp3.ResponseBody
-import org.json.JSONObject
 import retrofit2.Response
 import retrofit2.http.*
 import tn.esprit.hollyfood.model.entities.User
 
-interface ServiceAPI {
+interface APIServices {
 
     //USER API
     @POST("/users")
@@ -16,6 +15,9 @@ interface ServiceAPI {
     @POST("/users/forgotPassword")
     suspend fun forgotPassword(@Body user: User): Response<ResponseBody>
     @POST("/users/codeVerification")
-    suspend fun codeVerification(@Body codeMap: Map<String, String>): Response<ResponseBody>
+    suspend fun codeVerification(@Body request: Map<String, String>): Response<ResponseBody>
+    @POST("/users/resetPassword")
+    suspend fun resetPassword(@Body request: Map<String, String>): Response<ResponseBody>
+
 
 }

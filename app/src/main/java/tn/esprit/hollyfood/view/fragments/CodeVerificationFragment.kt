@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import tn.esprit.hollyfood.R
 import tn.esprit.hollyfood.databinding.FragmentCodeVerificationBinding
 import tn.esprit.hollyfood.databinding.FragmentForgotPasswordBinding
@@ -29,35 +30,41 @@ class CodeVerificationFragment : Fragment(R.layout.fragment_code_verification) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
         viewModel = ViewModelProvider(this).get(UserViewModel::class.java)
+        val email = arguments?.getString("email") ?: ""
 
         binding.apply {
-
-            tvText2.text = arguments?.getString("email")
+            tvText2.text = email
 
             buttonContinue.setOnClickListener {
                 buttonContinue.startAnimation()
 
                 viewModel.codeVerification(edCode.text.toString().trim())
             }
-        }
 
-        viewModel.messageLiveData.observe(viewLifecycleOwner, Observer {
-            if (it != null) {
-                binding.buttonContinue.revertAnimation()
+            viewModel.messageLiveData.observe(viewLifecycleOwner, Observer {
+                if (it != null) {
+                    buttonContinue.revertAnimation()
+                    layoutCode.error = null
 
-                Toast.makeText(
-                    context,
-                    it,
-                    Toast.LENGTH_LONG
-                ).show()
+                    if (it == "Valid code.") {
+                        var action =
+                            CodeVerificationFragmentDirections.actionCodeVerificationFragmentToResetPasswordFragment(
+                                email
+                            )
+                        findNavController().navigate(action)
 
-                if (it == "Valid code.") {
-
+                    } else if (it == "The code you entered doesn't match your code. Please try again.") {
+                        layoutCode.error = it
+                    } else if (it != "") {
+                        Toast.makeText(
+                            context,
+                            it,
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
                 }
-            }
-        })
+            })
+        }
     }
 }

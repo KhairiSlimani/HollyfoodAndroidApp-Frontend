@@ -33,7 +33,6 @@ class ForgotPasswordFragment : Fragment(R.layout.fragment_forgot_password) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         viewModel = ViewModelProvider(this).get(UserViewModel::class.java)
 
         binding.apply {
@@ -43,42 +42,43 @@ class ForgotPasswordFragment : Fragment(R.layout.fragment_forgot_password) {
 
                 viewModel.forgotPassword(edEmail.text.toString().trim())
             }
-        }
 
-        viewModel.messageLiveData.observe(viewLifecycleOwner, Observer {
-            if (it != null) {
-                binding.buttonSend.revertAnimation()
+            viewModel.messageLiveData.observe(viewLifecycleOwner, Observer {
+                if (it != null) {
+                    buttonSend.revertAnimation()
+                    layoutEmail.error = null
 
-                Toast.makeText(
-                    context,
-                    it,
-                    Toast.LENGTH_LONG
-                ).show()
-
-                if (it == "Reset password code sent successfully.") {
-                    viewModel.clearMessage()
-                    var action = ForgotPasswordFragmentDirections.actionForgotPasswordFragmentToCodeVerificationFragment(binding.edEmail.text.toString().trim())
-                    findNavController().navigate(action)
+                    if (it == "Reset password code sent successfully.") {
+                        viewModel.clearMessage()
+                        var action =
+                            ForgotPasswordFragmentDirections.actionForgotPasswordFragmentToCodeVerificationFragment(
+                                edEmail.text.toString().trim()
+                            )
+                        findNavController().navigate(action)
+                    } else if (it == "The email you entered isn’t connected to an account.") {
+                        layoutEmail.error = it
+                    } else {
+                        Toast.makeText(
+                            context,
+                            it,
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
                 }
-            }
-        })
+            })
 
-        lifecycleScope.launch {
-            viewModel.validation.collect { validation ->
+            lifecycleScope.launch {
+                viewModel.validation.collect { validation ->
+                    layoutEmail.error = null
 
-                if (validation.email is Validation.Failed) {
-                    withContext(Dispatchers.Main) {
-                        binding.apply {
-                            edEmail.apply {
-                                requestFocus()
-                                error = validation.email.message
-                            }
+                    if (validation.email is Validation.Failed) {
+                        withContext(Dispatchers.Main) {
+                            layoutEmail.error = validation.email.message
                             buttonSend.revertAnimation()
                         }
                     }
                 }
             }
         }
-
     }
 }

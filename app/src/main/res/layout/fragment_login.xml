@@ -49,29 +49,41 @@
             android:textAlignment="center"
             android:gravity="center"/>
 
-        <EditText
-            android:id="@+id/edEmail"
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:id="@+id/layoutEmail"
             android:layout_width="0dp"
-            android:layout_height="@dimen/editTextHeight"
+            android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="@id/guidelineLoginLeft"
             app:layout_constraintEnd_toEndOf="@id/guidelineLoginRight"
             app:layout_constraintTop_toBottomOf="@id/tvLoginText"
-            style="@style/editText"
             android:hint="@string/email"
             android:inputType="textEmailAddress"
-            android:layout_marginTop="50dp"/>
+            android:layout_marginTop="50dp">
 
-        <EditText
-            android:id="@+id/edPassword"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:id="@+id/layoutPassword"
             android:layout_width="0dp"
-            android:layout_height="@dimen/editTextHeight"
+            android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="@id/guidelineLoginLeft"
             app:layout_constraintEnd_toEndOf="@id/guidelineLoginRight"
-            app:layout_constraintTop_toBottomOf="@id/edEmail"
-            style="@style/editText"
+            app:layout_constraintTop_toBottomOf="@id/layoutEmail"
             android:hint="@string/password"
-            android:inputType="textPassword"
-            android:layout_marginTop="15dp"/>
+            android:layout_marginTop="10dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edPassword"
+                android:inputType="textPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             android:id="@+id/tvForgotPassword"
@@ -79,7 +91,7 @@
             android:layout_height="wrap_content"
             style="@style/h2"
             app:layout_constraintStart_toStartOf="@id/guidelineLoginLeft"
-            app:layout_constraintTop_toBottomOf="@id/edPassword"
+            app:layout_constraintTop_toBottomOf="@id/layoutPassword"
             android:text="@string/forgot_password"
             android:textAlignment="center"
             android:gravity="center"
@@ -132,7 +144,6 @@
             android:layout_marginTop="15dp"
             android:text="@string/login"
             app:spinning_bar_color="@color/white"/>
-
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guidelineLoginLeft"

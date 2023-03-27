@@ -37,18 +37,16 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        binding.tvForgotPassword.setOnClickListener {
-            findNavController().navigate(R.id.action_loginFragment_to_forgotPasswordFragment)
-        }
-
-        binding.tvLoginText.setOnClickListener {
-            findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
-        }
-
         viewModel = ViewModelProvider(this).get(UserViewModel::class.java)
 
         binding.apply {
+            tvForgotPassword.setOnClickListener {
+                findNavController().navigate(R.id.action_loginFragment_to_forgotPasswordFragment)
+            }
+
+            tvLoginText.setOnClickListener {
+                findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
+            }
 
             buttonLogin.setOnClickListener {
 
@@ -56,81 +54,81 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
                 viewModel.login(edEmail.text.toString().trim(), edPassword.text.toString().trim())
             }
-        }
 
-        viewModel.userLiveData.observe(viewLifecycleOwner, Observer {
+            viewModel.userLiveData.observe(viewLifecycleOwner, Observer {
 
-            if (it != null) {
-                binding.buttonLogin.revertAnimation()
+                if (it != null) {
+                    buttonLogin.revertAnimation()
 
-                Toast.makeText(
-                    context,
-                    "User ${it.fullname} logged in",
-                    Toast.LENGTH_LONG
-                ).show()
+                    Toast.makeText(
+                        context,
+                        "User ${it.fullname} logged in",
+                        Toast.LENGTH_LONG
+                    ).show()
 
-            } else {
-                binding.buttonLogin.revertAnimation()
+                } else {
+                    buttonLogin.revertAnimation()
 
-                Toast.makeText(
-                    context,
-                    "Connection Failed",
-                    Toast.LENGTH_LONG
-                ).show()
-            }
-        })
+                    Toast.makeText(
+                        context,
+                        "Connection Failed",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            })
 
-        viewModel.messageLiveData.observe(viewLifecycleOwner, Observer {
+            viewModel.messageLiveData.observe(viewLifecycleOwner, Observer {
+                if (it != null) {
+                    buttonLogin.revertAnimation()
+                    layoutEmail.error = null
+                    layoutPassword.error = null
 
-            if (it != null) {
-                binding.buttonLogin.revertAnimation()
+                    if(it == "The email you entered isn’t connected to an account."){
+                        layoutEmail.error = it
+                    } else if (it == "The password you’ve entered is incorrect.") {
+                        layoutPassword.error = it
+                    }
+                    else {
+                        Toast.makeText(
+                            context,
+                            it,
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
 
-                Toast.makeText(
-                    context,
-                    it,
-                    Toast.LENGTH_LONG
-                ).show()
+                } else {
+                    buttonLogin.revertAnimation()
 
-            } else {
-                binding.buttonLogin.revertAnimation()
+                    Toast.makeText(
+                        context,
+                        "Connection Failed",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            })
 
-                Toast.makeText(
-                    context,
-                    "Connection Failed",
-                    Toast.LENGTH_LONG
-                ).show()
-            }
-        })
+            lifecycleScope.launch {
+                viewModel.validation.collect { validation ->
+                    layoutEmail.error = null
+                    layoutPassword.error = null
 
-        lifecycleScope.launch {
-            viewModel.validation.collect { validation ->
-
-                if (validation.email is Validation.Failed) {
-                    withContext(Dispatchers.Main) {
-                        binding.apply {
-                            edEmail.apply {
-                                requestFocus()
-                                error = validation.email.message
-                            }
+                    if (validation.email is Validation.Failed) {
+                        withContext(Dispatchers.Main) {
+                            layoutEmail.error = validation.email.message
                             buttonLogin.revertAnimation()
+
+                        }
+                    }
+
+                    if (validation.password is Validation.Failed) {
+                        withContext(Dispatchers.Main) {
+                            layoutPassword.error = validation.password.message
+                            buttonLogin.revertAnimation()
+
                         }
                     }
                 }
-
-                if (validation.password is Validation.Failed) {
-                    withContext(Dispatchers.Main) {
-                        binding.apply {
-                            edPassword.apply {
-                                requestFocus()
-                                error = validation.password.message
-                            }
-                            buttonLogin.revertAnimation()
-                        }
-                    }
-                }
-
             }
         }
     }
-
 }

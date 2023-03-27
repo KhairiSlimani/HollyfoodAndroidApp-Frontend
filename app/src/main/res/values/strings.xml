@@ -21,8 +21,12 @@
     <string name="send">Send</string>
     <string name="code_verification_title">Enter security code</string>
     <string name="code_verification_text">Please check your email for a message\nwith your code. We sent your code to:</string>
-    <string name="code">Enter code</string>
+    <string name="code">Code</string>
     <string name="continue_string">Continue</string>
     <string name="cancel">Cancel</string>
+    <string name="reset_password_title">Reset Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="confirm">Confirm</string>
+    <string name="new_password">New Password</string>
 
 </resources>

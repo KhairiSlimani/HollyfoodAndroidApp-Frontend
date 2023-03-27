@@ -1,132 +1,181 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/blury_background"
-        android:scaleType="centerCrop"/>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/tvAppName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/h3"
-            android:layout_marginTop="40dp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:text="@string/app_name"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/blury_background"
+            android:scaleType="centerCrop"/>
 
-        <TextView
-            android:id="@+id/tvRegisterTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/h4"
-            android:layout_marginTop="45dp"
-            app:layout_constraintTop_toBottomOf="@id/tvAppName"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:text="@string/register_title"
-            android:textAlignment="center"
-            android:gravity="center"
-            android:textSize="35sp"/>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/tvRegisterText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/h2"
-            app:layout_constraintStart_toStartOf="@id/tvRegisterTitle"
-            app:layout_constraintEnd_toEndOf="@id/tvRegisterTitle"
-            app:layout_constraintTop_toBottomOf="@id/tvRegisterTitle"
-            android:text="@string/register_text"
-            android:textAlignment="center"
-            android:gravity="center"
-            android:layout_marginTop="15dp"/>
+            <TextView
+                android:id="@+id/tvAppName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/h3"
+                android:layout_marginTop="40dp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:text="@string/app_name"/>
 
-        <EditText
-            android:id="@+id/edFullName"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/editTextHeight"
-            app:layout_constraintStart_toStartOf="@id/guidelineRegisterLeft"
-            app:layout_constraintEnd_toEndOf="@id/guidelineRegisterRight"
-            app:layout_constraintTop_toBottomOf="@id/tvRegisterText"
-            style="@style/editText"
-            android:hint="@string/full_name"
-            android:inputType="text"
-            android:layout_marginTop="50dp"/>
+            <TextView
+                android:id="@+id/tvRegisterTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/h4"
+                android:layout_marginTop="20dp"
+                app:layout_constraintTop_toBottomOf="@id/tvAppName"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:text="@string/register_title"
+                android:textAlignment="center"
+                android:gravity="center"
+                android:textSize="35sp"/>
 
-        <EditText
-            android:id="@+id/edEmail"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/editTextHeight"
-            app:layout_constraintStart_toStartOf="@id/guidelineRegisterLeft"
-            app:layout_constraintEnd_toEndOf="@id/guidelineRegisterRight"
-            app:layout_constraintTop_toBottomOf="@id/edFullName"
-            style="@style/editText"
-            android:hint="@string/email"
-            android:inputType="textEmailAddress"
-            android:layout_marginTop="15dp"/>
+            <TextView
+                android:id="@+id/tvRegisterText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/h2"
+                app:layout_constraintStart_toStartOf="@id/tvRegisterTitle"
+                app:layout_constraintEnd_toEndOf="@id/tvRegisterTitle"
+                app:layout_constraintTop_toBottomOf="@id/tvRegisterTitle"
+                android:text="@string/register_text"
+                android:textAlignment="center"
+                android:gravity="center"
+                android:layout_marginTop="10dp"/>
 
-        <EditText
-            android:id="@+id/edPassword"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/editTextHeight"
-            app:layout_constraintStart_toStartOf="@id/guidelineRegisterLeft"
-            app:layout_constraintEnd_toEndOf="@id/guidelineRegisterRight"
-            app:layout_constraintTop_toBottomOf="@id/edEmail"
-            style="@style/editText"
-            android:hint="@string/password"
-            android:inputType="textPassword"
-            android:layout_marginTop="15dp"/>
 
-        <EditText
-            android:id="@+id/edPhoneNumber"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/editTextHeight"
-            app:layout_constraintStart_toStartOf="@id/guidelineRegisterLeft"
-            app:layout_constraintEnd_toEndOf="@id/guidelineRegisterRight"
-            app:layout_constraintTop_toBottomOf="@id/edPassword"
-            style="@style/editText"
-            android:hint="@string/phone_number"
-            android:inputType="number"
-            android:layout_marginTop="15dp"/>
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:id="@+id/layoutFullName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/guidelineRegisterLeft"
+                app:layout_constraintEnd_toEndOf="@id/guidelineRegisterRight"
+                app:layout_constraintTop_toBottomOf="@id/tvRegisterText"
+                android:hint="@string/full_name"
+                android:layout_marginTop="20dp">
 
-        <com.apachat.loadingbutton.core.customViews.CircularProgressButton
-            android:id="@+id/buttonRegister"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/mediumButtonHeight"
-            style="@style/orangeButtonStyle"
-            app:layout_constraintTop_toBottomOf="@id/edPhoneNumber"
-            app:layout_constraintStart_toStartOf="@id/guidelineRegisterLeft"
-            app:layout_constraintEnd_toEndOf="@id/guidelineRegisterRight"
-            android:layout_marginTop="15dp"
-            android:text="@string/register"
-            app:spinning_bar_color="@color/white"/>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edFullName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guidelineRegisterLeft"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.09" />
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:id="@+id/layoutEmail"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/guidelineRegisterLeft"
+                app:layout_constraintEnd_toEndOf="@id/guidelineRegisterRight"
+                app:layout_constraintTop_toBottomOf="@id/layoutFullName"
+                android:hint="@string/email"
+                android:layout_marginTop="10dp">
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guidelineRegisterRight"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.91" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:id="@+id/layoutPassword"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/guidelineRegisterLeft"
+                app:layout_constraintEnd_toEndOf="@id/guidelineRegisterRight"
+                app:layout_constraintTop_toBottomOf="@id/layoutEmail"
+                android:hint="@string/password"
+                android:layout_marginTop="10dp">
 
-</FrameLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:id="@+id/layoutConfirmPassword"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/guidelineRegisterLeft"
+                app:layout_constraintEnd_toEndOf="@id/guidelineRegisterRight"
+                app:layout_constraintTop_toBottomOf="@id/layoutPassword"
+                android:hint="@string/confirm_password"
+                android:layout_marginTop="10dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edConfirmPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:id="@+id/layoutPhoneNumber"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/guidelineRegisterLeft"
+                app:layout_constraintEnd_toEndOf="@id/guidelineRegisterRight"
+                app:layout_constraintTop_toBottomOf="@id/layoutConfirmPassword"
+                android:hint="@string/phone_number"
+                android:layout_marginTop="10dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edPhoneNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.apachat.loadingbutton.core.customViews.CircularProgressButton
+                android:id="@+id/buttonRegister"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/mediumButtonHeight"
+                style="@style/orangeButtonStyle"
+                app:layout_constraintTop_toBottomOf="@id/layoutPhoneNumber"
+                app:layout_constraintStart_toStartOf="@id/guidelineRegisterLeft"
+                app:layout_constraintEnd_toEndOf="@id/guidelineRegisterRight"
+                android:layout_marginTop="15dp"
+                android:text="@string/register"
+                app:spinning_bar_color="@color/white"/>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelineRegisterLeft"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.09" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelineRegisterRight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.91" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </FrameLayout>
+
+</ScrollView>
