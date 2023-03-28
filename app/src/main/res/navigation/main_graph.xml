@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_graph"
+    app:startDestination="@id/myRestaurantsFragment">
+
+    <fragment
+        android:id="@+id/myRestaurantsFragment"
+        android:name="tn.esprit.hollyfood.view.fragments.Main.MyRestaurantsFragment"
+        android:label="MyRestaurantsFragment"
+        tools:layout="@layout/fragment_my_restaurants" />
+    <fragment
+        android:id="@+id/restaurantsFragment"
+        android:name="tn.esprit.hollyfood.view.fragments.Main.RestaurantsFragment"
+        android:label="RestaurantsFragment"
+        tools:layout="@layout/fragment_restaurants" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="tn.esprit.hollyfood.view.fragments.Main.SettingsFragment"
+        android:label="SettingsFragment"
+        tools:layout="@layout/fragment_settings" />
+</navigation>

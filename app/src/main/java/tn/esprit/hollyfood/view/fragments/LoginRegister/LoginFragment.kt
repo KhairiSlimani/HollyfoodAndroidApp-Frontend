@@ -1,6 +1,5 @@
-package tn.esprit.hollyfood.view.fragments
+package tn.esprit.hollyfood.view.fragments.LoginRegister
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,10 +15,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import tn.esprit.hollyfood.R
 import tn.esprit.hollyfood.databinding.FragmentLoginBinding
-import tn.esprit.hollyfood.databinding.FragmentRegisterBinding
-import tn.esprit.hollyfood.model.entities.User
 import tn.esprit.hollyfood.util.Validation
-import tn.esprit.hollyfood.view.activities.MainActivity
 import tn.esprit.hollyfood.viewmodel.UserViewModel
 
 class LoginFragment : Fragment(R.layout.fragment_login) {

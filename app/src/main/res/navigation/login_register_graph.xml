@@ -7,60 +7,82 @@
 
     <fragment
         android:id="@+id/introFragment"
-        android:name="tn.esprit.hollyfood.view.fragments.IntroFragment"
+        android:name="tn.esprit.hollyfood.view.fragments.LoginRegister.IntroFragment"
         android:label="IntroFragment"
         tools:layout="@layout/fragment_intro">
         <action
             android:id="@+id/action_introFragment_to_signingOptionsFragment"
-            app:destination="@id/signingOptionsFragment" />
+            app:destination="@id/signingOptionsFragment"
+            app:enterAnim="@anim/from_bottom" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
-        android:name="tn.esprit.hollyfood.view.fragments.LoginFragment"
+        android:name="tn.esprit.hollyfood.view.fragments.LoginRegister.LoginFragment"
         android:label="LoginFragment"
         tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragment_to_registerFragment"
             app:destination="@id/registerFragment"
+            app:enterAnim="@anim/from_bottom"
+            app:popEnterAnim="@anim/from_left"
             app:popUpTo="@id/signingOptionsFragment" />
         <action
             android:id="@+id/action_loginFragment_to_forgotPasswordFragment"
-            app:destination="@id/forgotPasswordFragment" />
+            app:destination="@id/forgotPasswordFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
-        android:name="tn.esprit.hollyfood.view.fragments.RegisterFragment"
+        android:name="tn.esprit.hollyfood.view.fragments.LoginRegister.RegisterFragment"
         android:label="RegisterFragment"
         tools:layout="@layout/fragment_register">
         <action
             android:id="@+id/action_registerFragment_to_loginFragment"
             app:destination="@id/loginFragment"
+            app:enterAnim="@anim/from_bottom"
+            app:popEnterAnim="@anim/from_left"
             app:popUpTo="@id/signingOptionsFragment" />
     </fragment>
     <fragment
         android:id="@+id/signingOptionsFragment"
-        android:name="tn.esprit.hollyfood.view.fragments.SigningOptionsFragment"
+        android:name="tn.esprit.hollyfood.view.fragments.LoginRegister.SigningOptionsFragment"
         android:label="SigningOptionsFragment"
         tools:layout="@layout/fragment_signing_options">
         <action
             android:id="@+id/action_signingOptionsFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
+            app:destination="@id/loginFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
         <action
             android:id="@+id/action_signingOptionsFragment_to_registerFragment"
-            app:destination="@id/registerFragment" />
+            app:destination="@id/registerFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
     </fragment>
     <fragment
         android:id="@+id/forgotPasswordFragment"
-        android:name="tn.esprit.hollyfood.view.fragments.ForgotPasswordFragment"
+        android:name="tn.esprit.hollyfood.view.fragments.LoginRegister.ForgotPasswordFragment"
         android:label="ForgotPasswordFragment"
         tools:layout="@layout/fragment_forgot_password" >
         <action
             android:id="@+id/action_forgotPasswordFragment_to_codeVerificationFragment"
-            app:destination="@id/codeVerificationFragment" />
+            app:destination="@id/codeVerificationFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
+
     </fragment>
     <fragment
         android:id="@+id/codeVerificationFragment"
-        android:name="tn.esprit.hollyfood.view.fragments.CodeVerificationFragment"
+        android:name="tn.esprit.hollyfood.view.fragments.LoginRegister.CodeVerificationFragment"
         android:label="CodeVerificationFragment"
         tools:layout="@layout/fragment_code_verification">
         <argument
@@ -69,11 +91,16 @@
         <action
             android:id="@+id/action_codeVerificationFragment_to_resetPasswordFragment"
             app:destination="@id/resetPasswordFragment"
-            app:popUpTo="@id/loginFragment" />
+            app:popUpTo="@id/loginFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
+
     </fragment>
     <fragment
         android:id="@+id/resetPasswordFragment"
-        android:name="tn.esprit.hollyfood.view.fragments.ResetPasswordFragment"
+        android:name="tn.esprit.hollyfood.view.fragments.LoginRegister.ResetPasswordFragment"
         android:label="ResetPasswordFragment"
         tools:layout="@layout/fragment_reset_password" >
         <argument
@@ -81,7 +108,13 @@
             app:argType="string" />
         <action
             android:id="@+id/action_resetPasswordFragment_to_loginFragment2"
-            app:destination="@id/loginFragment" />
+            app:destination="@id/loginFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right"
+            app:popUpTo="@id/loginFragment" />
+
     </fragment>
 
 

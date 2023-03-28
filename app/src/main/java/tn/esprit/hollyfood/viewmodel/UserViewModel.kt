@@ -158,7 +158,6 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
                     messageMutableLiveData.postValue("Server error, please try again later.")
                 }
             }
-
         } catch (e: IOException) {
             messageMutableLiveData.postValue("Network error, please try again later.")
             Log.e("error", "IOException: ${e.message}")

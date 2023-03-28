@@ -1,4 +1,4 @@
-package tn.esprit.hollyfood.view.fragments
+package tn.esprit.hollyfood.view.fragments.LoginRegister
 
 import android.os.Bundle
 import android.view.LayoutInflater

@@ -1,4 +1,4 @@
-package tn.esprit.hollyfood.view.fragments
+package tn.esprit.hollyfood.view.fragments.LoginRegister
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,7 +11,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import tn.esprit.hollyfood.R

@@ -1,4 +1,4 @@
-package tn.esprit.hollyfood.view.fragments
+package tn.esprit.hollyfood.view.fragments.LoginRegister
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -12,7 +12,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import tn.esprit.hollyfood.R
 import tn.esprit.hollyfood.databinding.FragmentCodeVerificationBinding
-import tn.esprit.hollyfood.databinding.FragmentForgotPasswordBinding
 import tn.esprit.hollyfood.viewmodel.UserViewModel
 
 class CodeVerificationFragment : Fragment(R.layout.fragment_code_verification) {

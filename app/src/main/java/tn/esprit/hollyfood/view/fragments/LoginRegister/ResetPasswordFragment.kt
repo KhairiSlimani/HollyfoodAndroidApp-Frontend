@@ -1,4 +1,4 @@
-package tn.esprit.hollyfood.view.fragments
+package tn.esprit.hollyfood.view.fragments.LoginRegister
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,7 +14,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import tn.esprit.hollyfood.R
-import tn.esprit.hollyfood.databinding.FragmentCodeVerificationBinding
 import tn.esprit.hollyfood.databinding.FragmentResetPasswordBinding
 import tn.esprit.hollyfood.util.Validation
 import tn.esprit.hollyfood.viewmodel.UserViewModel
@@ -58,7 +57,8 @@ class ResetPasswordFragment : Fragment(R.layout.fragment_reset_password) {
                     ).show()
 
                     if (it == "Password reset successfully.") {
-                        var action = ResetPasswordFragmentDirections.actionResetPasswordFragmentToLoginFragment2()
+                        var action =
+                            ResetPasswordFragmentDirections.actionResetPasswordFragmentToLoginFragment2()
                         findNavController().navigate(action)
                     }
                 }
