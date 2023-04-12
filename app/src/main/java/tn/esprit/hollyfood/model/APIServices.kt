@@ -18,6 +18,9 @@ interface APIServices {
     suspend fun codeVerification(@Body request: Map<String, String>): Response<ResponseBody>
     @POST("/users/resetPassword")
     suspend fun resetPassword(@Body request: Map<String, String>): Response<ResponseBody>
-
+    @POST("/users/verifyAccount")
+    suspend fun verifyAccount(@Body request: Map<String, String>): Response<ResponseBody>
+    @POST("/users/getByEmail")
+    suspend fun getByEmail(@Body request: Map<String, String>): Response<User>
 
 }

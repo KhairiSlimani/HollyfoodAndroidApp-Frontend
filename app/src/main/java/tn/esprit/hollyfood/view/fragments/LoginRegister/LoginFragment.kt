@@ -1,5 +1,8 @@
 package tn.esprit.hollyfood.view.fragments.LoginRegister
 
+import android.content.Context
+import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,8 +19,8 @@ import kotlinx.coroutines.withContext
 import tn.esprit.hollyfood.R
 import tn.esprit.hollyfood.databinding.FragmentLoginBinding
 import tn.esprit.hollyfood.util.Validation
+import tn.esprit.hollyfood.view.activities.MainActivity
 import tn.esprit.hollyfood.viewmodel.UserViewModel
-
 class LoginFragment : Fragment(R.layout.fragment_login) {
     private lateinit var binding: FragmentLoginBinding
     private lateinit var viewModel: UserViewModel
@@ -56,11 +59,21 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 if (it != null) {
                     buttonLogin.revertAnimation()
 
-                    Toast.makeText(
-                        context,
-                        "User ${it.fullname} logged in",
-                        Toast.LENGTH_LONG
-                    ).show()
+                    val sharedPref = requireContext().getSharedPreferences("myPreferences", Context.MODE_PRIVATE)
+                    val editor = sharedPref.edit()
+                    editor.apply {
+                        putString("id", it.id)
+                        putString("fullname", it.fullname)
+                        putString("email", it.email)
+                        putInt("phone", it.phone)
+                        putString("role", it.email)
+                        putString("image", it.image)
+                    }.apply()
+
+                    Intent(requireActivity(), MainActivity::class.java).also { intent ->
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+                        startActivity(intent)
+                    }
 
                 } else {
                     buttonLogin.revertAnimation()
@@ -83,8 +96,12 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                         layoutEmail.error = it
                     } else if (it == "The password you’ve entered is incorrect.") {
                         layoutPassword.error = it
+                    } else if (it == "Your account has not yet been verified.") {
+                        viewModel.clearMessage()
+                        val action = LoginFragmentDirections.actionLoginFragmentToAccountVerificationFragment(edEmail.text.toString().trim())
+                        findNavController().navigate(action)
                     }
-                    else {
+                    else if (it != "") {
                         Toast.makeText(
                             context,
                             it,

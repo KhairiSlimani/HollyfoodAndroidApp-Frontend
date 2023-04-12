@@ -13,6 +13,8 @@ interface Repository {
     suspend fun forgotPassword(user: User): Response<ResponseBody>
     suspend fun codeVerification(request: Map<String, String>): Response<ResponseBody>
     suspend fun resetPassword(request: Map<String, String>): Response<ResponseBody>
+    suspend fun verifyAccount(request: Map<String, String>): Response<ResponseBody>
+    suspend fun getByEmail(request: Map<String, String>): Response<User>
 
 
 }

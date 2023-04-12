@@ -17,4 +17,5 @@ data class User(
     var role: String,
     @SerializedName("image")
     var image: String,
-)
+
+    )

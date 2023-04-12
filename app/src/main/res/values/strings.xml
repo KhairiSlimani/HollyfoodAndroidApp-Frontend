@@ -28,5 +28,9 @@
     <string name="confirm_password">Confirm Password</string>
     <string name="confirm">Confirm</string>
     <string name="new_password">New Password</string>
+    <string name="account_verification_title">Your account has\n not been verified yet</string>
+    <string name="logout">Logout</string>
+    <string name="verify_account">Verify Account</string>
+    <string name="save">Save</string>
 
 </resources>

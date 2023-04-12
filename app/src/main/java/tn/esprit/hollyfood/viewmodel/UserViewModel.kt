@@ -38,7 +38,6 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun register(user: User, confirmPassword: String) = viewModelScope.launch {
-
         if (checkRegisterValidation(user, confirmPassword)) {
             try {
                 var response = repository.register(user)
@@ -91,10 +90,10 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
                 } else {
                     if (response.code() == 404) {
                         messageMutableLiveData.postValue("The email you entered isn’t connected to an account.")
-                    } else if (response.code() == 434) {
-                        messageMutableLiveData.postValue("Your account has not yet been verified.")
                     } else if (response.code() == 401) {
                         messageMutableLiveData.postValue("The password you’ve entered is incorrect.")
+                    } else if (response.code() == 434) {
+                        messageMutableLiveData.postValue("Your account has not yet been verified.")
                     } else {
                         messageMutableLiveData.postValue("Server error, please try again later.")
                     }
@@ -111,6 +110,22 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
                 Validation.Success
             )
             _validation.send(fieldsState)
+        }
+    }
+
+    fun getByEmail(email: String) = viewModelScope.launch {
+        try {
+            val request = mapOf("email" to email)
+            val response = repository.getByEmail(request)
+
+            if (response.isSuccessful) {
+                userMutableLiveData.postValue(response.body())
+            } else {
+                messageMutableLiveData.postValue("Server error, please try again later.")
+            }
+        } catch (e: IOException) {
+            messageMutableLiveData.postValue("Network error, please try again later.")
+            Log.e("error", "IOException: ${e.message}")
         }
     }
 
@@ -199,5 +214,30 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
     fun clearMessage() {
         messageMutableLiveData.postValue("")
     }
+
+    fun verifyAccount(email: String, code: String) = viewModelScope.launch {
+        try {
+            val request = mapOf(
+                "email" to email,
+                "code" to code
+            )
+
+            val response = repository.verifyAccount(request)
+
+            if (response.isSuccessful) {
+                messageMutableLiveData.postValue("User verified successfully.")
+            } else {
+                if (response.code() == 404) {
+                    messageMutableLiveData.postValue("The code you entered doesn't match your code. Please try again.")
+                } else {
+                    messageMutableLiveData.postValue("Server error, please try again later.")
+                }
+            }
+        } catch (e: IOException) {
+            messageMutableLiveData.postValue("Network error, please try again later.")
+            Log.e("error", "IOException: ${e.message}")
+        }
+    }
+
 
 }

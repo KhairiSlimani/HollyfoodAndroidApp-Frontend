@@ -29,4 +29,12 @@ class RepositoryImp(private val api: APIServices) : Repository {
         api.resetPassword(request)
     }
 
+    override suspend fun verifyAccount(request: Map<String, String>): Response<ResponseBody> = withContext(Dispatchers.IO) {
+        api.verifyAccount(request)
+    }
+
+    override suspend fun getByEmail(request: Map<String, String>): Response<User> = withContext(Dispatchers.IO) {
+        api.getByEmail(request)
+    }
+
 }

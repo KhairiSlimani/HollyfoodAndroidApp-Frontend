@@ -33,6 +33,9 @@
             app:exitAnim="@anim/to_left"
             app:popEnterAnim="@anim/from_left"
             app:popExitAnim="@anim/to_right" />
+        <action
+            android:id="@+id/action_loginFragment_to_accountVerificationFragment"
+            app:destination="@id/accountVerificationFragment" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
@@ -115,6 +118,15 @@
             app:popExitAnim="@anim/to_right"
             app:popUpTo="@id/loginFragment" />
 
+    </fragment>
+    <fragment
+        android:id="@+id/accountVerificationFragment"
+        android:name="tn.esprit.hollyfood.view.fragments.LoginRegister.AccountVerificationFragment"
+        android:label="AccountVerificationFragment"
+        tools:layout="@layout/fragment_account_verification" >
+        <argument
+            android:name="email"
+            app:argType="string" />
     </fragment>
 
 
