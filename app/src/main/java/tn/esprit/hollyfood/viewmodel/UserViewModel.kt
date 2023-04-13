@@ -284,4 +284,40 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
         return check
     }
 
+    fun changePassword(email: String,oldPassword: String, newPassword: String, confirmPassword: String) = viewModelScope.launch {
+        if (validatePassword(newPassword, confirmPassword) is Validation.Success) {
+            try {
+                val request = mapOf(
+                    "email" to email,
+                    "oldPassword" to oldPassword,
+                    "newPassword" to newPassword
+                )
+
+                val response = repository.changePassword(request)
+
+                if (response.isSuccessful) {
+                    messageMutableLiveData.postValue("Password changed successfully.")
+                } else {
+                    if (response.code() == 401) {
+                        messageMutableLiveData.postValue("Wrong password.")
+                    } else {
+                        messageMutableLiveData.postValue("Server error, please try again later.")
+                    }
+                }
+            } catch (e: IOException) {
+                messageMutableLiveData.postValue("Network error, please try again later.")
+                Log.e("error", "IOException: ${e.message}")
+            }
+        } else {
+            val fieldsState = FieldsState(
+                Validation.Success,
+                validateEmail(email),
+                validatePassword(newPassword, confirmPassword),
+                Validation.Success
+            )
+            _validation.send(fieldsState)
+        }
+    }
+
+
 }

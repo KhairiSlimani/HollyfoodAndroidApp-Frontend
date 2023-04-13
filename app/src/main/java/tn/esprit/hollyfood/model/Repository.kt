@@ -17,5 +17,6 @@ interface Repository {
     suspend fun verifyAccount(request: Map<String, String>): Response<ResponseBody>
     suspend fun getByEmail(request: Map<String, String>): Response<User>
     suspend fun editProfile(id:String, request: EditProfileRequest): Response<User>
+    suspend fun changePassword(request: Map<String, String>): Response<ResponseBody>
 
 }

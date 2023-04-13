@@ -25,5 +25,7 @@ interface APIServices {
     suspend fun getByEmail(@Body request: Map<String, String>): Response<User>
     @PATCH("/users/{id}")
     suspend fun editProfile(@Path("id") id: String, @Body request: EditProfileRequest): Response<User>
+    @POST("/users/changePassword")
+    suspend fun changePassword(@Body request: Map<String, String>): Response<ResponseBody>
 
 }

@@ -28,11 +28,15 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val sharedPref = requireContext().getSharedPreferences("myPreferences", Context.MODE_PRIVATE)
+        val fullname : String? = sharedPref.getString("fullname", "")
 
         binding.apply {
             constraintProfile.setOnClickListener {
                 findNavController().navigate(R.id.action_settingsFragment_to_profileFragment)
             }
+
+            tvFullName.text = fullname
 
             linearLogout.setOnClickListener {
                 val sharedPref = requireContext().getSharedPreferences("myPreferences", Context.MODE_PRIVATE)
@@ -45,6 +49,10 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
                 requireActivity().finish()
             }
 
+            linearChangePassword.setOnClickListener {
+                findNavController().navigate(R.id.action_settingsFragment_to_changePasswordFragment)
+
+            }
 
         }
     }

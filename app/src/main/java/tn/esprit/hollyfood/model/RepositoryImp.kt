@@ -42,4 +42,8 @@ class RepositoryImp(private val api: APIServices) : Repository {
         api.editProfile(id, request)
     }
 
+    override suspend fun changePassword(request: Map<String, String>): Response<ResponseBody> = withContext(Dispatchers.IO) {
+        api.changePassword(request)
+    }
+
 }
