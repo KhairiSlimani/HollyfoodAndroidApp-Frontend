@@ -19,3 +19,12 @@ data class User(
     var image: String,
 
     )
+
+data class EditProfileRequest(
+    @SerializedName("fullname")
+    val fullname: String,
+    @SerializedName("email")
+    val email: String,
+    @SerializedName("phone")
+    val phone: Int
+)

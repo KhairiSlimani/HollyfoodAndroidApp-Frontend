@@ -7,17 +7,30 @@
 
     <fragment
         android:id="@+id/myRestaurantsFragment"
-        android:name="tn.esprit.hollyfood.view.fragments.Main.MyRestaurantsFragment"
+        android:name="tn.esprit.hollyfood.view.fragments.main.MyRestaurantsFragment"
         android:label="MyRestaurantsFragment"
         tools:layout="@layout/fragment_my_restaurants" />
     <fragment
         android:id="@+id/restaurantsFragment"
-        android:name="tn.esprit.hollyfood.view.fragments.Main.RestaurantsFragment"
+        android:name="tn.esprit.hollyfood.view.fragments.main.RestaurantsFragment"
         android:label="RestaurantsFragment"
         tools:layout="@layout/fragment_restaurants" />
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="tn.esprit.hollyfood.view.fragments.Main.SettingsFragment"
+        android:name="tn.esprit.hollyfood.view.fragments.main.SettingsFragment"
         android:label="SettingsFragment"
-        tools:layout="@layout/fragment_settings" />
+        tools:layout="@layout/fragment_settings" >
+        <action
+            android:id="@+id/action_settingsFragment_to_profileFragment"
+            app:destination="@id/profileFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="tn.esprit.hollyfood.view.fragments.main.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
 </navigation>

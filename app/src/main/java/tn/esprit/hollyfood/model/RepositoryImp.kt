@@ -4,6 +4,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.ResponseBody
 import retrofit2.Response
+import tn.esprit.hollyfood.model.entities.EditProfileRequest
 import tn.esprit.hollyfood.model.entities.User
 
 class RepositoryImp(private val api: APIServices) : Repository {
@@ -35,6 +36,10 @@ class RepositoryImp(private val api: APIServices) : Repository {
 
     override suspend fun getByEmail(request: Map<String, String>): Response<User> = withContext(Dispatchers.IO) {
         api.getByEmail(request)
+    }
+
+    override suspend fun editProfile(id:String, request: EditProfileRequest): Response<User> = withContext(Dispatchers.IO) {
+        api.editProfile(id, request)
     }
 
 }

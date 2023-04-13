@@ -97,41 +97,6 @@
             android:gravity="center"
             android:textColor="@color/black"/>
 
-        <ImageView
-            android:id="@+id/facebookLogin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="13dp"
-            app:layout_constraintStart_toStartOf="@id/guidelineLoginLeft"
-            app:layout_constraintTop_toBottomOf="@id/buttonLogin"
-            android:src="@drawable/facebook_login"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/facebook"
-            app:layout_constraintStart_toStartOf="@id/facebookLogin"
-            app:layout_constraintTop_toTopOf="@id/facebookLogin"
-            app:layout_constraintBottom_toBottomOf="@id/facebookLogin"
-            app:layout_constraintEnd_toEndOf="@id/facebookLogin"/>
-
-        <ImageView
-            android:id="@+id/googleLogin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="13dp"
-            app:layout_constraintEnd_toEndOf="@id/guidelineLoginRight"
-            app:layout_constraintTop_toBottomOf="@id/buttonLogin"
-            android:src="@drawable/google_login"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/google"
-            app:layout_constraintStart_toStartOf="@id/googleLogin"
-            app:layout_constraintTop_toTopOf="@id/googleLogin"
-            app:layout_constraintBottom_toBottomOf="@id/googleLogin"
-            app:layout_constraintEnd_toEndOf="@id/googleLogin"/>
 
         <com.apachat.loadingbutton.core.customViews.CircularProgressButton
             android:id="@+id/buttonLogin"

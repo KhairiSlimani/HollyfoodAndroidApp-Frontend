@@ -1,5 +1,6 @@
-package tn.esprit.hollyfood.view.fragments.LoginRegister
+package tn.esprit.hollyfood.view.fragments.main
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,19 +10,18 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import tn.esprit.hollyfood.R
-import tn.esprit.hollyfood.databinding.FragmentRegisterBinding
+import tn.esprit.hollyfood.databinding.FragmentProfileBinding
+import tn.esprit.hollyfood.databinding.FragmentSettingsBinding
 import tn.esprit.hollyfood.model.entities.User
 import tn.esprit.hollyfood.util.Validation
 import tn.esprit.hollyfood.viewmodel.UserViewModel
 
-class RegisterFragment : Fragment(R.layout.fragment_register) {
-
-    private lateinit var binding: FragmentRegisterBinding
+class ProfileFragment : Fragment(R.layout.fragment_profile) {
+    private lateinit var binding: FragmentProfileBinding
     private lateinit var viewModel: UserViewModel
 
     override fun onCreateView(
@@ -29,7 +29,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentRegisterBinding.inflate(inflater)
+        binding = FragmentProfileBinding.inflate(inflater)
         return binding.root
     }
 
@@ -38,50 +38,54 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
         viewModel = ViewModelProvider(this).get(UserViewModel::class.java)
 
         binding.apply {
-            tvRegisterText.setOnClickListener {
-                findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
-            }
+            val sharedPref = requireContext().getSharedPreferences("myPreferences", Context.MODE_PRIVATE)
+            val id : String = sharedPref.getString("id", "") ?: ""
+            val fullname : String? = sharedPref.getString("fullname", "")
+            val email = sharedPref.getString("email", "")
+            val phoneNumber = sharedPref.getInt("phone", 0)
 
-            buttonRegister.setOnClickListener {
-                buttonRegister.startAnimation()
+            edFullName.setText(fullname)
+            edEmail.setText(email)
+            edPhoneNumber.setText(phoneNumber.toString())
+
+            buttonSave.setOnClickListener {
+                buttonSave.startAnimation()
 
                 val phoneNumber = edPhoneNumber.text.toString().trim().toIntOrNull() ?: -1
-                val confirmPassword = edConfirmPassword.text.toString().trim()
 
-                val user = User(
-                    "0",
-                    edFullName.text.toString().trim(),
-                    edEmail.text.toString().trim(),
-                    edPassword.text.toString().trim(),
-                    phoneNumber,
-                    "User",
-                    ""
-                )
-                viewModel.register(user, confirmPassword)
+                viewModel.editProfile(id, edFullName.text.toString().trim(), edEmail.text.toString().trim(), phoneNumber)
             }
 
             viewModel.userLiveData.observe(viewLifecycleOwner, Observer {
-
                 if (it != null) {
-                    buttonRegister.revertAnimation()
+                    buttonSave.revertAnimation()
 
                     Toast.makeText(
                         context,
-                        "Account created successfully.",
+                        "Profile edited successfully.",
                         Toast.LENGTH_LONG
                     ).show()
 
-                    edFullName.setText("")
-                    edEmail.setText("")
-                    edPassword.setText("")
-                    edConfirmPassword.setText("")
-                    edPhoneNumber.setText("")
+                    val sharedPref = requireContext().getSharedPreferences("myPreferences", Context.MODE_PRIVATE)
+                    val editor = sharedPref.edit()
+                    editor.apply {
+                        putString("id", it.id)
+                        putString("fullname", it.fullname)
+                        putString("email", it.email)
+                        putInt("phone", it.phone)
+                        putString("role", it.email)
+                        putString("image", it.image)
+                    }.apply()
+
+                    edFullName.setText(it.fullname)
+                    edEmail.setText(it.email)
+                    edPhoneNumber.setText(it.phone.toString())
                 }
             })
 
             viewModel.messageLiveData.observe(viewLifecycleOwner, Observer {
                 if (it != null) {
-                    buttonRegister.revertAnimation()
+                    buttonSave.revertAnimation()
                     layoutEmail.error = null
 
                     if(it == "Email already exist."){
@@ -101,45 +105,30 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
 
                     layoutFullName.error = null
                     layoutEmail.error = null
-                    layoutPassword.error = null
-                    layoutConfirmPassword.error = null
                     layoutPhoneNumber.error = null
 
                     if (validation.fullname is Validation.Failed) {
                         withContext(Dispatchers.Main) {
                             layoutFullName.error = validation.fullname.message
-                            buttonRegister.revertAnimation()
-
+                            buttonSave.revertAnimation()
                         }
                     }
 
                     if (validation.email is Validation.Failed) {
                         withContext(Dispatchers.Main) {
                             layoutEmail.error = validation.email.message
-                            buttonRegister.revertAnimation()
-                        }
-                    }
-
-                    if (validation.password is Validation.Failed) {
-                        withContext(Dispatchers.Main) {
-                            if(validation.password.message == "Passwords do not match." || validation.password.message == "Confirm your password.") {
-                                layoutConfirmPassword.error = validation.password.message
-                            } else {
-                                layoutPassword.error = validation.password.message
-                            }
-                            buttonRegister.revertAnimation()
+                            buttonSave.revertAnimation()
                         }
                     }
 
                     if (validation.phone is Validation.Failed) {
                         withContext(Dispatchers.Main) {
                             layoutPhoneNumber.error = validation.phone.message
-                            buttonRegister.revertAnimation()
+                            buttonSave.revertAnimation()
                         }
                     }
                 }
             }
-
 
 
         }

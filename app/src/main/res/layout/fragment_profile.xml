@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true">
-
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -87,7 +85,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:id="@+id/layoutFirstName"
+            android:id="@+id/layoutFullName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toStartOf="@+id/rightGuideline"
@@ -99,7 +97,7 @@
             android:layout_marginTop="40dp">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edFirstName"
+                android:id="@+id/edFullName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
         </com.google.android.material.textfield.TextInputLayout>
@@ -111,7 +109,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toStartOf="@+id/rightGuideline"
             app:layout_constraintStart_toStartOf="@+id/leftGuideline"
-            app:layout_constraintTop_toBottomOf="@+id/layoutFirstName"
+            app:layout_constraintTop_toBottomOf="@+id/layoutFullName"
             android:hint="@string/email"
             android:fontFamily="@font/poppins_light"
             android:inputType="textEmailAddress"

@@ -1,4 +1,4 @@
-package tn.esprit.hollyfood.view.fragments.Main
+package tn.esprit.hollyfood.view.fragments.main
 
 import androidx.fragment.app.Fragment
 import tn.esprit.hollyfood.R

@@ -55,7 +55,6 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             }
 
             viewModel.userLiveData.observe(viewLifecycleOwner, Observer {
-
                 if (it != null) {
                     buttonLogin.revertAnimation()
 

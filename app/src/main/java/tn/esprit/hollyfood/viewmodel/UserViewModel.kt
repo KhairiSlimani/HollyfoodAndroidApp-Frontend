@@ -12,9 +12,11 @@ import kotlinx.coroutines.launch
 import tn.esprit.hollyfood.model.RepositoryImp
 import tn.esprit.hollyfood.model.Database
 import tn.esprit.hollyfood.model.APIServices
+import tn.esprit.hollyfood.model.entities.EditProfileRequest
 import tn.esprit.hollyfood.model.entities.User
 import tn.esprit.hollyfood.util.*
 import java.io.IOException
+import java.util.Map
 
 class UserViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -239,5 +241,47 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    fun editProfile(id: String, fullname: String, email: String, phoneNumber: Int) = viewModelScope.launch {
+        if (checkEditProfileValidation(fullname, email, phoneNumber)) {
+            try {
+                val request = EditProfileRequest(fullname, email, phoneNumber)
+
+                var response = repository.editProfile(id, request)
+
+                if (response.isSuccessful) {
+                    userMutableLiveData.postValue(response.body())
+                } else {
+                    if (response.code() == 409) {
+                        messageMutableLiveData.postValue("Email already exist.")
+                    } else {
+                        messageMutableLiveData.postValue("Server error, please try again later.")
+                    }
+                }
+            } catch (e: IOException) {
+                messageMutableLiveData.postValue("Network error, please try again later.")
+                Log.e("error", "IOException: ${e.message}")
+            }
+        } else {
+            val fieldsState = FieldsState(
+                validateFullName(fullname),
+                validateEmail(email),
+                Validation.Success,
+                validatePhoneNumber(phoneNumber.toString())
+            )
+            _validation.send(fieldsState)
+        }
+    }
+
+    private fun checkEditProfileValidation(fullname: String, email: String, phoneNumber: Int): Boolean {
+        val fullnameValidation = validateFullName(fullname)
+        val emailValidation = validateEmail(email)
+        val phoneValidation = validatePhoneNumber(phoneNumber.toString())
+
+        val check = fullnameValidation is Validation.Success &&
+                emailValidation is Validation.Success &&
+                phoneValidation is Validation.Success
+
+        return check
+    }
 
 }

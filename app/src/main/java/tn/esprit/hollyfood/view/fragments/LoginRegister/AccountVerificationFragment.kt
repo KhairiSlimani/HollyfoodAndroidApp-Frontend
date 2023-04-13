@@ -54,9 +54,7 @@ class AccountVerificationFragment : Fragment(R.layout.fragment_account_verificat
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
                     startActivity(intent)
                 }
-
             }
-
 
             viewModel.messageLiveData.observe(viewLifecycleOwner, Observer {
                 if (it != null) {
@@ -105,7 +103,6 @@ class AccountVerificationFragment : Fragment(R.layout.fragment_account_verificat
                     }
                 }
             })
-
 
 
         }
