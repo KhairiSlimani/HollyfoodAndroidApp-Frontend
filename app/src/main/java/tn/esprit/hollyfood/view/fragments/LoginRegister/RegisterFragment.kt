@@ -20,7 +20,6 @@ import tn.esprit.hollyfood.util.Validation
 import tn.esprit.hollyfood.viewmodel.UserViewModel
 
 class RegisterFragment : Fragment(R.layout.fragment_register) {
-
     private lateinit var binding: FragmentRegisterBinding
     private lateinit var viewModel: UserViewModel
 
@@ -97,7 +96,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
             })
 
             lifecycleScope.launch {
-                viewModel.validation.collect { validation ->
+                viewModel.userValidation.collect { validation ->
 
                     layoutFullName.error = null
                     layoutEmail.error = null

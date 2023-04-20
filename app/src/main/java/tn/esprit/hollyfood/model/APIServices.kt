@@ -1,9 +1,11 @@
 package tn.esprit.hollyfood.model
 
+import okhttp3.MultipartBody
 import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.*
 import tn.esprit.hollyfood.model.entities.EditProfileRequest
+import tn.esprit.hollyfood.model.entities.Restaurant
 import tn.esprit.hollyfood.model.entities.User
 
 interface APIServices {
@@ -27,5 +29,11 @@ interface APIServices {
     suspend fun editProfile(@Path("id") id: String, @Body request: EditProfileRequest): Response<User>
     @POST("/users/changePassword")
     suspend fun changePassword(@Body request: Map<String, String>): Response<ResponseBody>
+
+    //RESTAURANT API
+    @POST("/restaurants")
+    suspend fun addRestaurant(@Body restaurant: Restaurant): Response<Restaurant>
+
+
 
 }

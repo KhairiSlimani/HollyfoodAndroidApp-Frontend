@@ -4,11 +4,18 @@ sealed class Validation() {
     object Success : Validation()
     data class Failed(val message: String) : Validation()
 }
-data class FieldsState(
+data class UserFieldsState(
     val fullname: Validation,
     val email: Validation,
     val password: Validation,
     val phone: Validation
+)
+
+data class RestaurantFieldsState(
+    val name: Validation,
+    val address: Validation,
+    val phoneNumber: Validation,
+    val description: Validation
 )
 
 

@@ -17,8 +17,7 @@ data class User(
     var role: String,
     @SerializedName("image")
     var image: String,
-
-    )
+)
 
 data class EditProfileRequest(
     @SerializedName("fullname")

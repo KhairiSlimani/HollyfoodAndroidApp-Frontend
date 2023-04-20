@@ -5,6 +5,7 @@ import kotlinx.coroutines.withContext
 import okhttp3.ResponseBody
 import retrofit2.Response
 import tn.esprit.hollyfood.model.entities.EditProfileRequest
+import tn.esprit.hollyfood.model.entities.Restaurant
 import tn.esprit.hollyfood.model.entities.User
 
 class RepositoryImp(private val api: APIServices) : Repository {
@@ -44,6 +45,10 @@ class RepositoryImp(private val api: APIServices) : Repository {
 
     override suspend fun changePassword(request: Map<String, String>): Response<ResponseBody> = withContext(Dispatchers.IO) {
         api.changePassword(request)
+    }
+
+    override suspend fun addRestaurant(restaurant: Restaurant): Response<Restaurant> = withContext(Dispatchers.IO) {
+        api.addRestaurant(restaurant)
     }
 
 }

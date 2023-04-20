@@ -4,6 +4,7 @@ import okhttp3.ResponseBody
 import org.json.JSONObject
 import retrofit2.Response
 import tn.esprit.hollyfood.model.entities.EditProfileRequest
+import tn.esprit.hollyfood.model.entities.Restaurant
 import tn.esprit.hollyfood.model.entities.User
 
 interface Repository {
@@ -18,5 +19,9 @@ interface Repository {
     suspend fun getByEmail(request: Map<String, String>): Response<User>
     suspend fun editProfile(id:String, request: EditProfileRequest): Response<User>
     suspend fun changePassword(request: Map<String, String>): Response<ResponseBody>
+
+    //Restaurant
+    suspend fun addRestaurant(restaurant: Restaurant): Response<Restaurant>
+
 
 }

@@ -68,7 +68,7 @@ class ForgotPasswordFragment : Fragment(R.layout.fragment_forgot_password) {
             })
 
             lifecycleScope.launch {
-                viewModel.validation.collect { validation ->
+                viewModel.userValidation.collect { validation ->
                     layoutEmail.error = null
 
                     if (validation.email is Validation.Failed) {

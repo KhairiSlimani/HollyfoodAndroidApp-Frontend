@@ -65,7 +65,7 @@ class ResetPasswordFragment : Fragment(R.layout.fragment_reset_password) {
             })
 
             lifecycleScope.launch {
-                viewModel.validation.collect { validation ->
+                viewModel.userValidation.collect { validation ->
                     layoutPassword.error = null
                     layoutConfirmPassword.error = null
 

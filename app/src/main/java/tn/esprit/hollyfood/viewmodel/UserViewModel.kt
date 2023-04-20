@@ -31,8 +31,8 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
     val messageLiveData: LiveData<String> get() = messageMutableLiveData
 
     //StateFlow
-    private val _validation = Channel<FieldsState>()
-    val validation = _validation.receiveAsFlow()
+    private val _userValidation = Channel<UserFieldsState>()
+    val userValidation = _userValidation.receiveAsFlow()
 
     init {
         var serviceInstance = Database.getRetroBuilder().create(APIServices::class.java)
@@ -58,21 +58,21 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
                 Log.e("error", "IOException: ${e.message}")
             }
         } else {
-            val fieldsState = FieldsState(
-                validateFullName(user.fullname),
-                validateEmail(user.email),
-                validatePassword(user.password, confirmPassword),
-                validatePhoneNumber(user.phone.toString())
+            val fieldsState = UserFieldsState(
+                validateUserFullName(user.fullname),
+                validateUserEmail(user.email),
+                validateUserPassword(user.password, confirmPassword),
+                validateUserPhoneNumber(user.phone.toString())
             )
-            _validation.send(fieldsState)
+            _userValidation.send(fieldsState)
         }
     }
 
     private fun checkRegisterValidation(user: User, confirmPassword: String): Boolean {
-        val fullnameValidation = validateFullName(user.fullname)
-        val emailValidation = validateEmail(user.email)
-        val passwordValidation = validatePassword(user.password, confirmPassword)
-        val phoneValidation = validatePhoneNumber(user.phone.toString())
+        val fullnameValidation = validateUserFullName(user.fullname)
+        val emailValidation = validateUserEmail(user.email)
+        val passwordValidation = validateUserPassword(user.password, confirmPassword)
+        val phoneValidation = validateUserPhoneNumber(user.phone.toString())
 
         val check = fullnameValidation is Validation.Success &&
                 emailValidation is Validation.Success &&
@@ -83,7 +83,7 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun login(email: String, password: String) = viewModelScope.launch {
-        if (validateEmail(email) is Validation.Success && validatePassword(password, password) is Validation.Success) {
+        if (validateUserEmail(email) is Validation.Success && validateUserPassword(password, password) is Validation.Success) {
             try {
                 var response = repository.login(User("", "", email, password, 0, "", ""))
 
@@ -105,13 +105,13 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
                 Log.e("error", "IOException: ${e.message}")
             }
         } else {
-            val fieldsState = FieldsState(
+            val fieldsState = UserFieldsState(
                 Validation.Success,
-                validateEmail(email),
-                validatePassword(password, password),
+                validateUserEmail(email),
+                validateUserPassword(password, password),
                 Validation.Success
             )
-            _validation.send(fieldsState)
+            _userValidation.send(fieldsState)
         }
     }
 
@@ -132,7 +132,7 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun forgotPassword(email: String) = viewModelScope.launch {
-        if (validateEmail(email) is Validation.Success) {
+        if (validateUserEmail(email) is Validation.Success) {
             try {
                 val response = repository.forgotPassword(User("", "", email, "", 0, "", ""))
 
@@ -151,13 +151,13 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
                 Log.e("error", "IOException: ${e.message}")
             }
         } else {
-            val fieldsState = FieldsState(
+            val fieldsState = UserFieldsState(
                 Validation.Success,
-                validateEmail(email),
+                validateUserEmail(email),
                 Validation.Success,
                 Validation.Success
             )
-            _validation.send(fieldsState)
+            _userValidation.send(fieldsState)
         }
     }
 
@@ -184,7 +184,7 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
     fun resetPassword(email: String, password: String, confirmPassword: String) = viewModelScope.launch {
         Log.e("==== email, password: ", "${email} ${password} ${confirmPassword}")
 
-        if (validateEmail(email) is Validation.Success && validatePassword(password, confirmPassword) is Validation.Success) {
+        if (validateUserEmail(email) is Validation.Success && validateUserPassword(password, confirmPassword) is Validation.Success) {
             try {
                 val request = mapOf(
                     "email" to email,
@@ -203,13 +203,13 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
                 Log.e("error", "IOException: ${e.message}")
             }
         } else {
-            val fieldsState = FieldsState(
+            val fieldsState = UserFieldsState(
                 Validation.Success,
-                validateEmail(email),
-                validatePassword(password, confirmPassword),
+                validateUserEmail(email),
+                validateUserPassword(password, confirmPassword),
                 Validation.Success
             )
-            _validation.send(fieldsState)
+            _userValidation.send(fieldsState)
         }
     }
 
@@ -262,20 +262,20 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
                 Log.e("error", "IOException: ${e.message}")
             }
         } else {
-            val fieldsState = FieldsState(
-                validateFullName(fullname),
-                validateEmail(email),
+            val fieldsState = UserFieldsState(
+                validateUserFullName(fullname),
+                validateUserEmail(email),
                 Validation.Success,
-                validatePhoneNumber(phoneNumber.toString())
+                validateUserPhoneNumber(phoneNumber.toString())
             )
-            _validation.send(fieldsState)
+            _userValidation.send(fieldsState)
         }
     }
 
     private fun checkEditProfileValidation(fullname: String, email: String, phoneNumber: Int): Boolean {
-        val fullnameValidation = validateFullName(fullname)
-        val emailValidation = validateEmail(email)
-        val phoneValidation = validatePhoneNumber(phoneNumber.toString())
+        val fullnameValidation = validateUserFullName(fullname)
+        val emailValidation = validateUserEmail(email)
+        val phoneValidation = validateUserPhoneNumber(phoneNumber.toString())
 
         val check = fullnameValidation is Validation.Success &&
                 emailValidation is Validation.Success &&
@@ -285,7 +285,7 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun changePassword(email: String,oldPassword: String, newPassword: String, confirmPassword: String) = viewModelScope.launch {
-        if (validatePassword(newPassword, confirmPassword) is Validation.Success) {
+        if (validateUserPassword(newPassword, confirmPassword) is Validation.Success) {
             try {
                 val request = mapOf(
                     "email" to email,
@@ -309,13 +309,13 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
                 Log.e("error", "IOException: ${e.message}")
             }
         } else {
-            val fieldsState = FieldsState(
+            val fieldsState = UserFieldsState(
                 Validation.Success,
-                validateEmail(email),
-                validatePassword(newPassword, confirmPassword),
+                validateUserEmail(email),
+                validateUserPassword(newPassword, confirmPassword),
                 Validation.Success
             )
-            _validation.send(fieldsState)
+            _userValidation.send(fieldsState)
         }
     }
 

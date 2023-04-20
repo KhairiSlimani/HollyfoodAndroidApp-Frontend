@@ -120,7 +120,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             })
 
             lifecycleScope.launch {
-                viewModel.validation.collect { validation ->
+                viewModel.userValidation.collect { validation ->
                     layoutEmail.error = null
                     layoutPassword.error = null
 
