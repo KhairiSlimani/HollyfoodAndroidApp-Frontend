@@ -94,7 +94,6 @@
                 app:layout_constraintStart_toStartOf="@id/guideline1"
                 app:layout_constraintTop_toBottomOf="@id/constraintProfile" />
 
-
             <LinearLayout
                 android:id="@+id/linearSecurity"
                 android:layout_width="0dp"

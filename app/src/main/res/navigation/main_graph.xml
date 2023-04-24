@@ -9,7 +9,11 @@
         android:id="@+id/myRestaurantsFragment"
         android:name="tn.esprit.hollyfood.view.fragments.main.MyRestaurantsFragment"
         android:label="MyRestaurantsFragment"
-        tools:layout="@layout/fragment_my_restaurants" />
+        tools:layout="@layout/fragment_my_restaurants" >
+        <action
+            android:id="@+id/action_myRestaurantsFragment_to_addRestaurantFragment"
+            app:destination="@id/addRestaurantFragment" />
+    </fragment>
     <fragment
         android:id="@+id/restaurantsFragment"
         android:name="tn.esprit.hollyfood.view.fragments.main.RestaurantsFragment"
@@ -44,4 +48,9 @@
         android:id="@+id/changePasswordFragment"
         android:name="tn.esprit.hollyfood.view.fragments.main.ChangePasswordFragment"
         android:label="ChangePasswordFragment" />
+    <fragment
+        android:id="@+id/addRestaurantFragment"
+        android:name="tn.esprit.hollyfood.view.fragments.main.AddRestaurantFragment"
+        android:label="AddRestaurantFragment"
+        tools:layout="@layout/fragment_add_restaurant" />
 </navigation>
