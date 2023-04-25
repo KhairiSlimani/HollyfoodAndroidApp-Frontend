@@ -22,6 +22,7 @@ interface Repository {
 
     //Restaurant
     suspend fun addRestaurant(restaurant: Restaurant): Response<Restaurant>
+    suspend fun getRestaurantsByUser(userId: String): Response<List<Restaurant>>
 
 
 }

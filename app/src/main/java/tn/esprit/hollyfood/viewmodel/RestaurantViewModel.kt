@@ -22,11 +22,15 @@ class RestaurantViewModel(application: Application) : AndroidViewModel(applicati
     private var repository: RepositoryImp
 
     //LiveData
+    private var restaurantsMutableLiveData = MutableLiveData<List<Restaurant>>()
+    val restaurantsLiveData: LiveData<List<Restaurant>> get() = restaurantsMutableLiveData
+
     private var restaurantMutableLiveData = MutableLiveData<Restaurant>()
     val restaurantLiveData: LiveData<Restaurant> get() = restaurantMutableLiveData
 
     private var messageMutableLiveData = MutableLiveData<String>()
     val messageLiveData: LiveData<String> get() = messageMutableLiveData
+
 
     //StateFlow
     private val _restaurantValidation = Channel<RestaurantFieldsState>()
@@ -80,5 +84,19 @@ class RestaurantViewModel(application: Application) : AndroidViewModel(applicati
         return check
     }
 
+    fun getRestaurantsByUser(userId: String) = viewModelScope.launch {
+        try {
+            val response = repository.getRestaurantsByUser(userId)
+
+            if (response.isSuccessful) {
+                restaurantsMutableLiveData.postValue(response.body())
+            } else {
+                messageMutableLiveData.postValue("Server error, please try again later.")
+            }
+        } catch (e: IOException) {
+            messageMutableLiveData.postValue("Network error, please try again later.")
+            Log.e("error", "IOException: ${e.message}")
+        }
+    }
 
 }

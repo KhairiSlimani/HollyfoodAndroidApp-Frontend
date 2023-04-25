@@ -47,8 +47,13 @@ class RepositoryImp(private val api: APIServices) : Repository {
         api.changePassword(request)
     }
 
+    //RESTAURANT
     override suspend fun addRestaurant(restaurant: Restaurant): Response<Restaurant> = withContext(Dispatchers.IO) {
         api.addRestaurant(restaurant)
+    }
+
+    override suspend fun getRestaurantsByUser(userId: String): Response<List<Restaurant>> = withContext(Dispatchers.IO) {
+        api.getRestaurantsByUser(userId)
     }
 
 }

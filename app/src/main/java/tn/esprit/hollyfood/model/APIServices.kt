@@ -33,6 +33,8 @@ interface APIServices {
     //RESTAURANT API
     @POST("/restaurants")
     suspend fun addRestaurant(@Body restaurant: Restaurant): Response<Restaurant>
+    @GET("/restaurants/getByUser/{userId}")
+    suspend fun getRestaurantsByUser(@Path("userId") userId: String): Response<List<Restaurant>>
 
 
 

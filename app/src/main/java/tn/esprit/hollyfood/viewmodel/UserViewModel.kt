@@ -16,7 +16,6 @@ import tn.esprit.hollyfood.model.entities.EditProfileRequest
 import tn.esprit.hollyfood.model.entities.User
 import tn.esprit.hollyfood.util.*
 import java.io.IOException
-import java.util.Map
 
 class UserViewModel(application: Application) : AndroidViewModel(application) {
 

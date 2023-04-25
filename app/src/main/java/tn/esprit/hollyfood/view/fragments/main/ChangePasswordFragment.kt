@@ -73,7 +73,7 @@ class ChangePasswordFragment : Fragment(R.layout.fragment_change_password) {
             })
 
             lifecycleScope.launch {
-                viewModel.validation.collect { validation ->
+                viewModel.userValidation.collect { validation ->
                     layoutOldPassword.error = null
                     layoutNewPassword.error = null
                     layoutConfirmPassword.error = null

@@ -101,7 +101,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             })
 
             lifecycleScope.launch {
-                viewModel.validation.collect { validation ->
+                viewModel.userValidation.collect { validation ->
 
                     layoutFullName.error = null
                     layoutEmail.error = null

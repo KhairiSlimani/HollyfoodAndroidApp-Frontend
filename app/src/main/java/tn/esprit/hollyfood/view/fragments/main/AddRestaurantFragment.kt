@@ -1,6 +1,7 @@
 package tn.esprit.hollyfood.view.fragments.main
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -43,6 +44,8 @@ class AddRestaurantFragment : Fragment(R.layout.fragment_add_restaurant) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(RestaurantViewModel::class.java)
+        val sharedPref = requireContext().getSharedPreferences("myPreferences", Context.MODE_PRIVATE)
+        val userId : String = sharedPref.getString("id", "") ?: ""
 
         binding.apply {
             buttonAdd.setOnClickListener {
@@ -54,7 +57,7 @@ class AddRestaurantFragment : Fragment(R.layout.fragment_add_restaurant) {
                     edAddress.text.toString().trim(),
                     phoneNumber,
                     edDescription.text.toString().trim(),
-                    ""
+                    userId
                 )
                 viewModel.addRestaurant(restaurant)
             }
