@@ -49,5 +49,10 @@
     <string name="select_image">Select Image</string>
     <string name="title">Title</string>
     <string name="my_restaurants">My Restaurants</string>
+    <string name="information">Information</string>
+    <string name="phone_number_label">Phone Number :</string>
+    <string name="address_label">Address :</string>
+    <string name="see_menu">See Menu</string>
+    <string name="see_orders">See Orders</string>
 
 </resources>
