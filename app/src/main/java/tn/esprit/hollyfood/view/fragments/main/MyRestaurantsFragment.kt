@@ -16,6 +16,7 @@ import tn.esprit.hollyfood.databinding.FragmentProfileBinding
 import tn.esprit.hollyfood.model.entities.Restaurant
 import tn.esprit.hollyfood.view.adapters.OnListItemClick
 import tn.esprit.hollyfood.view.adapters.RestaurantRecyclerView
+import tn.esprit.hollyfood.view.fragments.LoginRegister.LoginFragmentDirections
 import tn.esprit.hollyfood.viewmodel.RestaurantViewModel
 import tn.esprit.hollyfood.viewmodel.UserViewModel
 
@@ -83,6 +84,8 @@ class MyRestaurantsFragment : Fragment(R.layout.fragment_my_restaurants), OnList
     }
 
     override fun onItemClick(restaurant: Restaurant) {
-        TODO("Not yet implemented")
+        val action = MyRestaurantsFragmentDirections.actionMyRestaurantsFragmentToRestaurantDetailsFragment(restaurant.id)
+        findNavController().navigate(action)
     }
+
 }

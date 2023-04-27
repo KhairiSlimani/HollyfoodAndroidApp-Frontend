@@ -54,5 +54,11 @@
     <string name="address_label">Address :</string>
     <string name="see_menu">See Menu</string>
     <string name="see_orders">See Orders</string>
+    <string name="name">Name</string>
+    <string name="edit_restaurant">Edit Restaurant</string>
+    <string name="delete_restaurant">Delete Restaurant</string>
+    <string name="see_comments">See Comments</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
 
 </resources>

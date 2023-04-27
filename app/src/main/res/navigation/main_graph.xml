@@ -17,6 +17,13 @@
             app:exitAnim="@anim/to_left"
             app:popEnterAnim="@anim/from_left"
             app:popExitAnim="@anim/to_right" />
+        <action
+            android:id="@+id/action_myRestaurantsFragment_to_restaurantDetailsFragment"
+            app:destination="@id/restaurantDetailsFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
     </fragment>
     <fragment
         android:id="@+id/restaurantsFragment"
@@ -59,4 +66,34 @@
         android:name="tn.esprit.hollyfood.view.fragments.main.AddRestaurantFragment"
         android:label="AddRestaurantFragment"
         tools:layout="@layout/fragment_add_restaurant" />
+    <fragment
+        android:id="@+id/restaurantDetailsFragment"
+        android:name="tn.esprit.hollyfood.view.fragments.main.RestaurantDetailsFragment"
+        android:label="RestaurantDetailsFragment"
+        tools:layout="@layout/fragment_restaurant_details" >
+        <argument
+            android:name="restaurantId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_restaurantDetailsFragment_to_editRestaurantFragment"
+            app:destination="@id/editRestaurantFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
+        <action
+            android:id="@+id/action_restaurantDetailsFragment_to_myRestaurantsFragment"
+            app:destination="@id/myRestaurantsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editRestaurantFragment"
+        android:name="tn.esprit.hollyfood.view.fragments.main.EditRestaurantFragment"
+        android:label="EditRestaurantFragment"
+        tools:layout="@layout/fragment_edit_restaurant" >
+        <argument
+            android:name="restaurantId"
+            app:argType="string" />
+    </fragment>
+
+
 </navigation>

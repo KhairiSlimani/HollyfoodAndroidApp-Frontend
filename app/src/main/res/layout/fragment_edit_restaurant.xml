@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/blury_background"
+        android:scaleType="centerCrop"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tvEditRestaurantTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/h4"
+            android:layout_marginTop="40dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="@string/edit_restaurant"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:textSize="35sp"/>
+
+        <TextView
+            android:id="@+id/tvEditRestaurantText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/h2"
+            app:layout_constraintStart_toStartOf="@id/tvEditRestaurantTitle"
+            app:layout_constraintEnd_toEndOf="@id/tvEditRestaurantTitle"
+            app:layout_constraintTop_toBottomOf="@id/tvEditRestaurantTitle"
+            android:text="@string/add_restaurant_text"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:layout_marginTop="10dp"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:id="@+id/layoutName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/guidelineLeft"
+            app:layout_constraintEnd_toEndOf="@id/guidelineRight"
+            app:layout_constraintTop_toBottomOf="@id/tvEditRestaurantText"
+            android:hint="@string/restaurant_name"
+            android:layout_marginTop="20dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:id="@+id/layoutAddress"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/guidelineLeft"
+            app:layout_constraintEnd_toEndOf="@id/guidelineRight"
+            app:layout_constraintTop_toBottomOf="@id/layoutName"
+            android:hint="@string/address"
+            android:layout_marginTop="10dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:id="@+id/layoutPhoneNumber"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/guidelineLeft"
+            app:layout_constraintEnd_toEndOf="@id/guidelineRight"
+            app:layout_constraintTop_toBottomOf="@id/layoutAddress"
+            android:hint="@string/phone_number"
+            android:layout_marginTop="10dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edPhoneNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:id="@+id/layoutDescription"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/guidelineLeft"
+            app:layout_constraintEnd_toEndOf="@id/guidelineRight"
+            app:layout_constraintTop_toBottomOf="@id/layoutPhoneNumber"
+            android:hint="@string/description"
+            android:layout_marginTop="10dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.apachat.loadingbutton.core.customViews.CircularProgressButton
+            android:id="@+id/buttonSave"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/mediumButtonHeight"
+            style="@style/orangeButtonStyle"
+            app:layout_constraintTop_toBottomOf="@id/layoutDescription"
+            app:layout_constraintStart_toStartOf="@id/guidelineLeft"
+            app:layout_constraintEnd_toEndOf="@id/guidelineRight"
+            android:layout_marginTop="15dp"
+            android:text="@string/save"
+            app:spinning_bar_color="@color/white"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineLeft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.09" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineRight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.91" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

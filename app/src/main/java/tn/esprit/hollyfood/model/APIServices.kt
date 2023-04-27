@@ -35,7 +35,12 @@ interface APIServices {
     suspend fun addRestaurant(@Body restaurant: Restaurant): Response<Restaurant>
     @GET("/restaurants/getByUser/{userId}")
     suspend fun getRestaurantsByUser(@Path("userId") userId: String): Response<List<Restaurant>>
-
+    @GET("/restaurants/{id}")
+    suspend fun getRestaurantById(@Path("id") id: String): Response<Restaurant>
+    @PUT("/restaurants/{id}")
+    suspend fun editRestaurant(@Path("id") id: String, @Body restaurant: Restaurant): Response<Restaurant>
+    @DELETE("/restaurants/{id}")
+    suspend fun deleteRestaurant(@Path("id") id: String): Response<Restaurant>
 
 
 }

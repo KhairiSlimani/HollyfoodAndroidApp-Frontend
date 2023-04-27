@@ -28,6 +28,10 @@ class RestaurantViewModel(application: Application) : AndroidViewModel(applicati
     private var restaurantMutableLiveData = MutableLiveData<Restaurant>()
     val restaurantLiveData: LiveData<Restaurant> get() = restaurantMutableLiveData
 
+    private var newRestaurantMutableLiveData = MutableLiveData<Restaurant>()
+    val newRestaurantLiveData: LiveData<Restaurant> get() = newRestaurantMutableLiveData
+
+
     private var messageMutableLiveData = MutableLiveData<String>()
     val messageLiveData: LiveData<String> get() = messageMutableLiveData
 
@@ -98,5 +102,67 @@ class RestaurantViewModel(application: Application) : AndroidViewModel(applicati
             Log.e("error", "IOException: ${e.message}")
         }
     }
+
+    fun getRestaurantById(id: String) = viewModelScope.launch {
+        try {
+            val response = repository.getRestaurantById(id)
+
+            if (response.isSuccessful) {
+                restaurantMutableLiveData.postValue(response.body())
+            } else {
+                messageMutableLiveData.postValue("Server error, please try again later.")
+            }
+        } catch (e: IOException) {
+            messageMutableLiveData.postValue("Network error, please try again later.")
+            Log.e("error", "IOException: ${e.message}")
+        }
+    }
+
+    fun editRestaurant(restaurant: Restaurant) = viewModelScope.launch {
+        if (checkRestaurantValidation(restaurant)) {
+            try {
+                var response = repository.editRestaurant(restaurant)
+
+                if (response.isSuccessful) {
+                    messageMutableLiveData.postValue("Restaurant Edited Successfully.")
+                } else {
+                    if (response.code() == 400) {
+                        messageMutableLiveData.postValue("Invalid information.")
+                    } else {
+                        messageMutableLiveData.postValue("Server error, please try again later.")
+                    }
+                }
+            } catch (e: IOException) {
+                messageMutableLiveData.postValue("Network error, please try again later.")
+                Log.e("error", "IOException: ${e.message}")
+            }
+        } else {
+            val fieldsState = RestaurantFieldsState(
+                validateRestaurantName(restaurant.name),
+                validateRestaurantAddress(restaurant.address),
+                validateRestaurantPhoneNumber(restaurant.phoneNumber.toString()),
+                validateRestaurantDescription(restaurant.description)
+            )
+            _restaurantValidation.send(fieldsState)
+        }
+    }
+
+    fun deleteRestaurant(id: String) = viewModelScope.launch {
+        try {
+            val response = repository.deleteRestaurant(id)
+
+            if (response.isSuccessful) {
+                messageMutableLiveData.postValue("Restaurant deleted successfully.")
+            } else {
+                messageMutableLiveData.postValue("Server error, please try again later.")
+            }
+        } catch (e: IOException) {
+            messageMutableLiveData.postValue("Network error, please try again later.")
+            Log.e("error", "IOException: ${e.message}")
+        }
+    }
+
+
+
 
 }

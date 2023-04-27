@@ -3,6 +3,7 @@ package tn.esprit.hollyfood.model
 import okhttp3.ResponseBody
 import org.json.JSONObject
 import retrofit2.Response
+import retrofit2.http.Path
 import tn.esprit.hollyfood.model.entities.EditProfileRequest
 import tn.esprit.hollyfood.model.entities.Restaurant
 import tn.esprit.hollyfood.model.entities.User
@@ -23,6 +24,9 @@ interface Repository {
     //Restaurant
     suspend fun addRestaurant(restaurant: Restaurant): Response<Restaurant>
     suspend fun getRestaurantsByUser(userId: String): Response<List<Restaurant>>
+    suspend fun getRestaurantById(id: String): Response<Restaurant>
+    suspend fun editRestaurant(restaurant: Restaurant): Response<Restaurant>
+    suspend fun deleteRestaurant(id: String): Response<Restaurant>
 
 
 }
