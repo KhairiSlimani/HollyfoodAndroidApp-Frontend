@@ -2,6 +2,7 @@ package tn.esprit.hollyfood.model
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import okhttp3.MultipartBody
 import okhttp3.ResponseBody
 import retrofit2.Response
 import tn.esprit.hollyfood.model.entities.EditProfileRequest
@@ -48,8 +49,8 @@ class RepositoryImp(private val api: APIServices) : Repository {
     }
 
     //RESTAURANT
-    override suspend fun addRestaurant(restaurant: Restaurant): Response<Restaurant> = withContext(Dispatchers.IO) {
-        api.addRestaurant(restaurant)
+    override suspend fun addRestaurant(name: MultipartBody.Part, address: MultipartBody.Part, phoneNumber: MultipartBody.Part, description: MultipartBody.Part, image: MultipartBody.Part, userId: MultipartBody.Part): Response<Restaurant> = withContext(Dispatchers.IO) {
+        api.addRestaurant(name, address, phoneNumber, description, image, userId)
     }
 
     override suspend fun getRestaurantsByUser(userId: String): Response<List<Restaurant>> = withContext(Dispatchers.IO) {
@@ -67,6 +68,5 @@ class RepositoryImp(private val api: APIServices) : Repository {
     override suspend fun deleteRestaurant(id: String): Response<Restaurant> = withContext(Dispatchers.IO) {
         api.deleteRestaurant(id)
     }
-
 
 }

@@ -30,9 +30,15 @@ interface APIServices {
     @POST("/users/changePassword")
     suspend fun changePassword(@Body request: Map<String, String>): Response<ResponseBody>
 
-    //RESTAURANT API
+    @Multipart
     @POST("/restaurants")
-    suspend fun addRestaurant(@Body restaurant: Restaurant): Response<Restaurant>
+    suspend fun addRestaurant(@Part name: MultipartBody.Part,
+                              @Part address: MultipartBody.Part,
+                              @Part phoneNumber: MultipartBody.Part,
+                              @Part description: MultipartBody.Part,
+                              @Part image: MultipartBody.Part,
+                              @Part userId: MultipartBody.Part): Response<Restaurant>
+
     @GET("/restaurants/getByUser/{userId}")
     suspend fun getRestaurantsByUser(@Path("userId") userId: String): Response<List<Restaurant>>
     @GET("/restaurants/{id}")

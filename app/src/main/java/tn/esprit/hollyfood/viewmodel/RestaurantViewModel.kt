@@ -9,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
+import okhttp3.MultipartBody
 import tn.esprit.hollyfood.model.APIServices
 import tn.esprit.hollyfood.model.Database
 import tn.esprit.hollyfood.model.RepositoryImp
@@ -31,10 +32,8 @@ class RestaurantViewModel(application: Application) : AndroidViewModel(applicati
     private var newRestaurantMutableLiveData = MutableLiveData<Restaurant>()
     val newRestaurantLiveData: LiveData<Restaurant> get() = newRestaurantMutableLiveData
 
-
     private var messageMutableLiveData = MutableLiveData<String>()
     val messageLiveData: LiveData<String> get() = messageMutableLiveData
-
 
     //StateFlow
     private val _restaurantValidation = Channel<RestaurantFieldsState>()
@@ -45,10 +44,16 @@ class RestaurantViewModel(application: Application) : AndroidViewModel(applicati
         repository = RepositoryImp(serviceInstance)
     }
 
-    fun addRestaurant(restaurant: Restaurant) = viewModelScope.launch {
+    fun addRestaurant(restaurant: Restaurant, image: MultipartBody.Part) = viewModelScope.launch {
         if (checkRestaurantValidation(restaurant)) {
             try {
-                var response = repository.addRestaurant(restaurant)
+                val name = MultipartBody.Part.createFormData("name", restaurant.name)
+                val address = MultipartBody.Part.createFormData("address",restaurant.address)
+                val phoneNumber = MultipartBody.Part.createFormData("phoneNumber", restaurant.phoneNumber.toString())
+                val description = MultipartBody.Part.createFormData("description", restaurant.description)
+                val userId = MultipartBody.Part.createFormData("userId", restaurant.userId)
+
+                var response = repository.addRestaurant(name, address, phoneNumber, description, image, userId)
 
                 if (response.isSuccessful) {
                     restaurantMutableLiveData.postValue(response.body())
@@ -161,8 +166,5 @@ class RestaurantViewModel(application: Application) : AndroidViewModel(applicati
             Log.e("error", "IOException: ${e.message}")
         }
     }
-
-
-
 
 }

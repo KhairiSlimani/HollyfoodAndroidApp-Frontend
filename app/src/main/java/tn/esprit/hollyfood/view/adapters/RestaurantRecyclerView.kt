@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import tn.esprit.hollyfood.R
 import tn.esprit.hollyfood.model.entities.Restaurant
 
@@ -24,7 +25,10 @@ class RestaurantRecyclerView: RecyclerView.Adapter<RestaurantRecyclerView.Restau
         var itemDescription: TextView = itemView.findViewById(R.id.itemDescription)
 
         fun bind(restaurant: Restaurant){
-            itemImage.setImageResource(R.drawable.restaurant_item)
+
+            Glide.with(itemView.context).load(restaurant.image).into(itemImage)
+
+            //itemImage.setImageResource(R.drawable.restaurant_item)
             itemName.text = restaurant.name
             itemDescription.text = restaurant.description
 

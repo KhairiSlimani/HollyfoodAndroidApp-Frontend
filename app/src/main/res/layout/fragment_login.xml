@@ -97,7 +97,6 @@
             android:gravity="center"
             android:textColor="@color/black"/>
 
-
         <com.apachat.loadingbutton.core.customViews.CircularProgressButton
             android:id="@+id/buttonLogin"
             android:layout_width="0dp"

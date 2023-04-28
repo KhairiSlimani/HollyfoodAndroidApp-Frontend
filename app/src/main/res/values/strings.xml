@@ -60,5 +60,6 @@
     <string name="see_comments">See Comments</string>
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
+    <string name="upload_cover">Upload Cover</string>
 
 </resources>

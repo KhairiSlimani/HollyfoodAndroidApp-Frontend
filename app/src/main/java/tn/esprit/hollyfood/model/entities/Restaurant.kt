@@ -13,7 +13,9 @@ data class Restaurant(
     var phoneNumber: Int,
     @SerializedName("description")
     var description: String,
+    @SerializedName("image")
+    var image: String,
     @SerializedName("userId")
-    var userId: String,
+    var userId: String
 )
 

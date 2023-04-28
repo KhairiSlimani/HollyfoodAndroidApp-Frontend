@@ -16,12 +16,9 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import tn.esprit.hollyfood.R
 import tn.esprit.hollyfood.databinding.FragmentEditRestaurantBinding
-import tn.esprit.hollyfood.databinding.FragmentProfileBinding
-import tn.esprit.hollyfood.databinding.FragmentRestaurantDetailsBinding
 import tn.esprit.hollyfood.model.entities.Restaurant
 import tn.esprit.hollyfood.util.Validation
 import tn.esprit.hollyfood.viewmodel.RestaurantViewModel
-import tn.esprit.hollyfood.viewmodel.UserViewModel
 
 class EditRestaurantFragment : Fragment(R.layout.fragment_edit_restaurant) {
     private lateinit var binding: FragmentEditRestaurantBinding
@@ -65,6 +62,7 @@ class EditRestaurantFragment : Fragment(R.layout.fragment_edit_restaurant) {
                     edAddress.text.toString().trim(),
                     phoneNumber,
                     edDescription.text.toString().trim(),
+                    "",
                     userId
                 )
 

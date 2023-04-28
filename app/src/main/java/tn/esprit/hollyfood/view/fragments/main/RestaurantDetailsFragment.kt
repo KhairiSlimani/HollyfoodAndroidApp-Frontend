@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import tn.esprit.hollyfood.R
 import tn.esprit.hollyfood.databinding.FragmentRestaurantDetailsBinding
 import tn.esprit.hollyfood.viewmodel.RestaurantViewModel
@@ -40,6 +41,8 @@ class RestaurantDetailsFragment : Fragment(R.layout.fragment_profile) {
         binding.apply {
             viewModel.restaurantLiveData.observe(viewLifecycleOwner, Observer {
                 if (it != null) {
+                    Glide.with(requireContext()).load(it.image).into(restaurantImage)
+
                     restaurantName.setText(it.name)
                     restaurantDescription.setText(it.description)
                     restaurantAddress.setText(it.address)
@@ -66,6 +69,10 @@ class RestaurantDetailsFragment : Fragment(R.layout.fragment_profile) {
                     .show()
             }
 
+            seeMenuButton.setOnClickListener {
+                val action = RestaurantDetailsFragmentDirections.actionRestaurantDetailsFragmentToRestaurantMenuFragment(id)
+                findNavController().navigate(action)
+            }
         }
     }
 }

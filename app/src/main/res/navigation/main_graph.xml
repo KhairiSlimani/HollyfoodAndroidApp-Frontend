@@ -84,6 +84,9 @@
         <action
             android:id="@+id/action_restaurantDetailsFragment_to_myRestaurantsFragment"
             app:destination="@id/myRestaurantsFragment" />
+        <action
+            android:id="@+id/action_restaurantDetailsFragment_to_restaurantMenuFragment"
+            app:destination="@id/restaurantMenuFragment" />
     </fragment>
     <fragment
         android:id="@+id/editRestaurantFragment"
@@ -91,6 +94,15 @@
         android:label="EditRestaurantFragment"
         tools:layout="@layout/fragment_edit_restaurant" >
         <argument
+            android:name="restaurantId"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/restaurantMenuFragment"
+        android:name="tn.esprit.hollyfood.view.fragments.main.RestaurantMenuFragment"
+        android:label="RestaurantMenuFragment"
+        tools:layout="@layout/fragment_restaurant_menu" >
+    <argument
             android:name="restaurantId"
             app:argType="string" />
     </fragment>
