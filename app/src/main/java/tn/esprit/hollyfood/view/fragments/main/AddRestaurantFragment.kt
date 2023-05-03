@@ -83,7 +83,7 @@ class AddRestaurantFragment : Fragment(R.layout.fragment_add_restaurant), Upload
                 val outputStream = FileOutputStream(file)
                 inputStream.copyTo(outputStream)
                 val uploadRequestFile = UploadRequestBody(file, "image", this@AddRestaurantFragment)
-                val image = MultipartBody.Part.createFormData("image",file?.name, uploadRequestFile)
+                val image = MultipartBody.Part.createFormData("image", file?.name, uploadRequestFile)
 
                 val restaurant = Restaurant(
                     "0",

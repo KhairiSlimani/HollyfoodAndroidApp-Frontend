@@ -18,4 +18,8 @@ data class RestaurantFieldsState(
     val description: Validation
 )
 
+data class PlateFieldsState(
+    val name: Validation,
+    val price: Validation
+)
 

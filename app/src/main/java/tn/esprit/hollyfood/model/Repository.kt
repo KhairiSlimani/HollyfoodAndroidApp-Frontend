@@ -6,6 +6,7 @@ import org.json.JSONObject
 import retrofit2.Response
 import retrofit2.http.Path
 import tn.esprit.hollyfood.model.entities.EditProfileRequest
+import tn.esprit.hollyfood.model.entities.Plate
 import tn.esprit.hollyfood.model.entities.Restaurant
 import tn.esprit.hollyfood.model.entities.User
 
@@ -26,8 +27,10 @@ interface Repository {
     suspend fun addRestaurant(name: MultipartBody.Part, address: MultipartBody.Part, phoneNumber: MultipartBody.Part, description: MultipartBody.Part, image: MultipartBody.Part, userId: MultipartBody.Part): Response<Restaurant>
     suspend fun getRestaurantsByUser(userId: String): Response<List<Restaurant>>
     suspend fun getRestaurantById(id: String): Response<Restaurant>
-    suspend fun editRestaurant(restaurant: Restaurant): Response<Restaurant>
+    suspend fun editRestaurant(id:String, name: MultipartBody.Part, address: MultipartBody.Part, phoneNumber: MultipartBody.Part, description: MultipartBody.Part, userId: MultipartBody.Part): Response<Restaurant>
     suspend fun deleteRestaurant(id: String): Response<Restaurant>
 
+    //Plate
+    suspend fun getPlatesByRestaurant(restaurantId: String): Response<List<Plate>>
 
 }

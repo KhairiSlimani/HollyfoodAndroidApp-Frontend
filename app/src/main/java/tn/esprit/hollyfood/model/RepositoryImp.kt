@@ -6,6 +6,7 @@ import okhttp3.MultipartBody
 import okhttp3.ResponseBody
 import retrofit2.Response
 import tn.esprit.hollyfood.model.entities.EditProfileRequest
+import tn.esprit.hollyfood.model.entities.Plate
 import tn.esprit.hollyfood.model.entities.Restaurant
 import tn.esprit.hollyfood.model.entities.User
 
@@ -61,12 +62,16 @@ class RepositoryImp(private val api: APIServices) : Repository {
         api.getRestaurantById(id)
     }
 
-    override suspend fun editRestaurant(restaurant: Restaurant): Response<Restaurant> = withContext(Dispatchers.IO) {
-        api.editRestaurant(restaurant.id, restaurant)
+    override suspend fun editRestaurant(id: String, name: MultipartBody.Part, address: MultipartBody.Part, phoneNumber: MultipartBody.Part, description: MultipartBody.Part, userId: MultipartBody.Part): Response<Restaurant> = withContext(Dispatchers.IO) {
+        api.editRestaurant(id, name, address, phoneNumber, description, userId)
     }
 
     override suspend fun deleteRestaurant(id: String): Response<Restaurant> = withContext(Dispatchers.IO) {
         api.deleteRestaurant(id)
+    }
+
+    override suspend fun getPlatesByRestaurant(restaurantId: String): Response<List<Plate>> = withContext(Dispatchers.IO) {
+        api.getPlatesByRestaurant(restaurantId)
     }
 
 }

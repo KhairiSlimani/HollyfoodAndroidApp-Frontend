@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import tn.esprit.hollyfood.R
 import tn.esprit.hollyfood.databinding.FragmentMyRestaurantsBinding
 import tn.esprit.hollyfood.databinding.FragmentProfileBinding
+import tn.esprit.hollyfood.model.entities.Plate
 import tn.esprit.hollyfood.model.entities.Restaurant
 import tn.esprit.hollyfood.view.adapters.OnListItemClick
 import tn.esprit.hollyfood.view.adapters.RestaurantRecyclerView
@@ -86,6 +87,10 @@ class MyRestaurantsFragment : Fragment(R.layout.fragment_my_restaurants), OnList
     override fun onItemClick(restaurant: Restaurant) {
         val action = MyRestaurantsFragmentDirections.actionMyRestaurantsFragmentToRestaurantDetailsFragment(restaurant.id)
         findNavController().navigate(action)
+    }
+
+    override fun onAddToCartClick(plate: Plate) {
+        TODO("Not yet implemented")
     }
 
 }

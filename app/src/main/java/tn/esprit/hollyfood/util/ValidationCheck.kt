@@ -90,3 +90,21 @@ fun validateRestaurantDescription(name: String): Validation {
 
     return Validation.Success
 }
+
+//PLATE
+fun validatePlateName(name: String): Validation {
+    if (name.isEmpty())
+        return Validation.Failed("Plate name can't be empty.")
+
+    if (name.length < 4)
+        return Validation.Failed("Use 4 characters or more for plate name.")
+
+    return Validation.Success
+}
+
+fun validatePlatePrice(price: String): Validation {
+    if (price == "-1")
+        return Validation.Failed("plate price can't be empty")
+
+    return Validation.Success
+}

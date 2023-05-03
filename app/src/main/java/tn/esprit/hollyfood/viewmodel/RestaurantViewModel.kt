@@ -126,7 +126,14 @@ class RestaurantViewModel(application: Application) : AndroidViewModel(applicati
     fun editRestaurant(restaurant: Restaurant) = viewModelScope.launch {
         if (checkRestaurantValidation(restaurant)) {
             try {
-                var response = repository.editRestaurant(restaurant)
+
+                val name = MultipartBody.Part.createFormData("name", restaurant.name)
+                val address = MultipartBody.Part.createFormData("address",restaurant.address)
+                val phoneNumber = MultipartBody.Part.createFormData("phoneNumber", restaurant.phoneNumber.toString())
+                val description = MultipartBody.Part.createFormData("description", restaurant.description)
+                val userId = MultipartBody.Part.createFormData("userId", restaurant.userId)
+
+                var response = repository.editRestaurant(restaurant.id, name, address, phoneNumber, description, userId)
 
                 if (response.isSuccessful) {
                     messageMutableLiveData.postValue("Restaurant Edited Successfully.")

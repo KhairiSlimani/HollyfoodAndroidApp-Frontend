@@ -61,5 +61,14 @@
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
     <string name="upload_cover">Upload Cover</string>
+    <string name="best_plates">Best Plates</string>
+    <string name="search_now">Search Now</string>
+    <string name="menu">Menu</string>
+    <string name="plates">Menu</string>
+    <string name="category">Category: </string>
+    <string name="plate">Plate</string>
+    <string name="my_cart">"My Cart "</string>
+    <string name="total">Total</string>
+    <string name="make_order">Make Order</string>
 
 </resources>

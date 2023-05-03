@@ -10,7 +10,7 @@ import com.bumptech.glide.Glide
 import tn.esprit.hollyfood.R
 import tn.esprit.hollyfood.model.entities.Restaurant
 
-class RestaurantRecyclerView: RecyclerView.Adapter<RestaurantRecyclerView.RestaurantViewHolder>() {
+class RestaurantRecyclerView : RecyclerView.Adapter<RestaurantRecyclerView.RestaurantViewHolder>() {
     var restaurantsList:List<Restaurant> = emptyList()
     var onListItemClick: OnListItemClick? = null
 
