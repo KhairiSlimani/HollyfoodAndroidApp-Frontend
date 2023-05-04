@@ -4,10 +4,7 @@ import okhttp3.MultipartBody
 import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.*
-import tn.esprit.hollyfood.model.entities.EditProfileRequest
-import tn.esprit.hollyfood.model.entities.Plate
-import tn.esprit.hollyfood.model.entities.Restaurant
-import tn.esprit.hollyfood.model.entities.User
+import tn.esprit.hollyfood.model.entities.*
 
 interface APIServices {
 
@@ -48,6 +45,7 @@ interface APIServices {
                                @Part phoneNumber: MultipartBody.Part,
                                @Part description: MultipartBody.Part,
                                @Part userId: MultipartBody.Part): Response<Restaurant>
+
     @GET("/restaurants/getByUser/{userId}")
     suspend fun getRestaurantsByUser(@Path("userId") userId: String): Response<List<Restaurant>>
     @GET("/restaurants/{id}")
@@ -55,10 +53,19 @@ interface APIServices {
     @DELETE("/restaurants/{id}")
     suspend fun deleteRestaurant(@Path("id") id: String): Response<Restaurant>
 
-
     //Plate
     @GET("/plates/getByRestaurant/{restaurantId}")
     suspend fun getPlatesByRestaurant(@Path("restaurantId") restaurantId: String): Response<List<Plate>>
+
+    //Plate
+    @POST("/orders")
+    suspend fun addOrder(@Body order: Order): Response<Order>
+    @GET("/orders/getByRestaurant/{restaurantId}")
+    suspend fun getOrdersByRestaurant(@Path("restaurantId") restaurantId: String): Response<List<Order>>
+    @GET("/orders/getByUser/{userId}")
+    suspend fun getOrdersByUser(@Path("userId") userId: String): Response<List<Order>>
+    @DELETE("/orders/{id}")
+    suspend fun deleteOrder(@Path("id") id: String): Response<Order>
 
 
 }

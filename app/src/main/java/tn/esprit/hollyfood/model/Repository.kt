@@ -4,11 +4,8 @@ import okhttp3.MultipartBody
 import okhttp3.ResponseBody
 import org.json.JSONObject
 import retrofit2.Response
-import retrofit2.http.Path
-import tn.esprit.hollyfood.model.entities.EditProfileRequest
-import tn.esprit.hollyfood.model.entities.Plate
-import tn.esprit.hollyfood.model.entities.Restaurant
-import tn.esprit.hollyfood.model.entities.User
+import retrofit2.http.*
+import tn.esprit.hollyfood.model.entities.*
 
 interface Repository {
 
@@ -32,5 +29,11 @@ interface Repository {
 
     //Plate
     suspend fun getPlatesByRestaurant(restaurantId: String): Response<List<Plate>>
+
+    //Order
+    suspend fun addOrder(order: Order): Response<Order>
+    suspend fun getOrdersByRestaurant(restaurantId: String): Response<List<Order>>
+    suspend fun getOrdersByUser(userId: String): Response<List<Order>>
+    suspend fun deleteOrder(id: String): Response<Order>
 
 }

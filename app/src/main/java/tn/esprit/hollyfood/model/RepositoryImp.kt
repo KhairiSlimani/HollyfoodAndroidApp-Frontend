@@ -5,10 +5,7 @@ import kotlinx.coroutines.withContext
 import okhttp3.MultipartBody
 import okhttp3.ResponseBody
 import retrofit2.Response
-import tn.esprit.hollyfood.model.entities.EditProfileRequest
-import tn.esprit.hollyfood.model.entities.Plate
-import tn.esprit.hollyfood.model.entities.Restaurant
-import tn.esprit.hollyfood.model.entities.User
+import tn.esprit.hollyfood.model.entities.*
 
 class RepositoryImp(private val api: APIServices) : Repository {
 
@@ -72,6 +69,22 @@ class RepositoryImp(private val api: APIServices) : Repository {
 
     override suspend fun getPlatesByRestaurant(restaurantId: String): Response<List<Plate>> = withContext(Dispatchers.IO) {
         api.getPlatesByRestaurant(restaurantId)
+    }
+
+    override suspend fun addOrder(order: Order): Response<Order> = withContext(Dispatchers.IO) {
+        api.addOrder(order)
+    }
+
+    override suspend fun getOrdersByRestaurant(restaurantId: String): Response<List<Order>> = withContext(Dispatchers.IO) {
+        api.getOrdersByRestaurant(restaurantId)
+    }
+
+    override suspend fun getOrdersByUser(userId: String): Response<List<Order>> = withContext(Dispatchers.IO) {
+        api.getOrdersByUser(userId)
+    }
+
+    override suspend fun deleteOrder(id: String): Response<Order> = withContext(Dispatchers.IO) {
+        api.deleteOrder(id)
     }
 
 }

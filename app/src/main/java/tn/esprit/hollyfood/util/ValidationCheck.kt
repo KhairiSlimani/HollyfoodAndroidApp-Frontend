@@ -108,3 +108,14 @@ fun validatePlatePrice(price: String): Validation {
 
     return Validation.Success
 }
+
+//ORDER
+fun validateOrderAddress(address: String): Validation {
+    if (address.isEmpty())
+        return Validation.Failed("Address can't be empty.")
+
+    if (address.length < 4)
+        return Validation.Failed("Use 4 characters or more for the address.")
+
+    return Validation.Success
+}

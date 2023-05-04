@@ -23,3 +23,7 @@ data class PlateFieldsState(
     val price: Validation
 )
 
+data class OrderFieldsState(
+    val address: Validation
+)
+
