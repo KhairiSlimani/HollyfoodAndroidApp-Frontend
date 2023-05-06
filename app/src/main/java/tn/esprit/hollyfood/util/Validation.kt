@@ -24,6 +24,7 @@ data class PlateFieldsState(
 )
 
 data class OrderFieldsState(
-    val address: Validation
+    val address: Validation,
+    val phoneNumber: Validation
 )
 

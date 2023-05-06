@@ -113,7 +113,16 @@
         android:id="@+id/cartFragment"
         android:name="tn.esprit.hollyfood.view.fragments.main.CartFragment"
         android:label="CartFragment"
-        tools:layout="@layout/fragment_cart" />
+        tools:layout="@layout/fragment_cart" >
+        <action
+            android:id="@+id/action_cartFragment_to_billingFragment"
+            app:destination="@id/billingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/billingFragment"
+        android:name="tn.esprit.hollyfood.view.fragments.main.BillingFragment"
+        android:label="BillingFragment"
+        tools:layout="@layout/fragment_billing" />
 
 
 </navigation>

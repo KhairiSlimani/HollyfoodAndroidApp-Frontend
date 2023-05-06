@@ -119,3 +119,14 @@ fun validateOrderAddress(address: String): Validation {
 
     return Validation.Success
 }
+
+fun validateOrderPhoneNumber(phone: String): Validation {
+    if (phone == "-1")
+        return Validation.Failed("The phone number can't be empty")
+
+    if (phone.length < 8 || phone.length > 8)
+        return Validation.Failed("The phone number must contain exactly 8 digits")
+
+    return Validation.Success
+}
+

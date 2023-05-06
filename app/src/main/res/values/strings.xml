@@ -70,5 +70,9 @@
     <string name="my_cart">"My Cart "</string>
     <string name="total">Total</string>
     <string name="make_order">Make Order</string>
+    <string name="billing_text">Hollyfood dose not support virtual payments. You can pay when you receive your order.</string>
+    <string name="order_information">Order Information</string>
+    <string name="payment_methods">Payment Methods</string>
+    <string name="billing">Billing</string>
 
 </resources>

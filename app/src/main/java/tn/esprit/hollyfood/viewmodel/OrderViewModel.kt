@@ -43,7 +43,7 @@ class OrderViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun addOrder(order: Order) = viewModelScope.launch {
-        if (checkOrderValidation(order.address)) {
+        if (checkOrderValidation(order)) {
             try {
 
                 var response = repository.addOrder(order)
@@ -63,16 +63,18 @@ class OrderViewModel(application: Application) : AndroidViewModel(application) {
             }
         } else {
             val fieldsState = OrderFieldsState(
-                validateOrderAddress(order.address)
+                validateOrderAddress(order.address),
+                validateOrderPhoneNumber(order.phoneNumber.toString())
             )
             _orderValidation.send(fieldsState)
         }
     }
 
-    private fun checkOrderValidation(address: String): Boolean {
-        val orderValidation = validateOrderAddress(address)
+    private fun checkOrderValidation(order: Order): Boolean {
+        val addressValidation = validateOrderAddress(order.address)
+        val phoneNumberValidation = validateOrderPhoneNumber(order.phoneNumber.toString())
 
-        val check = orderValidation is Validation.Success
+        val check = addressValidation is Validation.Success && phoneNumberValidation is Validation.Success
 
         return check
     }

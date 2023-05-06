@@ -19,5 +19,6 @@ data class Orderline (
     var plateCategory: String,
     @SerializedName("plateImage")
     var plateImage: String,
+    @SerializedName("unitPrice")
     var unitPrice: Float
 )

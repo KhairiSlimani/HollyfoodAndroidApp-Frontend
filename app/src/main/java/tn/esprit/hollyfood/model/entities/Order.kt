@@ -9,6 +9,8 @@ data class Order (
     var price: Float,
     @SerializedName("address")
     var address: String,
+    @SerializedName("phoneNumber")
+    var phoneNumber: Int,
     @SerializedName("userId")
     var userId: String,
     @SerializedName("restaurantId")
