@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
 import tn.esprit.hollyfood.R
 import tn.esprit.hollyfood.databinding.FragmentRestaurantMenuBinding
@@ -26,6 +27,10 @@ class RestaurantMenuFragment : Fragment(R.layout.fragment_restaurant_menu) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val restaurantId = arguments?.getString("restaurantId") ?: ""
+
+        binding.buttonCart.setOnClickListener {
+            findNavController().navigate(R.id.action_restaurantMenuFragment_to_cartFragment)
+        }
 
         val MenuCategoriesFragment = arrayListOf<Fragment>(
             AllCategoriesFragment(restaurantId),

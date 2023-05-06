@@ -36,4 +36,9 @@ interface Repository {
     suspend fun getOrdersByUser(userId: String): Response<List<Order>>
     suspend fun deleteOrder(id: String): Response<Order>
 
+    //Orderline
+    suspend fun addOrderline(@Body orderline: Orderline): Response<Orderline>
+    suspend fun getOrderlinesByOrder(@Path("orderId") orderId: String): Response<List<Orderline>>
+
+
 }

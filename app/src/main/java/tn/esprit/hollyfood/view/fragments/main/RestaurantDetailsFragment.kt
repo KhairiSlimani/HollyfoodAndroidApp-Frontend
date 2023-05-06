@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import tn.esprit.hollyfood.R
 import tn.esprit.hollyfood.databinding.FragmentRestaurantDetailsBinding
+import tn.esprit.hollyfood.viewmodel.OrderlineViewModel
 import tn.esprit.hollyfood.viewmodel.RestaurantViewModel
 
 class RestaurantDetailsFragment : Fragment(R.layout.fragment_profile) {
@@ -32,6 +33,7 @@ class RestaurantDetailsFragment : Fragment(R.layout.fragment_profile) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(RestaurantViewModel::class.java)
         builder = AlertDialog.Builder(requireContext())
+        OrderlineViewModel.clear()
 
         val id = arguments?.getString("restaurantId") ?: ""
 

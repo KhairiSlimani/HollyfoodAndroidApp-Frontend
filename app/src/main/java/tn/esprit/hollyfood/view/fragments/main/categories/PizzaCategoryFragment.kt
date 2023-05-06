@@ -29,5 +29,6 @@ class PizzaCategoryFragment(private val restaurantId: String) : CategoryFragment
                 }
             }
         )
+
     }
 }

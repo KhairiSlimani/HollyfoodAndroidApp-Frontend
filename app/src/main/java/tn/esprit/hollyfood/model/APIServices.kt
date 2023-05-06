@@ -57,7 +57,7 @@ interface APIServices {
     @GET("/plates/getByRestaurant/{restaurantId}")
     suspend fun getPlatesByRestaurant(@Path("restaurantId") restaurantId: String): Response<List<Plate>>
 
-    //Plate
+    //Order
     @POST("/orders")
     suspend fun addOrder(@Body order: Order): Response<Order>
     @GET("/orders/getByRestaurant/{restaurantId}")
@@ -67,5 +67,10 @@ interface APIServices {
     @DELETE("/orders/{id}")
     suspend fun deleteOrder(@Path("id") id: String): Response<Order>
 
+    //Orderline
+    @POST("/orderlines")
+    suspend fun addOrderline(@Body orderline: Orderline): Response<Orderline>
+    @GET("/orderlines/getByOrder/{orderId}")
+    suspend fun getOrderlinesByOrder(@Path("orderId") orderId: String): Response<List<Orderline>>
 
 }

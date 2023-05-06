@@ -71,6 +71,7 @@ class RepositoryImp(private val api: APIServices) : Repository {
         api.getPlatesByRestaurant(restaurantId)
     }
 
+    //ORDER
     override suspend fun addOrder(order: Order): Response<Order> = withContext(Dispatchers.IO) {
         api.addOrder(order)
     }
@@ -86,5 +87,15 @@ class RepositoryImp(private val api: APIServices) : Repository {
     override suspend fun deleteOrder(id: String): Response<Order> = withContext(Dispatchers.IO) {
         api.deleteOrder(id)
     }
+
+    //ORDERLINE
+    override suspend fun addOrderline(orderline: Orderline): Response<Orderline> = withContext(Dispatchers.IO) {
+        api.addOrderline(orderline)
+    }
+
+    override suspend fun getOrderlinesByOrder(orderId: String): Response<List<Orderline>> = withContext(Dispatchers.IO) {
+        api.getOrderlinesByOrder(orderId)
+    }
+
 
 }
