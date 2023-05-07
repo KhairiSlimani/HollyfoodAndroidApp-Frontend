@@ -139,13 +139,13 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.apachat.loadingbutton.core.customViews.CircularProgressButton
-            android:id="@+id/buttonMakeOrder"
+            android:id="@+id/buttonCheckOut"
             style="@style/orangeButtonStyle"
             android:layout_width="0dp"
             android:layout_height="@dimen/mediumButtonHeight"
             android:layout_marginTop="15dp"
             android:layout_marginBottom="20dp"
-            android:text="@string/make_order"
+            android:text="@string/check_out"
             app:layout_constraintEnd_toEndOf="@id/rightGuideLine"
             app:layout_constraintStart_toStartOf="@id/leftGuideLine"
             app:layout_constraintTop_toBottomOf="@id/totalBoxContainer"

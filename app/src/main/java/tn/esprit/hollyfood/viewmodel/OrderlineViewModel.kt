@@ -10,11 +10,11 @@ import kotlinx.coroutines.launch
 import tn.esprit.hollyfood.model.APIServices
 import tn.esprit.hollyfood.model.Database
 import tn.esprit.hollyfood.model.RepositoryImp
+import tn.esprit.hollyfood.model.entities.Order
 import tn.esprit.hollyfood.model.entities.Orderline
 import java.io.IOException
 
 class OrderlineViewModel(application: Application) : AndroidViewModel(application) {
-
     //Repository
     private var repository: RepositoryImp
 
@@ -53,20 +53,21 @@ class OrderlineViewModel(application: Application) : AndroidViewModel(applicatio
         repository = RepositoryImp(serviceInstance)
     }
 
-    fun addOrderline(orderline: Orderline) = viewModelScope.launch {
+    fun addOrderlines(order: Order) = viewModelScope.launch {
         try {
+            for (orderline in cart) {
+                orderline.orderId = order.id
 
-            var response = repository.addOrderline(orderline)
+                var response = repository.addOrderline(orderline)
 
-            if (response.isSuccessful) {
-                orderlineMutableLiveData.postValue(response.body())
-            } else {
                 if (response.code() == 400) {
                     messageMutableLiveData.postValue("Invalid information.")
                 } else {
                     messageMutableLiveData.postValue("Server error, please try again later.")
                 }
             }
+            clear()
+            messageMutableLiveData.postValue("Success.")
         } catch (e: IOException) {
             messageMutableLiveData.postValue("Network error, please try again later.")
             Log.e("error", "IOException: ${e.message}")
@@ -87,7 +88,6 @@ class OrderlineViewModel(application: Application) : AndroidViewModel(applicatio
             Log.e("error", "IOException: ${e.message}")
         }
     }
-
 
 
 }

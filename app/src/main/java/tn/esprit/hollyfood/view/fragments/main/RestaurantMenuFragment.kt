@@ -10,6 +10,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import tn.esprit.hollyfood.R
 import tn.esprit.hollyfood.databinding.FragmentRestaurantMenuBinding
 import tn.esprit.hollyfood.view.adapters.MenuViewpagerAdapter
+import tn.esprit.hollyfood.view.fragments.LoginRegister.LoginFragmentDirections
 import tn.esprit.hollyfood.view.fragments.main.categories.*
 
 class RestaurantMenuFragment : Fragment(R.layout.fragment_restaurant_menu) {
@@ -29,7 +30,8 @@ class RestaurantMenuFragment : Fragment(R.layout.fragment_restaurant_menu) {
         val restaurantId = arguments?.getString("restaurantId") ?: ""
 
         binding.buttonCart.setOnClickListener {
-            findNavController().navigate(R.id.action_restaurantMenuFragment_to_cartFragment)
+            val action = RestaurantMenuFragmentDirections.actionRestaurantMenuFragmentToCartFragment(restaurantId)
+            findNavController().navigate(action)
         }
 
         val MenuCategoriesFragment = arrayListOf<Fragment>(

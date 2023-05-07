@@ -117,12 +117,19 @@
         <action
             android:id="@+id/action_cartFragment_to_billingFragment"
             app:destination="@id/billingFragment" />
+        <argument
+            android:name="restaurantId"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/billingFragment"
         android:name="tn.esprit.hollyfood.view.fragments.main.BillingFragment"
         android:label="BillingFragment"
-        tools:layout="@layout/fragment_billing" />
+        tools:layout="@layout/fragment_billing" >
+        <argument
+            android:name="restaurantId"
+            app:argType="string" />
+    </fragment>
 
 
 </navigation>

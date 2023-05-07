@@ -52,7 +52,6 @@ open class CategoryFragment() : Fragment(R.layout.fragment_category), OnListItem
         OrderlineViewModel.calculateTotal()
     }
 
-
     override fun onItemClick(restaurant: Restaurant) {
         TODO("Not yet implemented")
     }
