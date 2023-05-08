@@ -48,6 +48,8 @@ interface APIServices {
 
     @GET("/restaurants/getByUser/{userId}")
     suspend fun getRestaurantsByUser(@Path("userId") userId: String): Response<List<Restaurant>>
+    @GET("/restaurants")
+    suspend fun getAllRestaurants(): Response<List<Restaurant>>
     @GET("/restaurants/{id}")
     suspend fun getRestaurantById(@Path("id") id: String): Response<Restaurant>
     @DELETE("/restaurants/{id}")

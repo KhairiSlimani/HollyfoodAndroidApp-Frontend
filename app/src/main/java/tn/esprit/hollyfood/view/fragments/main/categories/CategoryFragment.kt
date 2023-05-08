@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import tn.esprit.hollyfood.R
 import tn.esprit.hollyfood.databinding.FragmentCategoryBinding
+import tn.esprit.hollyfood.model.entities.Order
 import tn.esprit.hollyfood.model.entities.Orderline
 import tn.esprit.hollyfood.model.entities.Plate
 import tn.esprit.hollyfood.model.entities.Restaurant
@@ -50,6 +51,10 @@ open class CategoryFragment() : Fragment(R.layout.fragment_category), OnListItem
         val orderline = Orderline("", 1, plate.price, plate.id, "", plate.name, plate.category, plate.image, plate.price)
         OrderlineViewModel.cart.add(orderline)
         OrderlineViewModel.calculateTotal()
+    }
+
+    override fun onDeleteOrder(order: Order) {
+        TODO("Not yet implemented")
     }
 
     override fun onItemClick(restaurant: Restaurant) {

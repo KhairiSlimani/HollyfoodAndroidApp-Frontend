@@ -27,6 +27,8 @@ import tn.esprit.hollyfood.view.adapters.CartAdapter
 import tn.esprit.hollyfood.viewmodel.OrderViewModel
 import tn.esprit.hollyfood.viewmodel.OrderlineViewModel
 import tn.esprit.hollyfood.viewmodel.UserViewModel
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 class BillingFragment : Fragment(R.layout.fragment_billing) {
     private lateinit var binding: FragmentBillingBinding
@@ -52,12 +54,15 @@ class BillingFragment : Fragment(R.layout.fragment_billing) {
         orderlineViewModel = ViewModelProvider(this).get(OrderlineViewModel::class.java)
         val sharedPref = requireContext().getSharedPreferences("myPreferences", Context.MODE_PRIVATE)
         val userId : String = sharedPref.getString("id", "") ?: ""
+        val phone : Int = sharedPref.getInt("phone", 0) ?: 0
+
         val restaurantId = arguments?.getString("restaurantId") ?: ""
+        val restaurantName = arguments?.getString("restaurantName") ?: ""
 
         binding.apply {
-            rvOrderlines.layoutManager = LinearLayoutManager(requireContext())
             rvOrderlines.adapter = billingAdapter
             billingAdapter.setList(OrderlineViewModel.cart)
+            edPhoneNumber.setText(phone.toString())
 
             OrderlineViewModel.totalLiveData.observe(viewLifecycleOwner, Observer {
 
@@ -77,14 +82,19 @@ class BillingFragment : Fragment(R.layout.fragment_billing) {
                         buttonMakeOrder.startAnimation()
 
                         val phoneNumber = edPhoneNumber.text.toString().trim().toIntOrNull() ?: -1
+                        val currentDate = LocalDate.now()
+                        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+                        val formattedDate = currentDate.format(formatter)
 
                         val order = Order(
                             "0",
                             tvTotalPrice.text.toString().trim().toFloat(),
                             edAddress.text.toString().trim(),
                             phoneNumber,
+                            formattedDate,
                             userId,
                             restaurantId,
+                            restaurantName
                         )
 
                         orderViewModel.addOrder(order)
@@ -98,8 +108,6 @@ class BillingFragment : Fragment(R.layout.fragment_billing) {
             orderViewModel.orderLiveData.observe(viewLifecycleOwner, Observer {
                 if (it != null) {
                     orderlineViewModel.addOrderlines(it)
-
-
                 }
             })
 
@@ -124,7 +132,6 @@ class BillingFragment : Fragment(R.layout.fragment_billing) {
                     }
                 }
             }
-
 
             orderlineViewModel.messageLiveData.observe(viewLifecycleOwner, Observer {
                 if (it != null) {

@@ -28,9 +28,10 @@ class RestaurantMenuFragment : Fragment(R.layout.fragment_restaurant_menu) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val restaurantId = arguments?.getString("restaurantId") ?: ""
+        val restaurantName = arguments?.getString("restaurantName") ?: ""
 
         binding.buttonCart.setOnClickListener {
-            val action = RestaurantMenuFragmentDirections.actionRestaurantMenuFragmentToCartFragment(restaurantId)
+            val action = RestaurantMenuFragmentDirections.actionRestaurantMenuFragmentToCartFragment(restaurantId, restaurantName)
             findNavController().navigate(action)
         }
 

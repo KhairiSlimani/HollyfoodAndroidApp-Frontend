@@ -12,19 +12,16 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import tn.esprit.hollyfood.R
 import tn.esprit.hollyfood.databinding.FragmentMyRestaurantsBinding
-import tn.esprit.hollyfood.databinding.FragmentProfileBinding
+import tn.esprit.hollyfood.model.entities.Order
 import tn.esprit.hollyfood.model.entities.Plate
 import tn.esprit.hollyfood.model.entities.Restaurant
 import tn.esprit.hollyfood.view.adapters.OnListItemClick
 import tn.esprit.hollyfood.view.adapters.RestaurantRecyclerView
-import tn.esprit.hollyfood.view.fragments.LoginRegister.LoginFragmentDirections
 import tn.esprit.hollyfood.viewmodel.RestaurantViewModel
-import tn.esprit.hollyfood.viewmodel.UserViewModel
 
-class MyRestaurantsFragment : Fragment(R.layout.fragment_my_restaurants), OnListItemClick {
+open class MyRestaurantsFragment : Fragment(R.layout.fragment_my_restaurants), OnListItemClick {
     private lateinit var binding: FragmentMyRestaurantsBinding
     private lateinit var viewModel: RestaurantViewModel
-    var restaurantsList: List<Restaurant> = emptyList()
     val restaurantRecyclerView: RestaurantRecyclerView by lazy {
         RestaurantRecyclerView()
     }
@@ -90,6 +87,10 @@ class MyRestaurantsFragment : Fragment(R.layout.fragment_my_restaurants), OnList
     }
 
     override fun onAddToCartClick(plate: Plate) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onDeleteOrder(order: Order) {
         TODO("Not yet implemented")
     }
 

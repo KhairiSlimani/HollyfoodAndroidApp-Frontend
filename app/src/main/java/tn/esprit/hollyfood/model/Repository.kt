@@ -24,6 +24,7 @@ interface Repository {
     suspend fun addRestaurant(name: MultipartBody.Part, address: MultipartBody.Part, phoneNumber: MultipartBody.Part, description: MultipartBody.Part, image: MultipartBody.Part, userId: MultipartBody.Part): Response<Restaurant>
     suspend fun getRestaurantsByUser(userId: String): Response<List<Restaurant>>
     suspend fun getRestaurantById(id: String): Response<Restaurant>
+    suspend fun getAllRestaurants(): Response<List<Restaurant>>
     suspend fun editRestaurant(id:String, name: MultipartBody.Part, address: MultipartBody.Part, phoneNumber: MultipartBody.Part, description: MultipartBody.Part, userId: MultipartBody.Part): Response<Restaurant>
     suspend fun deleteRestaurant(id: String): Response<Restaurant>
 

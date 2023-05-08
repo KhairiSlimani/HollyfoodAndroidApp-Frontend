@@ -65,7 +65,7 @@
     <string name="search_now">Search Now</string>
     <string name="menu">Menu</string>
     <string name="plates">Menu</string>
-    <string name="category">Category</string>
+    <string name="category">Category </string>
     <string name="plate">Plate</string>
     <string name="my_cart">My Cart</string>
     <string name="total">Total</string>
@@ -75,5 +75,12 @@
     <string name="payment_methods">Payment Methods</string>
     <string name="billing">Billing</string>
     <string name="check_out">Check Out</string>
+    <string name="restaurants">Restaurants</string>
+    <string name="date">Date</string>
+    <string name="order_from">Order From  </string>
+    <string name="restaurant_label">Restaurant: </string>
+    <string name="restaurant">Restaurant</string>
+    <string name="date_label">Date: </string>
+    <string name="Orders">Orders</string>
 
 </resources>

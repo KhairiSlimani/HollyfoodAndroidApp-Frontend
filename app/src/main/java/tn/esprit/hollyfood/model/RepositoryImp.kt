@@ -59,6 +59,10 @@ class RepositoryImp(private val api: APIServices) : Repository {
         api.getRestaurantById(id)
     }
 
+    override suspend fun getAllRestaurants(): Response<List<Restaurant>> = withContext(Dispatchers.IO) {
+        api.getAllRestaurants()
+    }
+
     override suspend fun editRestaurant(id: String, name: MultipartBody.Part, address: MultipartBody.Part, phoneNumber: MultipartBody.Part, description: MultipartBody.Part, userId: MultipartBody.Part): Response<Restaurant> = withContext(Dispatchers.IO) {
         api.editRestaurant(id, name, address, phoneNumber, description, userId)
     }

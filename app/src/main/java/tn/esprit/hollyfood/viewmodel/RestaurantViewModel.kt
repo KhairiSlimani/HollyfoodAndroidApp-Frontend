@@ -123,6 +123,21 @@ class RestaurantViewModel(application: Application) : AndroidViewModel(applicati
         }
     }
 
+    fun getAllRestaurants() = viewModelScope.launch {
+        try {
+            val response = repository.getAllRestaurants()
+
+            if (response.isSuccessful) {
+                restaurantsMutableLiveData.postValue(response.body())
+            } else {
+                messageMutableLiveData.postValue("Server error, please try again later.")
+            }
+        } catch (e: IOException) {
+            messageMutableLiveData.postValue("Network error, please try again later.")
+            Log.e("error", "IOException: ${e.message}")
+        }
+    }
+
     fun editRestaurant(restaurant: Restaurant) = viewModelScope.launch {
         if (checkRestaurantValidation(restaurant)) {
             try {

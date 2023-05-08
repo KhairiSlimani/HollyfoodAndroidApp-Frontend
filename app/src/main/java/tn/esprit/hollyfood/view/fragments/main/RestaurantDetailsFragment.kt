@@ -1,6 +1,7 @@
 package tn.esprit.hollyfood.view.fragments.main
 
 import android.app.AlertDialog
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,7 +16,7 @@ import tn.esprit.hollyfood.databinding.FragmentRestaurantDetailsBinding
 import tn.esprit.hollyfood.viewmodel.OrderlineViewModel
 import tn.esprit.hollyfood.viewmodel.RestaurantViewModel
 
-class RestaurantDetailsFragment : Fragment(R.layout.fragment_profile) {
+class RestaurantDetailsFragment : Fragment(R.layout.fragment_restaurant_details) {
     private lateinit var binding: FragmentRestaurantDetailsBinding
     private lateinit var viewModel: RestaurantViewModel
     private lateinit var builder: AlertDialog.Builder
@@ -35,17 +36,33 @@ class RestaurantDetailsFragment : Fragment(R.layout.fragment_profile) {
         builder = AlertDialog.Builder(requireContext())
         OrderlineViewModel.clear()
 
+        val sharedPref = requireContext().getSharedPreferences("myPreferences", Context.MODE_PRIVATE)
+        val userId : String = sharedPref.getString("id", "") ?: ""
         val id = arguments?.getString("restaurantId") ?: ""
+        var restName = ""
 
         viewModel = ViewModelProvider(this).get(RestaurantViewModel::class.java)
         viewModel.getRestaurantById(id)
 
         binding.apply {
+
+            seeCommentsButton.visibility = View.GONE
+            seeCommentsText.visibility = View.GONE
+
             viewModel.restaurantLiveData.observe(viewLifecycleOwner, Observer {
                 if (it != null) {
-                    Glide.with(requireContext()).load(it.image).into(restaurantImage)
+                    if(userId != it.userId){
+                        tvEditRestaurant.visibility = View.GONE
+                        tvDeleteRestaurant.visibility = View.GONE
 
-                    restaurantName.setText(it.name)
+                        seeOrdersButton.visibility = View.GONE
+                        seeOrdersText.visibility = View.GONE
+                    }
+
+                    restName = it.name
+
+                    Glide.with(requireContext()).load(it.image).into(restaurantImage)
+                    restaurantName.setText(restName)
                     restaurantDescription.setText(it.description)
                     restaurantAddress.setText(it.address)
                     restaurantPhoneNumber.setText(it.phoneNumber.toString())
@@ -63,7 +80,7 @@ class RestaurantDetailsFragment : Fragment(R.layout.fragment_profile) {
                     .setCancelable(true)
                     .setPositiveButton("Yes"){dialogInterface, it ->
                         viewModel.deleteRestaurant(id)
-                        findNavController().navigate(R.id.action_restaurantDetailsFragment_to_myRestaurantsFragment)
+                        findNavController().navigateUp()
                     }
                     .setNegativeButton("No"){dialogInterface, it ->
                         dialogInterface.cancel()
@@ -71,8 +88,13 @@ class RestaurantDetailsFragment : Fragment(R.layout.fragment_profile) {
                     .show()
             }
 
+            seeOrdersButton.setOnClickListener {
+                val action = RestaurantDetailsFragmentDirections.actionRestaurantDetailsFragmentToOrdersFragment(id)
+                findNavController().navigate(action)
+            }
+
             seeMenuButton.setOnClickListener {
-                val action = RestaurantDetailsFragmentDirections.actionRestaurantDetailsFragmentToRestaurantMenuFragment(id)
+                val action = RestaurantDetailsFragmentDirections.actionRestaurantDetailsFragmentToRestaurantMenuFragment(id, restName)
                 findNavController().navigate(action)
             }
         }

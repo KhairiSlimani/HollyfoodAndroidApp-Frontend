@@ -45,7 +45,6 @@ class OrderViewModel(application: Application) : AndroidViewModel(application) {
     fun addOrder(order: Order) = viewModelScope.launch {
         if (checkOrderValidation(order)) {
             try {
-
                 var response = repository.addOrder(order)
 
                 if (response.isSuccessful) {
@@ -85,6 +84,8 @@ class OrderViewModel(application: Application) : AndroidViewModel(application) {
 
             if (response.isSuccessful) {
                 ordersMutableLiveData.postValue(response.body())
+                Log.d("Orders", "DONE")
+
             } else {
                 messageMutableLiveData.postValue("Server error, please try again later.")
             }

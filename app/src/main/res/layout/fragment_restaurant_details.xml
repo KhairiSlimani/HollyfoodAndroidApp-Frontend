@@ -52,13 +52,13 @@
 
             <TextView
                 android:id="@+id/tvEditRestaurant"
+                style="@style/h4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/h4"
-                android:text="@string/edit"
                 android:layout_gravity="center_vertical"
+                android:text="@string/edit"
                 android:textColor="@color/g_orange"
-                android:textSize="13sp"/>
+                android:textSize="13sp" />
 
             <TextView
                 android:id="@+id/tvDeleteRestaurant"
@@ -95,6 +95,7 @@
             style="@style/h3"
             android:layout_marginTop="10dp"
             android:layout_marginStart="10dp"
+            android:textSize="15sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/restaurantDescription"
@@ -107,6 +108,7 @@
             style="@style/h3"
             android:layout_marginTop="5dp"
             android:layout_marginStart="10dp"
+            android:textSize="15sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/information"
@@ -117,6 +119,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/h3"
+            android:textSize="15sp"
             android:layout_marginTop="5dp"
             android:layout_marginStart="10dp"
             android:textStyle="bold"
@@ -130,6 +133,7 @@
             android:layout_height="wrap_content"
             style="@style/h3"
             android:layout_marginTop="5dp"
+            android:textSize="15sp"
             android:layout_marginStart="10dp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -142,6 +146,7 @@
             android:layout_height="wrap_content"
             style="@style/h3"
             android:layout_marginTop="5dp"
+            android:textSize="15sp"
             android:layout_marginStart="10dp"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/phoneNumberLabel"

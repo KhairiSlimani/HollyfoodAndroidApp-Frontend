@@ -11,8 +11,13 @@ data class Order (
     var address: String,
     @SerializedName("phoneNumber")
     var phoneNumber: Int,
+    @SerializedName("date")
+    var date: String,
     @SerializedName("userId")
     var userId: String,
     @SerializedName("restaurantId")
-    var restaurantId: String
+    var restaurantId: String,
+    @SerializedName("restaurantName")
+    var restaurantName: String
+
 )

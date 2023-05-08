@@ -34,6 +34,7 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
         val sharedPref = requireContext().getSharedPreferences("myPreferences", Context.MODE_PRIVATE)
         val userId : String = sharedPref.getString("id", "") ?: ""
         val restaurantId = arguments?.getString("restaurantId") ?: ""
+        val restaurantName = arguments?.getString("restaurantName") ?: ""
 
         binding.apply {
             rvCart.layoutManager = LinearLayoutManager(requireContext())
@@ -47,7 +48,7 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
             })
 
             buttonCheckOut.setOnClickListener {
-                val action = CartFragmentDirections.actionCartFragmentToBillingFragment(restaurantId)
+                val action = CartFragmentDirections.actionCartFragmentToBillingFragment(restaurantId, restaurantName)
                 findNavController().navigate(action)
             }
 

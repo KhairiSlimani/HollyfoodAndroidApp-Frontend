@@ -29,7 +29,15 @@
         android:id="@+id/restaurantsFragment"
         android:name="tn.esprit.hollyfood.view.fragments.main.RestaurantsFragment"
         android:label="RestaurantsFragment"
-        tools:layout="@layout/fragment_restaurants" />
+        tools:layout="@layout/fragment_restaurants" >
+        <action
+            android:id="@+id/action_restaurantsFragment_to_restaurantDetailsFragment"
+            app:destination="@id/restaurantDetailsFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
+    </fragment>
     <fragment
         android:id="@+id/settingsFragment"
         android:name="tn.esprit.hollyfood.view.fragments.main.SettingsFragment"
@@ -82,11 +90,19 @@
             app:popEnterAnim="@anim/from_left"
             app:popExitAnim="@anim/to_right" />
         <action
-            android:id="@+id/action_restaurantDetailsFragment_to_myRestaurantsFragment"
-            app:destination="@id/myRestaurantsFragment" />
-        <action
             android:id="@+id/action_restaurantDetailsFragment_to_restaurantMenuFragment"
-            app:destination="@id/restaurantMenuFragment" />
+            app:destination="@id/restaurantMenuFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
+        <action
+            android:id="@+id/action_restaurantDetailsFragment_to_ordersFragment"
+            app:destination="@id/ordersFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
     </fragment>
     <fragment
         android:id="@+id/editRestaurantFragment"
@@ -107,7 +123,14 @@
             app:argType="string" />
         <action
             android:id="@+id/action_restaurantMenuFragment_to_cartFragment"
-            app:destination="@id/cartFragment" />
+            app:destination="@id/cartFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
+        <argument
+            android:name="restaurantName"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/cartFragment"
@@ -116,16 +139,33 @@
         tools:layout="@layout/fragment_cart" >
         <action
             android:id="@+id/action_cartFragment_to_billingFragment"
-            app:destination="@id/billingFragment" />
+            app:destination="@id/billingFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
         <argument
             android:name="restaurantId"
+            app:argType="string" />
+        <argument android:name="restaurantName"
             app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/billingFragment"
         android:name="tn.esprit.hollyfood.view.fragments.main.BillingFragment"
         android:label="BillingFragment"
-        tools:layout="@layout/fragment_billing" >
+        tools:layout="@layout/fragment_billing">
+        <argument
+            android:name="restaurantId"
+            app:argType="string" />
+        <argument android:name="restaurantName"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/ordersFragment"
+        android:name="tn.esprit.hollyfood.view.fragments.main.OrdersFragment"
+        android:label="OrdersFragment"
+        tools:layout="@layout/fragment_orders">
         <argument
             android:name="restaurantId"
             app:argType="string" />
