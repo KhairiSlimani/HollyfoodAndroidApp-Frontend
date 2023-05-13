@@ -25,7 +25,6 @@ class RestaurantRecyclerView : RecyclerView.Adapter<RestaurantRecyclerView.Resta
         var itemDescription: TextView = itemView.findViewById(R.id.itemDescription)
 
         fun bind(restaurant: Restaurant){
-
             Glide.with(itemView.context).load(restaurant.image).into(itemImage)
 
             //itemImage.setImageResource(R.drawable.restaurant_item)

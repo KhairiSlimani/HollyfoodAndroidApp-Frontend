@@ -103,6 +103,9 @@
             app:exitAnim="@anim/to_left"
             app:popEnterAnim="@anim/from_left"
             app:popExitAnim="@anim/to_right" />
+        <action
+            android:id="@+id/action_restaurantDetailsFragment_to_rateRestaurant"
+            app:destination="@id/rateRestaurant" />
     </fragment>
     <fragment
         android:id="@+id/editRestaurantFragment"
@@ -170,6 +173,16 @@
             android:name="restaurantId"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/rateRestaurant"
+        android:name="tn.esprit.hollyfood.view.fragments.main.RateRestaurant"
+        android:label="RateRestaurant"
+        tools:layout="@layout/fragment_rate_restaurant" >
+        <argument
+            android:name="restaurantId"
+            app:argType="string" />
+    </fragment>
+
 
 
 </navigation>

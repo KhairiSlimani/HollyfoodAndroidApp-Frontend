@@ -46,9 +46,6 @@ class RestaurantDetailsFragment : Fragment(R.layout.fragment_restaurant_details)
 
         binding.apply {
 
-            seeCommentsButton.visibility = View.GONE
-            seeCommentsText.visibility = View.GONE
-
             viewModel.restaurantLiveData.observe(viewLifecycleOwner, Observer {
                 if (it != null) {
                     if(userId != it.userId){
@@ -56,7 +53,6 @@ class RestaurantDetailsFragment : Fragment(R.layout.fragment_restaurant_details)
                         tvDeleteRestaurant.visibility = View.GONE
 
                         seeOrdersButton.visibility = View.GONE
-                        seeOrdersText.visibility = View.GONE
                     }
 
                     restName = it.name
@@ -88,15 +84,21 @@ class RestaurantDetailsFragment : Fragment(R.layout.fragment_restaurant_details)
                     .show()
             }
 
+            seeMenuButton.setOnClickListener {
+                val action = RestaurantDetailsFragmentDirections.actionRestaurantDetailsFragmentToRestaurantMenuFragment(id, restName)
+                findNavController().navigate(action)
+            }
+
+            rateRestaurantButton.setOnClickListener {
+                val action = RestaurantDetailsFragmentDirections.actionRestaurantDetailsFragmentToRateRestaurant(id)
+                findNavController().navigate(action)
+            }
+
             seeOrdersButton.setOnClickListener {
                 val action = RestaurantDetailsFragmentDirections.actionRestaurantDetailsFragmentToOrdersFragment(id)
                 findNavController().navigate(action)
             }
 
-            seeMenuButton.setOnClickListener {
-                val action = RestaurantDetailsFragmentDirections.actionRestaurantDetailsFragmentToRestaurantMenuFragment(id, restName)
-                findNavController().navigate(action)
-            }
         }
     }
 }

@@ -82,5 +82,8 @@
     <string name="restaurant">Restaurant</string>
     <string name="date_label">Date: </string>
     <string name="Orders">Orders</string>
+    <string name="rate_restaurant">Rate Restaurant</string>
+    <string name="submit_rating">Submit Rating</string>
+    <string name="Rate">Rate</string>
 
 </resources>

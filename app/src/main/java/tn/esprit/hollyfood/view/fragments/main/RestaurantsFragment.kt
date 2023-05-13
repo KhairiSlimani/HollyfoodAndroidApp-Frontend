@@ -1,6 +1,5 @@
 package tn.esprit.hollyfood.view.fragments.main
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +10,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import tn.esprit.hollyfood.R
-import tn.esprit.hollyfood.databinding.FragmentMyRestaurantsBinding
 import tn.esprit.hollyfood.databinding.FragmentRestaurantsBinding
 import tn.esprit.hollyfood.model.entities.Order
 import tn.esprit.hollyfood.model.entities.Plate
@@ -23,6 +21,7 @@ import tn.esprit.hollyfood.viewmodel.RestaurantViewModel
 class RestaurantsFragment : Fragment(R.layout.fragment_restaurants), OnListItemClick {
     private lateinit var binding: FragmentRestaurantsBinding
     private lateinit var viewModel: RestaurantViewModel
+
     val restaurantRecyclerView: RestaurantRecyclerView by lazy {
         RestaurantRecyclerView()
     }

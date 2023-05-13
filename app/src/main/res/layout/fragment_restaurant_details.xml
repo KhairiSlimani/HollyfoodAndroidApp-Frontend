@@ -11,7 +11,6 @@
         android:src="@drawable/blury_background"
         android:scaleType="centerCrop"/>
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -32,13 +31,35 @@
             android:layout_height="wrap_content"
             android:text="@string/name"
             style="@style/h4"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             app:layout_constraintTop_toBottomOf="@id/restaurantImage"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             android:textAlignment="center"
             android:gravity="center"
             android:textSize="35sp"/>
+
+        <TextView
+            android:id="@+id/restaurantRate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="5"
+            style="@style/h4"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintTop_toBottomOf="@id/restaurantImage"
+            app:layout_constraintStart_toEndOf="@id/restaurantName"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:textSize="35sp"/>
+
+        <ImageView
+            android:layout_width="37dp"
+            android:layout_height="37dp"
+            android:layout_marginTop="15dp"
+            app:layout_constraintTop_toBottomOf="@id/restaurantImage"
+            app:layout_constraintStart_toEndOf="@id/restaurantRate"
+            android:src="@drawable/ic_star"/>
 
         <LinearLayout
             android:id="@+id/linearMyRestaurants"
@@ -80,10 +101,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
             android:gravity="center"
             android:text="@string/description"
             android:textAlignment="center"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/restaurantName"
             tools:ignore="UnknownId" />
@@ -162,7 +183,7 @@
             app:layout_constraintTop_toBottomOf="@id/phoneNumberLabel"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginTop="20dp"
-            android:layout_marginStart="40dp"/>
+            android:layout_marginStart="30dp"/>
 
         <TextView
             android:id="@+id/seeMenuText"
@@ -170,7 +191,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:layout_marginStart="34dp"
+            android:layout_marginStart="24dp"
             android:gravity="center"
             android:text="@string/see_menu"
             android:textAlignment="center"
@@ -179,17 +200,42 @@
 
 
         <ImageButton
+            android:id="@+id/rateRestaurantButton"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/round_button"
+            android:gravity="center"
+            android:src="@drawable/ic_star_white"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/phoneNumberLabel" />
+
+        <TextView
+            android:id="@+id/rateRestaurantText"
+            style="@style/h2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="2dp"
+            android:gravity="center"
+            android:text="@string/rate_restaurant"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:textAlignment="center"
+            app:layout_constraintTop_toBottomOf="@id/seeOrdersButton" />
+
+        <ImageButton
             android:id="@+id/seeOrdersButton"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:background="@drawable/round_button"
             android:src="@drawable/ic_list"
             app:layout_constraintTop_toBottomOf="@id/phoneNumberLabel"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:textAlignment="center"
-            android:gravity="center"
-            android:layout_marginTop="20dp" />
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="30dp"/>
 
         <TextView
             android:id="@+id/seeOrdersText"
@@ -197,37 +243,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:layout_marginStart="2dp"
+            android:layout_marginEnd="15dp"
             android:gravity="center"
             android:text="@string/see_orders"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/seeOrdersButton" />
-
-        <ImageButton
-            android:id="@+id/seeCommentsButton"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:background="@drawable/round_button"
-            android:src="@drawable/ic_comment"
-            app:layout_constraintTop_toBottomOf="@id/phoneNumberLabel"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="40dp"/>
-
-        <TextView
-            android:id="@+id/seeCommentsText"
-            style="@style/h2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="9dp"
-            android:gravity="center"
-            android:text="@string/see_comments"
-            android:textAlignment="center"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/seeCommentsButton" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
