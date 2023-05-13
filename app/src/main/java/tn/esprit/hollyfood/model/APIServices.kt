@@ -75,4 +75,8 @@ interface APIServices {
     @GET("/orderlines/getByOrder/{orderId}")
     suspend fun getOrderlinesByOrder(@Path("orderId") orderId: String): Response<List<Orderline>>
 
+    //Rating
+    @POST("/rating/{restaurantId}")
+    suspend fun addOrUpdateRating(@Path("restaurantId") restaurantId: String): Response<Rating>
+
 }

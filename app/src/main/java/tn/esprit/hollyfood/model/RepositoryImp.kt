@@ -101,5 +101,10 @@ class RepositoryImp(private val api: APIServices) : Repository {
         api.getOrderlinesByOrder(orderId)
     }
 
+    //RATING
+    override suspend fun addOrUpdateRating(restaurantId: String): Response<Rating> = withContext(Dispatchers.IO) {
+        api.addOrUpdateRating(restaurantId)
+    }
+
 
 }

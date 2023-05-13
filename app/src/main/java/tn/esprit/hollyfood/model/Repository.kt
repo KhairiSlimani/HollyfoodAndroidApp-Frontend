@@ -41,5 +41,8 @@ interface Repository {
     suspend fun addOrderline(@Body orderline: Orderline): Response<Orderline>
     suspend fun getOrderlinesByOrder(@Path("orderId") orderId: String): Response<List<Orderline>>
 
+    //Rating
+    suspend fun addOrUpdateRating(restaurantId: String): Response<Rating>
+
 
 }
