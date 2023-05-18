@@ -29,9 +29,9 @@ class RatingViewModel(application: Application) : AndroidViewModel(application) 
         repository = RepositoryImp(serviceInstance)
     }
 
-    fun addOrUpdateRating(restaurantId: String) = viewModelScope.launch {
+    fun addOrUpdateRating(rating: Rating) = viewModelScope.launch {
         try {
-            val response = repository.addOrUpdateRating(restaurantId)
+            val response = repository.addOrUpdateRating(rating)
 
             if (response.isSuccessful) {
                 ratingMutableLiveData.postValue(response.body())

@@ -19,5 +19,4 @@ data class Order (
     var restaurantId: String,
     @SerializedName("restaurantName")
     var restaurantName: String
-
 )

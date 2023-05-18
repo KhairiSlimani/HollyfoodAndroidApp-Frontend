@@ -46,9 +46,20 @@ class RepositoryImp(private val api: APIServices) : Repository {
         api.changePassword(request)
     }
 
+
     //RESTAURANT
-    override suspend fun addRestaurant(name: MultipartBody.Part, address: MultipartBody.Part, phoneNumber: MultipartBody.Part, description: MultipartBody.Part, image: MultipartBody.Part, userId: MultipartBody.Part): Response<Restaurant> = withContext(Dispatchers.IO) {
-        api.addRestaurant(name, address, phoneNumber, description, image, userId)
+    override suspend fun addRestaurant(
+        name: MultipartBody.Part,
+        address: MultipartBody.Part,
+        phoneNumber: MultipartBody.Part,
+        description: MultipartBody.Part,
+        image: MultipartBody.Part,
+        rating: MultipartBody.Part,
+        lat: MultipartBody.Part,
+        long: MultipartBody.Part,
+        userId: MultipartBody.Part
+    ): Response<Restaurant> = withContext(Dispatchers.IO) {
+        api.addRestaurant(name, address, phoneNumber, description, image, rating, lat, long, userId)
     }
 
     override suspend fun getRestaurantsByUser(userId: String): Response<List<Restaurant>> = withContext(Dispatchers.IO) {
@@ -63,16 +74,57 @@ class RepositoryImp(private val api: APIServices) : Repository {
         api.getAllRestaurants()
     }
 
-    override suspend fun editRestaurant(id: String, name: MultipartBody.Part, address: MultipartBody.Part, phoneNumber: MultipartBody.Part, description: MultipartBody.Part, userId: MultipartBody.Part): Response<Restaurant> = withContext(Dispatchers.IO) {
-        api.editRestaurant(id, name, address, phoneNumber, description, userId)
+    override suspend fun editRestaurant(
+        id: String,
+        name: MultipartBody.Part,
+        address: MultipartBody.Part,
+        phoneNumber: MultipartBody.Part,
+        description: MultipartBody.Part,
+        rating: MultipartBody.Part,
+        lat: MultipartBody.Part,
+        long: MultipartBody.Part,
+        userId: MultipartBody.Part
+    ): Response<Restaurant> = withContext(Dispatchers.IO) {
+        api.editRestaurant(id, name, address, phoneNumber, description, rating, lat, long, userId)
     }
 
     override suspend fun deleteRestaurant(id: String): Response<Restaurant> = withContext(Dispatchers.IO) {
         api.deleteRestaurant(id)
     }
 
+    //PLATE
+    override suspend fun addPlate(
+        name: MultipartBody.Part,
+        category: MultipartBody.Part,
+        price: MultipartBody.Part,
+        image: MultipartBody.Part,
+        restaurantId: MultipartBody.Part,
+        userId: MultipartBody.Part
+    ): Response<Plate> = withContext(Dispatchers.IO) {
+        api.addPlate(name, category, price, image, restaurantId, userId)
+    }
+
+    override suspend fun editPlate(
+        id: String,
+        name: MultipartBody.Part,
+        category: MultipartBody.Part,
+        price: MultipartBody.Part,
+        restaurantId: MultipartBody.Part,
+        userId: MultipartBody.Part
+    ): Response<Plate> = withContext(Dispatchers.IO) {
+        api.editPlate(id, name, category, price, restaurantId, userId)
+    }
+
     override suspend fun getPlatesByRestaurant(restaurantId: String): Response<List<Plate>> = withContext(Dispatchers.IO) {
         api.getPlatesByRestaurant(restaurantId)
+    }
+
+    override suspend fun getPlateById(id: String): Response<Plate> = withContext(Dispatchers.IO) {
+        api.getPlateById(id)
+    }
+
+    override suspend fun deletePlate(id: String): Response<Plate> = withContext(Dispatchers.IO) {
+        api.deletePlate(id)
     }
 
     //ORDER
@@ -92,6 +144,10 @@ class RepositoryImp(private val api: APIServices) : Repository {
         api.deleteOrder(id)
     }
 
+    override suspend fun getOrderById(id: String): Response<Order> = withContext(Dispatchers.IO) {
+        api.getOrderById(id)
+    }
+
     //ORDERLINE
     override suspend fun addOrderline(orderline: Orderline): Response<Orderline> = withContext(Dispatchers.IO) {
         api.addOrderline(orderline)
@@ -102,8 +158,8 @@ class RepositoryImp(private val api: APIServices) : Repository {
     }
 
     //RATING
-    override suspend fun addOrUpdateRating(restaurantId: String): Response<Rating> = withContext(Dispatchers.IO) {
-        api.addOrUpdateRating(restaurantId)
+    override suspend fun addOrUpdateRating(rating: Rating): Response<Rating> = withContext(Dispatchers.IO) {
+        api.addOrUpdateRating(rating)
     }
 
 

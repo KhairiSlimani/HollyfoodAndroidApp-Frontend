@@ -105,7 +105,11 @@
             app:popExitAnim="@anim/to_right" />
         <action
             android:id="@+id/action_restaurantDetailsFragment_to_rateRestaurant"
-            app:destination="@id/rateRestaurant" />
+            app:destination="@id/rateRestaurant"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
     </fragment>
     <fragment
         android:id="@+id/editRestaurantFragment"
@@ -133,6 +137,23 @@
             app:popExitAnim="@anim/to_right" />
         <argument
             android:name="restaurantName"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_restaurantMenuFragment_to_addPlateFragment"
+            app:destination="@id/addPlateFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
+        <action
+            android:id="@+id/action_restaurantMenuFragment_to_editPlateFragment"
+            app:destination="@id/editPlateFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
+        <argument
+            android:name="restaurantUserId"
             app:argType="string" />
     </fragment>
     <fragment
@@ -172,17 +193,50 @@
         <argument
             android:name="restaurantId"
             app:argType="string" />
+        <action
+            android:id="@+id/action_ordersFragment_to_orderDetailsFragment"
+            app:destination="@id/orderDetailsFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
     </fragment>
     <fragment
         android:id="@+id/rateRestaurant"
-        android:name="tn.esprit.hollyfood.view.fragments.main.RateRestaurant"
+        android:name="tn.esprit.hollyfood.view.fragments.main.RateRestaurantFragment"
         android:label="RateRestaurant"
         tools:layout="@layout/fragment_rate_restaurant" >
         <argument
             android:name="restaurantId"
             app:argType="string" />
     </fragment>
-
+    <fragment
+        android:id="@+id/addPlateFragment"
+        android:name="tn.esprit.hollyfood.view.fragments.main.AddPlateFragment"
+        android:label="AddPlateFragment"
+        tools:layout="@layout/fragment_add_plate" >
+        <argument
+            android:name="restaurantId"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/editPlateFragment"
+        android:name="tn.esprit.hollyfood.view.fragments.main.EditPlateFragment"
+        android:label="EditPlateFragment"
+        tools:layout="@layout/fragment_edit_plate" >
+        <argument
+            android:name="plateId"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/orderDetailsFragment"
+        android:name="tn.esprit.hollyfood.view.fragments.main.OrderDetailsFragment"
+        android:label="OrderDetailsFragment"
+        tools:layout="@layout/fragment_order_details" >
+        <argument
+            android:name="orderId"
+            app:argType="string" />
+    </fragment>
 
 
 </navigation>

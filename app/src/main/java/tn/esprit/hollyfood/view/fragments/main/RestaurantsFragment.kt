@@ -87,4 +87,16 @@ class RestaurantsFragment : Fragment(R.layout.fragment_restaurants), OnListItemC
     override fun onDeleteOrder(order: Order) {
         TODO("Not yet implemented")
     }
+
+    override fun onEditPlate(plate: Plate) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onDeletePlate(plate: Plate) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onOrderClick(order: Order) {
+        TODO("Not yet implemented")
+    }
 }

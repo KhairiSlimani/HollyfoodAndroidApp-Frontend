@@ -110,6 +110,21 @@ class OrderViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    fun getOrderById(id: String) = viewModelScope.launch {
+        try {
+            val response = repository.getOrderById(id)
+
+            if (response.isSuccessful) {
+                orderMutableLiveData.postValue(response.body())
+            } else {
+                messageMutableLiveData.postValue("Server error, please try again later.")
+            }
+        } catch (e: IOException) {
+            messageMutableLiveData.postValue("Network error, please try again later.")
+            Log.e("error", "IOException: ${e.message}")
+        }
+    }
+
     fun deleteOrder(id: String) = viewModelScope.launch {
         try {
             val response = repository.deleteOrder(id)

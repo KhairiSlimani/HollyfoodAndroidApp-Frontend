@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/blury_background"
+        android:scaleType="centerCrop"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tvAppName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/h3"
+            android:layout_marginTop="20dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="@string/app_name"/>
+
+        <TextView
+            android:id="@+id/tvOrderDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/h4"
+            android:layout_marginTop="10dp"
+            app:layout_constraintTop_toBottomOf="@id/tvAppName"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="@string/order_details"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:textSize="35sp"/>
+
+        <TextView
+            android:id="@+id/dateLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/h3"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvOrderDetails"
+            android:text="@string/date_label"/>
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/h3"
+            android:textSize="15sp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/dateLabel"
+            app:layout_constraintTop_toBottomOf="@id/tvOrderDetails"
+            android:text="@string/date"/>
+
+
+        <TextView
+            android:id="@+id/addressLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/h3"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="10dp"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/dateLabel"
+            android:text="@string/address_label"/>
+
+        <TextView
+            android:id="@+id/address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/h3"
+            android:textSize="15sp"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="10dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/addressLabel"
+            app:layout_constraintTop_toBottomOf="@id/dateLabel"
+            android:text="@string/address"/>
+
+        <TextView
+            android:id="@+id/phoneNumberLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/h3"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="10dp"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/addressLabel"
+            android:text="@string/phone_number_label"/>
+
+        <TextView
+            android:id="@+id/phoneNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/h3"
+            android:textSize="15sp"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="10dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/phoneNumberLabel"
+            app:layout_constraintTop_toBottomOf="@id/addressLabel"
+            android:text="@string/phone_number"/>
+
+        <TextView
+            android:id="@+id/priceLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/h3"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="10dp"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/phoneNumberLabel"
+            android:text="@string/total_price_label"/>
+
+        <TextView
+            android:id="@+id/price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/h3"
+            android:textSize="15sp"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="10dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/priceLabel"
+            app:layout_constraintTop_toBottomOf="@id/phoneNumberLabel"
+            android:text="@string/price"/>
+
+        <TextView
+            android:id="@+id/orderLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/h3"
+            android:textSize="15sp"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="10dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/priceLabel"
+            android:text="@string/order"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@+id/orderLabel"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_orderline"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</FrameLayout>

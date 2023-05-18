@@ -50,8 +50,8 @@
     <string name="title">Title</string>
     <string name="my_restaurants">My Restaurants</string>
     <string name="information">Information</string>
-    <string name="phone_number_label">Phone Number :</string>
-    <string name="address_label">Address :</string>
+    <string name="phone_number_label">Phone Number : </string>
+    <string name="address_label">Address : </string>
     <string name="see_menu">See Menu</string>
     <string name="see_orders">See Orders</string>
     <string name="name">Name</string>
@@ -80,10 +80,29 @@
     <string name="order_from">Order From  </string>
     <string name="restaurant_label">Restaurant: </string>
     <string name="restaurant">Restaurant</string>
-    <string name="date_label">Date: </string>
+    <string name="date_label">Date : </string>
     <string name="Orders">Orders</string>
     <string name="rate_restaurant">Rate Restaurant</string>
     <string name="submit_rating">Submit Rating</string>
     <string name="Rate">Rate</string>
+    <string name="edit_plate">Edit Plate</string>
+    <string name="delete_plate">Delete Plate</string>
+    <string name="add_plate">Add Plate</string>
+    <string name="add_plate_text">Please enter all required information\nfor your plate</string>
+    <string name="plate_name">Plate Name</string>
+    <string name="select_category">Select Category</string>
+    <string name="plate_price">Plate Price</string>
+    <string name="upload_photo">Upload Photo</string>
+    <string name="select_role">Select Role</string>
+    <string name="order_details">Order Details</string>
+    <string name="client_name">Client Name: </string>
+    <string name="fullname">Fullname</string>
+    <string name="price_label">Price : </string>
+    <string name="price">price</string>
+    <string name="order">Order</string>
+    <string name="plate_label">Plate : </string>
+    <string name="quantity_label">Quantity : </string>
+    <string name="quantity">Quantity</string>
+    <string name="total_price_label">Total Price : </string>
 
 </resources>

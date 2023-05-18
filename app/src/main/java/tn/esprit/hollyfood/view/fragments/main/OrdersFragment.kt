@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import tn.esprit.hollyfood.R
 import tn.esprit.hollyfood.databinding.FragmentMyRestaurantsBinding
 import tn.esprit.hollyfood.databinding.FragmentOrdersBinding
@@ -96,6 +97,19 @@ class OrdersFragment : Fragment(R.layout.fragment_orders), OnListItemClick {
         }
         alertDialog.create()
         alertDialog.show()
+    }
+
+    override fun onOrderClick(order: Order) {
+        val action = OrdersFragmentDirections.actionOrdersFragmentToOrderDetailsFragment(order.id)
+        findNavController().navigate(action)
+    }
+
+    override fun onEditPlate(plate: Plate) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onDeletePlate(plate: Plate) {
+        TODO("Not yet implemented")
     }
 
     override fun onItemClick(restaurant: Restaurant) {

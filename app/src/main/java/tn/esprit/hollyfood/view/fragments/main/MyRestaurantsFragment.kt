@@ -94,4 +94,16 @@ open class MyRestaurantsFragment : Fragment(R.layout.fragment_my_restaurants), O
         TODO("Not yet implemented")
     }
 
+    override fun onEditPlate(plate: Plate) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onDeletePlate(plate: Plate) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onOrderClick(order: Order) {
+        TODO("Not yet implemented")
+    }
+
 }

@@ -5,6 +5,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import tn.esprit.hollyfood.model.entities.Order
 import tn.esprit.hollyfood.viewmodel.PlateViewModel
 import tn.esprit.hollyfood.viewmodel.RestaurantViewModel
 
@@ -29,5 +30,10 @@ class AllCategoriesFragment(private val restaurantId: String) : CategoryFragment
                 }
             }
         )
+
+    }
+
+    override fun onOrderClick(order: Order) {
+        TODO("Not yet implemented")
     }
 }

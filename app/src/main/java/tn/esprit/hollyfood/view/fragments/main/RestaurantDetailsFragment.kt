@@ -40,19 +40,21 @@ class RestaurantDetailsFragment : Fragment(R.layout.fragment_restaurant_details)
         val userId : String = sharedPref.getString("id", "") ?: ""
         val id = arguments?.getString("restaurantId") ?: ""
         var restName = ""
+        var restaurantUserId = ""
 
-        viewModel = ViewModelProvider(this).get(RestaurantViewModel::class.java)
         viewModel.getRestaurantById(id)
 
         binding.apply {
 
             viewModel.restaurantLiveData.observe(viewLifecycleOwner, Observer {
                 if (it != null) {
+                    restaurantUserId = it.userId
                     if(userId != it.userId){
                         tvEditRestaurant.visibility = View.GONE
                         tvDeleteRestaurant.visibility = View.GONE
 
                         seeOrdersButton.visibility = View.GONE
+                        seeOrdersText.visibility = View.GONE
                     }
 
                     restName = it.name
@@ -62,6 +64,7 @@ class RestaurantDetailsFragment : Fragment(R.layout.fragment_restaurant_details)
                     restaurantDescription.setText(it.description)
                     restaurantAddress.setText(it.address)
                     restaurantPhoneNumber.setText(it.phoneNumber.toString())
+                    restaurantRating.setText(it.rating.toString())
                 }
             })
 
@@ -85,7 +88,7 @@ class RestaurantDetailsFragment : Fragment(R.layout.fragment_restaurant_details)
             }
 
             seeMenuButton.setOnClickListener {
-                val action = RestaurantDetailsFragmentDirections.actionRestaurantDetailsFragmentToRestaurantMenuFragment(id, restName)
+                val action = RestaurantDetailsFragmentDirections.actionRestaurantDetailsFragmentToRestaurantMenuFragment(id, restName, restaurantUserId)
                 findNavController().navigate(action)
             }
 

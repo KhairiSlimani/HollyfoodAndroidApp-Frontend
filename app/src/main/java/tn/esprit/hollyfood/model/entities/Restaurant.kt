@@ -15,6 +15,12 @@ data class Restaurant(
     var description: String,
     @SerializedName("image")
     var image: String,
+    @SerializedName("rating")
+    var rating: Float,
+    @SerializedName("lat")
+    var lat: Float,
+    @SerializedName("long")
+    var long: Float,
     @SerializedName("userId")
     var userId: String
 )

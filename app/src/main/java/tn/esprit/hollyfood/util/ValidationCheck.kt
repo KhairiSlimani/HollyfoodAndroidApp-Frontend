@@ -1,5 +1,4 @@
 package tn.esprit.hollyfood.util
-
 import android.util.Patterns
 
 //USER
@@ -91,6 +90,13 @@ fun validateRestaurantDescription(name: String): Validation {
     return Validation.Success
 }
 
+fun validateLocalisation(lat: String, long: String): Validation {
+    if (lat == "-1" || long == "-1")
+        return Validation.Failed("You have to enter the location of your restaurant.")
+
+    return Validation.Success
+}
+
 //PLATE
 fun validatePlateName(name: String): Validation {
     if (name.isEmpty())
@@ -104,7 +110,7 @@ fun validatePlateName(name: String): Validation {
 
 fun validatePlatePrice(price: String): Validation {
     if (price == "-1")
-        return Validation.Failed("plate price can't be empty")
+        return Validation.Failed("Plate price can't be empty.")
 
     return Validation.Success
 }

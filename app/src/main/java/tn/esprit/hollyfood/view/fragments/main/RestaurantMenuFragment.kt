@@ -1,5 +1,6 @@
 package tn.esprit.hollyfood.view.fragments.main
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +11,6 @@ import com.google.android.material.tabs.TabLayoutMediator
 import tn.esprit.hollyfood.R
 import tn.esprit.hollyfood.databinding.FragmentRestaurantMenuBinding
 import tn.esprit.hollyfood.view.adapters.MenuViewpagerAdapter
-import tn.esprit.hollyfood.view.fragments.LoginRegister.LoginFragmentDirections
 import tn.esprit.hollyfood.view.fragments.main.categories.*
 
 class RestaurantMenuFragment : Fragment(R.layout.fragment_restaurant_menu) {
@@ -29,32 +29,48 @@ class RestaurantMenuFragment : Fragment(R.layout.fragment_restaurant_menu) {
         super.onViewCreated(view, savedInstanceState)
         val restaurantId = arguments?.getString("restaurantId") ?: ""
         val restaurantName = arguments?.getString("restaurantName") ?: ""
+        val restaurantUserId = arguments?.getString("restaurantUserId") ?: ""
 
-        binding.buttonCart.setOnClickListener {
-            val action = RestaurantMenuFragmentDirections.actionRestaurantMenuFragmentToCartFragment(restaurantId, restaurantName)
-            findNavController().navigate(action)
-        }
+        val sharedPref = requireContext().getSharedPreferences("myPreferences", Context.MODE_PRIVATE)
+        val userId : String = sharedPref.getString("id", "") ?: ""
 
-        val MenuCategoriesFragment = arrayListOf<Fragment>(
-            AllCategoriesFragment(restaurantId),
-            PizzaCategoryFragment(restaurantId),
-            PastaCategoryFragment(restaurantId),
-            SandwichCategoryFragment(restaurantId),
-            PlateCategoryFragment(restaurantId),
-            OtherCategoryFragment(restaurantId)
-        )
+        binding.apply {
 
-        val menuViewpagerAdapter = MenuViewpagerAdapter(MenuCategoriesFragment, childFragmentManager, lifecycle)
-        binding.viewpagerMenu.adapter = menuViewpagerAdapter
-        TabLayoutMediator(binding.tabLayout, binding.viewpagerMenu) { tab, position ->
-            when(position) {
-                0 -> tab.text = "All"
-                1 -> tab.text = "Pizza"
-                2 -> tab.text = "Pasta"
-                3 -> tab.text = "Sandwich"
-                4 -> tab.text = "Plate"
-                5 -> tab.text = "Other"
+            if(restaurantUserId != userId){
+                tvAddPlate.visibility = View.GONE
             }
-        }.attach()
+
+            buttonCart.setOnClickListener {
+                val action = RestaurantMenuFragmentDirections.actionRestaurantMenuFragmentToCartFragment(restaurantId, restaurantName)
+                findNavController().navigate(action)
+            }
+
+            tvAddPlate.setOnClickListener {
+                val action = RestaurantMenuFragmentDirections.actionRestaurantMenuFragmentToAddPlateFragment(restaurantId)
+                findNavController().navigate(action)
+            }
+
+            val MenuCategoriesFragment = arrayListOf<Fragment>(
+                AllCategoriesFragment(restaurantId),
+                PizzaCategoryFragment(restaurantId),
+                PastaCategoryFragment(restaurantId),
+                SandwichCategoryFragment(restaurantId),
+                PlateCategoryFragment(restaurantId),
+                OtherCategoryFragment(restaurantId)
+            )
+
+            val menuViewpagerAdapter = MenuViewpagerAdapter(MenuCategoriesFragment, childFragmentManager, lifecycle)
+            viewpagerMenu.adapter = menuViewpagerAdapter
+            TabLayoutMediator(binding.tabLayout, binding.viewpagerMenu) { tab, position ->
+                when(position) {
+                    0 -> tab.text = "All"
+                    1 -> tab.text = "Pizza"
+                    2 -> tab.text = "Pasta"
+                    3 -> tab.text = "Sandwich"
+                    4 -> tab.text = "Plate"
+                    5 -> tab.text = "Other"
+                }
+            }.attach()
+        }
     }
 }

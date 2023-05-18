@@ -65,7 +65,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                         putString("fullname", it.fullname)
                         putString("email", it.email)
                         putInt("phone", it.phone)
-                        putString("role", it.email)
+                        putString("role", it.role)
                         putString("image", it.image)
                     }.apply()
 

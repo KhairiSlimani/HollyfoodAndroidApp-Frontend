@@ -36,6 +36,9 @@ interface APIServices {
                               @Part phoneNumber: MultipartBody.Part,
                               @Part description: MultipartBody.Part,
                               @Part image: MultipartBody.Part,
+                              @Part rating: MultipartBody.Part,
+                              @Part lat: MultipartBody.Part,
+                              @Part long: MultipartBody.Part,
                               @Part userId: MultipartBody.Part): Response<Restaurant>
     @Multipart
     @PUT("/restaurants/{id}")
@@ -44,6 +47,9 @@ interface APIServices {
                                @Part address: MultipartBody.Part,
                                @Part phoneNumber: MultipartBody.Part,
                                @Part description: MultipartBody.Part,
+                               @Part rating: MultipartBody.Part,
+                               @Part lat: MultipartBody.Part,
+                               @Part long: MultipartBody.Part,
                                @Part userId: MultipartBody.Part): Response<Restaurant>
 
     @GET("/restaurants/getByUser/{userId}")
@@ -56,8 +62,29 @@ interface APIServices {
     suspend fun deleteRestaurant(@Path("id") id: String): Response<Restaurant>
 
     //Plate
+    @Multipart
+    @POST("/plates")
+    suspend fun addPlate(@Part name: MultipartBody.Part,
+                              @Part category: MultipartBody.Part,
+                              @Part price: MultipartBody.Part,
+                              @Part image: MultipartBody.Part,
+                              @Part restaurantId: MultipartBody.Part,
+                              @Part userId: MultipartBody.Part): Response<Plate>
+    @Multipart
+    @PUT("/plates/{id}")
+    suspend fun editPlate(@Path("id") id: String,
+                               @Part name: MultipartBody.Part,
+                               @Part category: MultipartBody.Part,
+                               @Part price: MultipartBody.Part,
+                               @Part restaurantId: MultipartBody.Part,
+                               @Part userId: MultipartBody.Part): Response<Plate>
+
     @GET("/plates/getByRestaurant/{restaurantId}")
     suspend fun getPlatesByRestaurant(@Path("restaurantId") restaurantId: String): Response<List<Plate>>
+    @GET("/plates/{id}")
+    suspend fun getPlateById(@Path("id") id: String): Response<Plate>
+    @DELETE("/plates/{id}")
+    suspend fun deletePlate(@Path("id") id: String): Response<Plate>
 
     //Order
     @POST("/orders")
@@ -66,6 +93,8 @@ interface APIServices {
     suspend fun getOrdersByRestaurant(@Path("restaurantId") restaurantId: String): Response<List<Order>>
     @GET("/orders/getByUser/{userId}")
     suspend fun getOrdersByUser(@Path("userId") userId: String): Response<List<Order>>
+    @GET("/orders/{id}")
+    suspend fun getOrderById(@Path("id") id: String): Response<Order>
     @DELETE("/orders/{id}")
     suspend fun deleteOrder(@Path("id") id: String): Response<Order>
 
@@ -76,7 +105,7 @@ interface APIServices {
     suspend fun getOrderlinesByOrder(@Path("orderId") orderId: String): Response<List<Orderline>>
 
     //Rating
-    @POST("/rating/{restaurantId}")
-    suspend fun addOrUpdateRating(@Path("restaurantId") restaurantId: String): Response<Rating>
+    @POST("/rating")
+    suspend fun addOrUpdateRating(@Body rating: Rating): Response<Rating>
 
 }

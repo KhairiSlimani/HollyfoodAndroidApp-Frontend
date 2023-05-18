@@ -15,4 +15,6 @@ data class Plate(
     var image: String,
     @SerializedName("restaurantId")
     var restaurantId: String,
+    @SerializedName("userId")
+    var userId: String,
 )

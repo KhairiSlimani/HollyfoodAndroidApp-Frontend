@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardElevation="0dp">
+    app:cardCornerRadius="10dp"
+    app:cardElevation="3dp"
+    android:layout_margin="15dp"
+    android:foreground="?selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -20,7 +26,7 @@
             app:layout_constraintEnd_toEndOf="parent"/>
 
         <ImageView
-            android:id="@+id/itemCartImage"
+            android:id="@+id/itemOrderlineImage"
             android:layout_width="80dp"
             android:layout_height="75dp"
             android:layout_marginBottom="5dp"
@@ -29,98 +35,85 @@
             android:scaleType="centerCrop" />
 
         <TextView
-            android:id="@+id/itemCartName"
-            android:layout_width="180dp"
+            android:id="@+id/plateLabel"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/poppins_light"
+            android:text="@string/plate_label"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@id/itemOrderlineImage"
+            app:layout_constraintTop_toTopOf="@id/itemOrderlineImage"/>
+
+        <TextView
+            android:id="@+id/itemOrderlinePlate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/poppins_light"
             android:text="@string/plate"
             android:textColor="@color/black"
-            android:textSize="15sp"
+            android:textSize="12sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@id/itemCartImage"
-            app:layout_constraintTop_toTopOf="@id/itemCartImage"/>
+            app:layout_constraintStart_toEndOf="@id/plateLabel"
+            app:layout_constraintTop_toTopOf="@id/itemOrderlineImage"/>
 
         <TextView
-            android:id="@+id/tvCategory"
+            android:id="@+id/quantityLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="3dp"
             android:fontFamily="@font/poppins_light"
-            android:text="@string/category"
+            android:text="@string/quantity_label"
             android:textColor="@color/black"
-            android:textSize="10sp"
+            android:textSize="12sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@id/itemCartName"
-            app:layout_constraintTop_toBottomOf="@id/itemCartName"/>
+            app:layout_constraintStart_toEndOf="@id/itemOrderlineImage"
+            app:layout_constraintTop_toBottomOf="@id/plateLabel"/>
 
         <TextView
-            android:id="@+id/itemCartCategory"
+            android:id="@+id/itemOrderlineQuantity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
             android:fontFamily="@font/poppins_light"
-            android:text="@string/category"
+            android:text="@string/quantity"
             android:textColor="@color/black"
-            android:textSize="10sp"
+            android:textSize="12sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@id/tvCategory"
-            app:layout_constraintTop_toBottomOf="@id/itemCartName"/>
-
+            app:layout_constraintStart_toEndOf="@id/quantityLabel"
+            app:layout_constraintTop_toBottomOf="@id/plateLabel"/>
 
         <TextView
-            android:id="@+id/tvDollar"
+            android:id="@+id/priceLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="3dp"
             android:fontFamily="@font/poppins_light"
-            android:text="$"
+            android:text="@string/price_label"
             android:textColor="@color/black"
-            android:textSize="10sp"
+            android:textSize="12sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@id/itemCartName"
-            app:layout_constraintTop_toBottomOf="@id/tvCategory"/>
+            app:layout_constraintStart_toEndOf="@id/itemOrderlineImage"
+            app:layout_constraintTop_toBottomOf="@id/quantityLabel"/>
 
         <TextView
-            android:id="@+id/itemCartPrice"
+            android:id="@+id/itemOrderlinePrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
             android:fontFamily="@font/poppins_light"
-            android:text="0"
+            android:text="@string/price"
             android:textColor="@color/black"
-            android:textSize="10sp"
+            android:textSize="12sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@id/tvDollar"
-            app:layout_constraintTop_toBottomOf="@id/tvCategory"/>
-
-        <ImageView
-            android:id="@+id/imagePlus"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginBottom="5dp"
-            android:src="@drawable/ic_plus"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
-
-        <ImageView
-            android:id="@+id/imageMinus"
-            android:layout_width="18dp"
-            android:layout_height="18dp"
-            android:layout_marginBottom="5dp"
-            android:src="@drawable/ic_minus"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="1dp"
-            app:layout_constraintEnd_toEndOf="parent"/>
-
-        <TextView
-            android:id="@+id/itemCartQuantity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="1"
-            app:layout_constraintTop_toBottomOf="@id/imageMinus"
-            app:layout_constraintEnd_toEndOf="@id/imageMinus"
-            app:layout_constraintBottom_toTopOf="@id/imagePlus"
-            app:layout_constraintStart_toStartOf="@id/imagePlus"/>
-
+            app:layout_constraintStart_toEndOf="@id/priceLabel"
+            app:layout_constraintTop_toBottomOf="@id/quantityLabel"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

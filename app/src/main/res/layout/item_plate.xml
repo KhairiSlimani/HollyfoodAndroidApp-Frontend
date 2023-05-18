@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@color/g_card_background"
     app:elevation="0dp" >
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -53,9 +52,42 @@
             android:textColor="@color/white"
             android:textSize="10sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/platePrice"
             app:layout_constraintTop_toBottomOf="@id/linear_product_name"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="15dp"
+            android:textAllCaps="false" />
+
+        <com.apachat.loadingbutton.core.customViews.CircularProgressButton
+            android:id="@+id/btnEditPlate"
+            android:layout_width="77dp"
+            android:layout_height="25dp"
+            android:background="@drawable/orange_background"
+            android:fontFamily="@font/poppins_light"
+            android:text="@string/edit_plate"
+            android:textColor="@color/white"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@id/platePrice"
+            app:layout_constraintTop_toBottomOf="@id/btnAddPlatetoCart"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="15dp"
+            android:textAllCaps="false" />
+
+        <com.apachat.loadingbutton.core.customViews.CircularProgressButton
+            android:id="@+id/btnDeletePlate"
+            android:layout_width="77dp"
+            android:layout_height="25dp"
+            android:background="@drawable/red_background"
+            android:fontFamily="@font/poppins_light"
+            android:text="@string/delete_plate"
+            android:textColor="@color/white"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@id/platePrice"
+            app:layout_constraintTop_toBottomOf="@id/btnEditPlate"
             android:layout_marginStart="10dp"
             android:layout_marginTop="3dp"
             android:layout_marginBottom="15dp"
@@ -66,12 +98,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
-            android:layout_marginBottom="15dp"
+            android:layout_marginBottom="100dp"
             android:fontFamily="@font/sf_pro_display"
             android:text="$1600"
             android:textColor="@color/black"
             android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@id/plateImage"
             app:layout_constraintTop_toBottomOf="@id/linear_product_name" />
 

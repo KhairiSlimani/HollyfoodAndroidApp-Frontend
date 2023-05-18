@@ -34,6 +34,9 @@ class OrdersAdapter : RecyclerView.Adapter<OrdersAdapter.OrdersViewHolder>(){
                 onListItemClick?.onDeleteOrder(order)
             }
 
+            itemView.setOnClickListener{
+                onListItemClick?.onOrderClick(order)
+            }
         }
     }
 

@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -22,6 +24,9 @@ import tn.esprit.hollyfood.viewmodel.UserViewModel
 class RegisterFragment : Fragment(R.layout.fragment_register) {
     private lateinit var binding: FragmentRegisterBinding
     private lateinit var viewModel: UserViewModel
+    private val roles = listOf("User", "Restaurant Manager")
+    private lateinit var adapter: ArrayAdapter<String>
+    lateinit var selectedRole: String
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,10 +40,19 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(UserViewModel::class.java)
+        adapter = ArrayAdapter(requireContext(), R.layout.list_item, roles)
+        selectedRole = ""
 
         binding.apply {
             tvRegisterText.setOnClickListener {
                 findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
+            }
+
+            edRole.setAdapter(adapter)
+            edRole.onItemClickListener = AdapterView.OnItemClickListener {
+                    adapterView, view, i, l ->
+
+                selectedRole = adapterView.getItemAtPosition(i) as String
             }
 
             buttonRegister.setOnClickListener {
@@ -53,7 +67,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
                     edEmail.text.toString().trim(),
                     edPassword.text.toString().trim(),
                     phoneNumber,
-                    "User",
+                    selectedRole,
                     ""
                 )
                 viewModel.register(user, confirmPassword)
@@ -136,6 +150,14 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
                             buttonRegister.revertAnimation()
                         }
                     }
+
+                    if (selectedRole == "") {
+                        withContext(Dispatchers.Main) {
+                            layoutRole.error = "You must select a role."
+                            buttonRegister.revertAnimation()
+                        }
+                    }
+
                 }
             }
 

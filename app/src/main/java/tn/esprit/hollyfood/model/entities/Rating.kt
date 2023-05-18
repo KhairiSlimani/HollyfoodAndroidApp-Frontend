@@ -6,7 +6,7 @@ data class Rating(
     @SerializedName("_id")
     var id: String,
     @SerializedName("rating")
-    var rating: Float,
+    var rating: Int,
     @SerializedName("userId")
     var userId: String,
     @SerializedName("restaurantId")

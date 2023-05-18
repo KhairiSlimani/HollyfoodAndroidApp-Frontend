@@ -14,26 +14,23 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import okhttp3.MultipartBody
 import tn.esprit.hollyfood.R
+import tn.esprit.hollyfood.databinding.FragmentEditPlateBinding
 import tn.esprit.hollyfood.databinding.FragmentEditRestaurantBinding
+import tn.esprit.hollyfood.model.entities.Plate
 import tn.esprit.hollyfood.model.entities.Restaurant
 import tn.esprit.hollyfood.util.UploadRequestBody
 import tn.esprit.hollyfood.util.Validation
-import tn.esprit.hollyfood.util.getFileName
+import tn.esprit.hollyfood.viewmodel.PlateViewModel
 import tn.esprit.hollyfood.viewmodel.RestaurantViewModel
-import java.io.File
-import java.io.FileInputStream
-import java.io.FileOutputStream
 
-class EditRestaurantFragment : Fragment(R.layout.fragment_edit_restaurant), UploadRequestBody.UploadCallback {
-    private lateinit var binding: FragmentEditRestaurantBinding
-    private lateinit var viewModel: RestaurantViewModel
+class EditPlateFragment : Fragment(R.layout.fragment_edit_plate), UploadRequestBody.UploadCallback {
+    private lateinit var binding: FragmentEditPlateBinding
+    private lateinit var viewModel: PlateViewModel
     private  var selectedImageUri: Uri?=null
 
     private val startForResultOpenGallery = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
@@ -52,35 +49,36 @@ class EditRestaurantFragment : Fragment(R.layout.fragment_edit_restaurant), Uplo
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentEditRestaurantBinding.inflate(inflater)
+        binding = FragmentEditPlateBinding.inflate(inflater)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this).get(RestaurantViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(PlateViewModel::class.java)
         val contentResolver = requireContext().contentResolver
-        val id = arguments?.getString("restaurantId") ?: ""
+        val plateId = arguments?.getString("plateId") ?: ""
         val sharedPref = requireContext().getSharedPreferences("myPreferences", Context.MODE_PRIVATE)
         var userId : String = sharedPref.getString("id", "") ?: ""
+        var restaurantId : String = ""
 
-        viewModel.getRestaurantById(id)
+        viewModel.getPlateById(plateId)
 
         binding.apply {
-            viewModel.restaurantLiveData.observe(viewLifecycleOwner, Observer {
+            viewModel.plateLiveData.observe(viewLifecycleOwner, Observer {
                 if (it != null) {
                     edName.setText(it.name)
-                    edDescription.setText(it.description)
-                    edAddress.setText(it.address)
-                    edPhoneNumber.setText(it.phoneNumber.toString())
+                    edCategory.setText(it.category)
+                    edPrice.setText(it.price.toString())
                     //selectedImageUri = Uri.parse(it.image)
+                    restaurantId = it.restaurantId
                     userId = it.userId
                 }
             })
 
-            buttonSave.setOnClickListener {
-                buttonSave.startAnimation()
-                val phoneNumber = edPhoneNumber.text.toString().trim().toIntOrNull() ?: -1
+            buttonEdit.setOnClickListener {
+                buttonEdit.startAnimation()
+                val price = edPrice.text.toString().trim().toFloatOrNull() ?: -1
 
                 /*var parcelFileDescriptor = contentResolver.openFileDescriptor(selectedImageUri!!,"r",null) ?: return@setOnClickListener
                 var inputStream = FileInputStream(parcelFileDescriptor.fileDescriptor)
@@ -90,25 +88,22 @@ class EditRestaurantFragment : Fragment(R.layout.fragment_edit_restaurant), Uplo
                 val uploadRequestFile = UploadRequestBody(file, "image", this@EditRestaurantFragment)
                 val image = MultipartBody.Part.createFormData("image", file?.name, uploadRequestFile)*/
 
-                val restaurant = Restaurant(
-                    id,
+                val plate = Plate(
+                    plateId,
                     edName.text.toString().trim(),
-                    edAddress.text.toString().trim(),
-                    phoneNumber,
-                    edDescription.text.toString().trim(),
+                    edCategory.text.toString().trim(),
+                    price as Float,
                     "",
-                    0f,
-                    0f,
-                    0f,
-                    userId
+                    restaurantId,
+                    userId,
                 )
 
-                viewModel.editRestaurant(restaurant)
+                viewModel.editPlate(plate)
             }
 
             viewModel.messageLiveData.observe(viewLifecycleOwner, Observer {
                 if (it != null) {
-                    buttonSave.revertAnimation()
+                    buttonEdit.revertAnimation()
                     Toast.makeText(
                         context,
                         it,
@@ -118,44 +113,22 @@ class EditRestaurantFragment : Fragment(R.layout.fragment_edit_restaurant), Uplo
             })
 
             lifecycleScope.launch {
-                viewModel.restaurantValidation.collect { validation ->
+                viewModel.plateValidation.collect { validation ->
                     edName.error = null
-                    edAddress.error = null
-                    edPhoneNumber.error = null
-                    edDescription.error = null
+                    edCategory.error = null
+                    edPrice.error = null
 
                     if (validation.name is Validation.Failed) {
                         withContext(Dispatchers.Main) {
                             layoutName.error = validation.name.message
-                            buttonSave.revertAnimation()
+                            buttonEdit.revertAnimation()
                         }
                     }
 
-                    if (validation.address is Validation.Failed) {
+                    if (validation.price is Validation.Failed) {
                         withContext(Dispatchers.Main) {
-                            layoutAddress.error = validation.address.message
-                            buttonSave.revertAnimation()
-                        }
-                    }
-
-                    if (validation.phoneNumber is Validation.Failed) {
-                        withContext(Dispatchers.Main) {
-                            layoutPhoneNumber.error = validation.phoneNumber.message
-                            buttonSave.revertAnimation()
-                        }
-                    }
-
-                    if (validation.description is Validation.Failed) {
-                        withContext(Dispatchers.Main) {
-                            layoutDescription.error = validation.description.message
-                            buttonSave.revertAnimation()
-                        }
-                    }
-
-                    if (validation.localisation is Validation.Failed) {
-                        withContext(Dispatchers.Main) {
-                            Snackbar.make(requireView(), validation.localisation.message, Snackbar.LENGTH_LONG).show()
-                            buttonSave.revertAnimation()
+                            layoutPrice.error = validation.price.message
+                            buttonEdit.revertAnimation()
                         }
                     }
 
@@ -164,9 +137,11 @@ class EditRestaurantFragment : Fragment(R.layout.fragment_edit_restaurant), Uplo
             }
 
         }
+
+
     }
 
     override fun onProgressUpdate(pecentage: Int) {
-
+        TODO("Not yet implemented")
     }
 }

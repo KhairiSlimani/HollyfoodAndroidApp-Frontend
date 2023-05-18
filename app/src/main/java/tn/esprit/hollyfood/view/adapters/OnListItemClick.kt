@@ -8,5 +8,7 @@ interface OnListItemClick {
     fun onItemClick(restaurant: Restaurant)
     fun onAddToCartClick(plate: Plate)
     fun onDeleteOrder(order: Order)
-
+    fun onEditPlate(plate: Plate)
+    fun onDeletePlate(plate: Plate)
+    fun onOrderClick(order: Order)
 }

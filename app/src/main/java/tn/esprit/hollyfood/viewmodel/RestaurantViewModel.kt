@@ -51,9 +51,12 @@ class RestaurantViewModel(application: Application) : AndroidViewModel(applicati
                 val address = MultipartBody.Part.createFormData("address",restaurant.address)
                 val phoneNumber = MultipartBody.Part.createFormData("phoneNumber", restaurant.phoneNumber.toString())
                 val description = MultipartBody.Part.createFormData("description", restaurant.description)
+                val rating = MultipartBody.Part.createFormData("rating", restaurant.rating.toString())
+                val lat = MultipartBody.Part.createFormData("lat", restaurant.lat.toString())
+                val long = MultipartBody.Part.createFormData("long", restaurant.long.toString())
                 val userId = MultipartBody.Part.createFormData("userId", restaurant.userId)
 
-                var response = repository.addRestaurant(name, address, phoneNumber, description, image, userId)
+                var response = repository.addRestaurant(name, address, phoneNumber, description, image, rating, lat, long, userId)
 
                 if (response.isSuccessful) {
                     restaurantMutableLiveData.postValue(response.body())
@@ -73,7 +76,8 @@ class RestaurantViewModel(application: Application) : AndroidViewModel(applicati
                 validateRestaurantName(restaurant.name),
                 validateRestaurantAddress(restaurant.address),
                 validateRestaurantPhoneNumber(restaurant.phoneNumber.toString()),
-                validateRestaurantDescription(restaurant.description)
+                validateRestaurantDescription(restaurant.description),
+                validateLocalisation(restaurant.lat.toString(), restaurant.long.toString())
             )
             _restaurantValidation.send(fieldsState)
         }
@@ -84,11 +88,13 @@ class RestaurantViewModel(application: Application) : AndroidViewModel(applicati
         val addressValidation = validateRestaurantAddress(restaurant.address)
         val phoneNumberValidation = validateRestaurantPhoneNumber(restaurant.phoneNumber.toString())
         val descriptionValidation = validateRestaurantDescription(restaurant.description)
+        val localisationValidation = validateLocalisation(restaurant.lat.toString(), restaurant.long.toString())
 
         val check = nameValidation is Validation.Success &&
                 addressValidation is Validation.Success &&
                 phoneNumberValidation is Validation.Success &&
-                descriptionValidation is Validation.Success
+                descriptionValidation is Validation.Success &&
+                localisationValidation is Validation.Success
 
         return check
     }
@@ -141,14 +147,16 @@ class RestaurantViewModel(application: Application) : AndroidViewModel(applicati
     fun editRestaurant(restaurant: Restaurant) = viewModelScope.launch {
         if (checkRestaurantValidation(restaurant)) {
             try {
-
                 val name = MultipartBody.Part.createFormData("name", restaurant.name)
                 val address = MultipartBody.Part.createFormData("address",restaurant.address)
                 val phoneNumber = MultipartBody.Part.createFormData("phoneNumber", restaurant.phoneNumber.toString())
                 val description = MultipartBody.Part.createFormData("description", restaurant.description)
+                val rating = MultipartBody.Part.createFormData("rating", restaurant.rating.toString())
+                val lat = MultipartBody.Part.createFormData("lat", restaurant.lat.toString())
+                val long = MultipartBody.Part.createFormData("long", restaurant.long.toString())
                 val userId = MultipartBody.Part.createFormData("userId", restaurant.userId)
 
-                var response = repository.editRestaurant(restaurant.id, name, address, phoneNumber, description, userId)
+                var response = repository.editRestaurant(restaurant.id, name, address, phoneNumber, description, rating, lat, long, userId)
 
                 if (response.isSuccessful) {
                     messageMutableLiveData.postValue("Restaurant Edited Successfully.")
@@ -168,7 +176,9 @@ class RestaurantViewModel(application: Application) : AndroidViewModel(applicati
                 validateRestaurantName(restaurant.name),
                 validateRestaurantAddress(restaurant.address),
                 validateRestaurantPhoneNumber(restaurant.phoneNumber.toString()),
-                validateRestaurantDescription(restaurant.description)
+                validateRestaurantDescription(restaurant.description),
+                validateLocalisation(restaurant.lat.toString(), restaurant.long.toString())
+
             )
             _restaurantValidation.send(fieldsState)
         }
